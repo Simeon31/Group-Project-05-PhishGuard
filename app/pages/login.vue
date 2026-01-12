@@ -20,16 +20,12 @@ const handleLogin = () => {
   </div>
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img src="..PhishGuard_Logo.png" alt="Logo" class="mx-auto h-10 w-auto" />
+      <img src="../PhishGuard_Logo.png" alt="Logo" class="mx-auto h-10 w-auto" />
       <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" @submit.prevent="handleLogin">
-        <!-- 
-          Note: These fields are visual only for this template. 
-          OIDC typically redirects you to an external login page (e.g. GitHub, Google).
-        -->
         <div>
           <label for="email" class="block text-sm/6 font-medium text-gray-100">Username or Email address</label>
           <div class="mt-2">
