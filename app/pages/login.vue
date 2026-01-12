@@ -27,10 +27,6 @@ const handleLogin = () => {
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" @submit.prevent="handleLogin">
-        <!-- 
-          Note: These fields are visual only for this template. 
-          OIDC typically redirects you to an external login page (e.g. GitHub, Google).
-        -->
         <div>
           <label for="email" class="block text-sm/6 font-medium text-gray-100">Email address</label>
           <div class="mt-2">
