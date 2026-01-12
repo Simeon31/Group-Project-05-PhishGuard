@@ -19,6 +19,7 @@ export default defineNuxtConfig({
         clientId: process.env.NUXT_OIDC_PROVIDERS_AUTH0_CLIENT_ID,
         clientSecret: process.env.NUXT_OIDC_PROVIDERS_AUTH0_CLIENT_SECRET,
         redirectUri: process.env.NUXT_OIDC_REDIRECT_URI,
+        scope: ['openid', 'profile', 'email'],
         skipAccessTokenParsing: true,
         validateAccessToken: false,
       }
