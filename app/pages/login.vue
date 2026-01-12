@@ -49,13 +49,7 @@ const handleLogin = () => {
 
         <div>
           <button type="submit"
-<<<<<<< HEAD
             class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">LOGIN</button>
-=======
-            class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Sign
-            in with Provider</button>
-          <img src="/Images/auth0.png" alt="Auth0 Logo" class="w-14 h-14 order-2 rounded-full mb-4 " />
->>>>>>> d660aefaa85e66e015e663d15e2c2a8ac023ebe2
         </div>
       </form>
     </div>
