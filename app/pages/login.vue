@@ -26,19 +26,14 @@ const handleLogin = () => {
         </NuxtLink>
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Logo"
-        class="mx-auto h-10 w-auto" />
+      <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="mx-auto h-10 w-auto" />
       <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" @submit.prevent="handleLogin">
-        <!-- 
-          Note: These fields are visual only for this template. 
-          OIDC typically redirects you to an external login page (e.g. GitHub, Google).
-        -->
         <div>
-          <label for="email" class="block text-sm/6 font-medium text-gray-100">Email address</label>
+          <label for="email" class="block text-sm/6 font-medium text-gray-100">Username or Email address</label>
           <div class="mt-2">
             <input id="email" type="email" name="email" autocomplete="email"
               class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
@@ -60,15 +55,9 @@ const handleLogin = () => {
 
         <div>
           <button type="submit"
-            class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Sign
-            in with Provider</button>
+            class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">LOGIN</button>
         </div>
       </form>
-
-      <p class="mt-10 text-center text-sm/6 text-gray-400">
-        Not a member?
-        <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Start a 14 day free trial</a>
-      </p>
     </div>
   </div>
 </template>
