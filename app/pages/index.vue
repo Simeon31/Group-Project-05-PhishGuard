@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Dashboard from './dashboard.vue';
+
 const { user, logout } = useOidcAuth()
 
 const handleLogout = async () => {
