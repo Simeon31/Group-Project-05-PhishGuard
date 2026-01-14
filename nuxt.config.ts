@@ -6,6 +6,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['nuxt-oidc-auth'],
   css: ['~/assets/css/main.css'],
+  runtimeConfig: {
+    databaseUrl: process.env.DATABASE_URL,
+  },
   vite: {
     plugins: [
       tailwindcss(),
