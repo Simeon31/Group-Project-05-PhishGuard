@@ -1,19 +1,20 @@
 <script setup>
 import { ref, computed } from 'vue';
 // Import Heroicons
-import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/solid';
+import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, XMarkIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
 
 // We use a 'ref' to track if the game has started. 
 // true = show game, false = show welcome screen.
 const gameStarted = ref(false);
 const dontShowAgain = ref(false);
+const showHelpModal = ref(false); // Controls the help popup
 
 // Track active menu item
 const activeMenu = ref('inbox');
 
 // Game Stats
 const roundNumber = ref(1);
-const lives = ref(5); 
+const lives = ref(4); // CHANGED: Set to 4 to demonstrate the "lost heart" visual
 const correctCount = ref(0);
 const incorrectCount = ref(0);
 
@@ -110,33 +111,36 @@ const startGame = () => {
 
 const viewExample = () => {
   console.log('Viewing example...');
+  showHelpModal.value = true;
 };
 
 const toggleDontShow = () => {
   dontShowAgain.value = !dontShowAgain.value;
+};
+
+const toggleHelpModal = () => {
+  showHelpModal.value = !showHelpModal.value;
 };
 </script>
 
 <template>
   <div class="page-container">
     
+    <!-- === WELCOME SCREEN (Overlay) === -->
     <Transition name="fade" appear>
       <div v-if="!gameStarted" class="welcome-wrapper">
         <div class="welcome-card">
           
-          <!-- 1. Header: Logo Top Left (Centered in row) -->
           <div class="welcome-header-row">
             <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="welcome-logo-small" />
             <div class="welcome-title-small">Welcome to phishguard</div>
           </div>
 
-          <!-- 2. Main Welcome Text -->
           <div class="welcome-hero">
             <h2>Spot the red flags. Stay safe.</h2>
             <p>Practice phishing detection in a simulated inbox.</p>
           </div>
 
-          <!-- 3. Features Grid (Single Lines divided by |) -->
           <div class="features-grid">
             <div class="feature-box">
               <span class="f-title">🧭 Decide</span>
@@ -155,7 +159,6 @@ const toggleDontShow = () => {
             </div>
           </div>
 
-          <!-- 4. Look For Section -->
           <div class="look-for-section">
             <div class="look-for-title">Look for:</div>
             <ul class="look-for-list">
@@ -165,9 +168,7 @@ const toggleDontShow = () => {
             </ul>
           </div>
 
-          <!-- 5. Footer: Buttons -->
           <div class="welcome-footer">
-            <!-- "Don't show again" as a toggle button -->
             <button 
               @click="toggleDontShow" 
               class="secondary-btn toggle-btn"
@@ -191,6 +192,7 @@ const toggleDontShow = () => {
       </div>
     </Transition>
 
+    <!-- === GAME UI === -->
     <div v-if="gameStarted" class="game-ui">
       
       <!-- === SIDEBAR & STATS (LEFT SIDE) === -->
@@ -232,6 +234,12 @@ const toggleDontShow = () => {
         </div>
       </div>
 
+      <!-- NEW: Bottom Left Guide Button (Positioned Absolute now) -->
+      <button class="bottom-left-btn" @click="toggleHelpModal">
+        <QuestionMarkCircleIcon class="btn-icon" />
+        <span>GUIDE</span>
+      </button>
+
       <!-- === MAIL INTERFACE (RIGHT SIDE) === -->
       <div class="mail-container">
         
@@ -263,13 +271,10 @@ const toggleDontShow = () => {
         <!-- 2. Message Preview (Reading Pane) -->
         <div class="message-preview">
           
-          <!-- Dynamic Content -->
           <div v-if="currentEmail" class="email-content-wrapper">
-            
             <div class="email-header-area">
               <div class="email-subject-large">{{ currentEmail.subject }}</div>
               <div class="email-meta-row">
-                <!-- UPDATED: Matching Avatar Icon -->
                 <div class="email-avatar large">{{ currentEmail.initials }}</div>
                 <div class="sender-info">
                   <span class="sender-name">{{ currentEmail.sender }}</span>
@@ -282,10 +287,8 @@ const toggleDontShow = () => {
             <div class="email-body-area">
               <div v-html="currentEmail.body" class="email-body-content"></div>
             </div>
-
           </div>
 
-          <!-- Empty State -->
           <div v-else class="empty-state">
             <InboxIcon class="empty-icon" />
             <p>Select an email to read</p>
@@ -295,6 +298,36 @@ const toggleDontShow = () => {
       </div>
 
     </div>
+
+    <!-- === HELP/EXAMPLES MODAL === -->
+    <Transition name="fade">
+      <div v-if="showHelpModal" class="modal-overlay" @click.self="toggleHelpModal">
+        <div class="modal-card">
+          <button class="close-btn" @click="toggleHelpModal">
+            <XMarkIcon class="close-icon" />
+          </button>
+          
+          <h2 class="modal-title">Examples & Tips</h2>
+          
+          <div class="modal-content">
+            <!-- 3 Pop-up Containers with Animation -->
+            <div class="guide-grid">
+              <div class="guide-box"></div>
+              <div class="guide-box"></div>
+              <div class="guide-box"></div>
+            </div>
+
+            <!-- Return Button -->
+            <div class="modal-footer">
+              <button @click="toggleHelpModal" class="primary-btn return-btn">
+                RETURN TO GAME
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </Transition>
 
   </div>
 </template>
@@ -322,7 +355,7 @@ const toggleDontShow = () => {
   background-color: #0a0e14;
 }
 
-/* --- UPDATED WELCOME SCREEN STYLES (Refined Layout) --- */
+/* --- WELCOME SCREEN STYLES --- */
 .welcome-wrapper {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -336,7 +369,6 @@ const toggleDontShow = () => {
 
 .welcome-card {
   background: rgb(23, 28, 42); 
-  /* Reduced padding to fit better */
   padding: 30px; 
   border-radius: 12px;
   border: 1px solid rgba(0, 229, 255, 0.2);
@@ -349,243 +381,108 @@ const toggleDontShow = () => {
   text-align: center; 
 }
 
-/* 1. Header (Centered) */
-.welcome-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: center; 
-  gap: 10px; 
-  margin-bottom: 5px; 
-}
+/* Header */
+.welcome-header-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px; }
+.welcome-logo-small { width: 80px; height: auto; }
+.welcome-title-small { font-family: 'Gemunu Libre', sans-serif; font-size: 2.8rem; font-weight: 600; color: white; letter-spacing: 2px; text-transform: uppercase; }
 
-.welcome-logo-small {
-  width: 80px; 
-  height: auto;
-}
+/* Hero Text */
+.welcome-hero { margin-bottom: 20px; }
+.welcome-hero h2 { font-family: 'Segoe UI', sans-serif; font-size: 1.4rem; font-weight: 600; color: #00e5ff; margin: 0 0 5px 0; }
+.welcome-hero p { font-size: 1rem; color: #94a3b8; margin: 0; }
 
-.welcome-title-small {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 2.8rem; 
-  font-weight: 600; 
-  color: white;
-  letter-spacing: 2px;
-  text-transform: uppercase; 
-}
+/* Features Grid */
+.features-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; text-align: left; }
+.feature-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; }
+.f-title { font-family: 'Gemunu Libre', sans-serif; font-size: 1.3rem; font-weight: 700; color: white; white-space: nowrap; }
+.f-divider { font-family: 'Gemunu Libre', sans-serif; font-size: 1.3rem; color: #00e5ff; margin: 0 10px; font-weight: 700; }
+.f-desc { font-family: 'Gemunu Libre', sans-serif; font-size: 1.2rem; color: #cbd5e1; white-space: nowrap; }
 
-/* 2. Hero Text (Centered) */
-.welcome-hero {
-  /* Reduced margin to save vertical space */
-  margin-bottom: 20px; 
-}
+/* Look For */
+.look-for-section { background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 10px 15px; margin-bottom: 20px; text-align: left; }
+.look-for-title { font-weight: 700; color: #e2e8f0; margin-bottom: 5px; }
+.look-for-list { list-style: none; padding: 0; margin: 0; }
+.look-for-list li { font-size: 0.9rem; color: #94a3b8; margin-bottom: 3px; }
 
-.welcome-hero h2 {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.4rem; 
-  font-weight: 600;
-  color: #00e5ff;
-  margin: 0 0 5px 0;
-}
+/* Footer */
+.welcome-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; }
+.footer-buttons { display: flex; gap: 10px; }
 
-.welcome-hero p {
-  font-size: 1rem;
-  color: #94a3b8;
-  margin: 0;
-}
+/* Buttons */
+.primary-btn { background: #00e5ff; color: #0f172a; padding: 10px 24px; border-radius: 6px; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; letter-spacing: 1px; border: none; cursor: pointer; transition: background 0.2s; }
+.primary-btn:hover { background: #00b8d4; }
 
-/* 3. Features Grid (Stacked One Under Another - Single Line) */
-.features-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px; /* Slightly tighter gap */
-  margin-bottom: 20px; /* Reduced margin */
-  text-align: left; 
-}
+.secondary-btn { background: transparent; color: #00e5ff; padding: 10px 20px; border: 1px solid #00e5ff; border-radius: 6px; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+.secondary-btn:hover { background: rgba(0, 229, 255, 0.1); }
 
-.feature-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 10px 15px; /* Tighter padding */
-  display: flex;
-  align-items: center; 
-}
+.toggle-btn { font-size: 0.9rem; padding: 10px 15px; display: flex; align-items: center; justify-content: center; }
+.toggle-btn.active { background: rgba(0, 229, 255, 0.2); border-color: #00e5ff; color: #fff; }
 
-/* Inline Styles for Gemunu Libre and No Wrap */
-.f-title {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.3rem; 
-  font-weight: 700;
-  color: white;
-  white-space: nowrap;
-}
+.mt-3 { margin-top: 1rem; }
+.small-btn { width: 100%; padding: 8px 0; font-size: 1.1rem; }
 
-.f-divider {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.3rem;
-  color: #00e5ff; /* Cyan Divider */
-  margin: 0 10px;
-  font-weight: 700;
-}
-
-.f-desc {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.2rem; /* Slightly larger for readability */
-  color: #cbd5e1;
-  white-space: nowrap;
-}
-
-/* 4. Look For Section */
-.look-for-section {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  padding: 10px 15px; /* Tighter padding */
-  margin-bottom: 20px; /* Reduced margin */
-  text-align: left; 
-}
-
-.look-for-title {
-  font-weight: 700;
-  color: #e2e8f0;
-  margin-bottom: 5px;
-}
-
-.look-for-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.look-for-list li {
-  font-size: 0.9rem;
-  color: #94a3b8;
-  margin-bottom: 3px;
-}
-
-/* 5. Footer */
-.welcome-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 15px; /* Reduced padding */
-}
-
-.footer-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.primary-btn {
-  background: #00e5ff;
-  color: #0f172a;
-  padding: 10px 24px;
-  border-radius: 6px;
-  font-weight: 700;
-  font-family: 'Gemunu Libre', sans-serif;
-  letter-spacing: 1px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.primary-btn:hover {
-  background: #00b8d4;
-}
-
-.secondary-btn {
-  background: transparent;
-  color: #00e5ff;
-  padding: 10px 20px;
-  border: 1px solid #00e5ff;
-  border-radius: 6px;
-  font-weight: 700;
-  font-family: 'Gemunu Libre', sans-serif;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.secondary-btn:hover {
-  background: rgba(0, 229, 255, 0.1);
-}
-
-/* Toggle Button Style */
-.toggle-btn {
-  font-size: 0.9rem; 
-  padding: 10px 15px;
+/* BOTTOM LEFT GUIDE BUTTON STYLE */
+.bottom-left-btn {
+  /* Changed from fixed to absolute to align with mail-container bottom */
+  position: absolute; 
+  bottom: 30px;
+  left: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  width: 260px; /* Matched width */
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  color: #0f172a;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 8px;
+  font-family: 'Gemunu Libre', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  z-index: 20;
 }
 
-.toggle-btn.active {
-  background: rgba(0, 229, 255, 0.2); 
-  border-color: #00e5ff;
-  color: #fff;
+.bottom-left-btn:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  color: #00e5ff;
 }
 
+.btn-icon {
+  width: 24px;
+  height: 24px;
+}
 
 /* --- GAME UI STYLES --- */
-.game-ui {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+.game-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-/* --- SIDEBAR ELEMENTS (LEFT) --- */
-.logo-container {
-  position: absolute; top: 30px; left: 30px; display: flex; align-items: center; gap: 5px; z-index: 10;
-}
+/* Sidebar Elements */
+.logo-container { position: absolute; top: 30px; left: 30px; display: flex; align-items: center; gap: 5px; z-index: 10; }
 .logo-icon { width: 80px; height: auto; filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.3)); }
 .logo-text { font-family: 'Gemunu Libre', sans-serif; font-size: 2rem; font-weight: 700; color: black; text-shadow: none; letter-spacing: 2px; margin-top: 5px; }
 
-.sidebar-container {
-  position: absolute; top: 130px; left: 30px; width: 260px;
-  background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2); 
-  border-radius: 12px; backdrop-filter: blur(8px); padding: 20px;
-  display: flex; flex-direction: column; gap: 15px; z-index: 5;
-}
+.sidebar-container { position: absolute; top: 130px; left: 30px; width: 260px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 12px; backdrop-filter: blur(8px); padding: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 5; }
 
-.stats-container {
-  position: absolute; top: 380px; left: 30px; width: 260px;
-  background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 12px; backdrop-filter: blur(8px); padding: 20px;
-  display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 5;
-}
+.stats-container { position: absolute; top: 380px; left: 30px; width: 260px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 12px; backdrop-filter: blur(8px); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 5; }
 
-/* --- MAIL INTERFACE (RIGHT) --- */
-.mail-container {
-  position: absolute; top: 30px; right: 30px; bottom: 30px; left: 320px;
-  background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 12px; backdrop-filter: blur(8px); display: flex; overflow: hidden; 
-}
+/* Mail Interface */
+.mail-container { position: absolute; top: 30px; right: 30px; bottom: 30px; left: 320px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 12px; backdrop-filter: blur(8px); display: flex; overflow: hidden; }
 
-/* 1. Inbox List */
-.inbox-list {
-  width: 35%; border-right: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex; flex-direction: column;
-}
-.section-header {
-  font-family: 'Gemunu Libre', sans-serif; font-size: 1.5rem; font-weight: 700; color: #334155;
-  padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left; flex-shrink: 0;
-}
-.email-items-wrapper {
-  overflow-y: auto; flex-grow: 1; padding: 10px; display: flex; flex-direction: column; gap: 8px;
-}
-.email-item {
-  display: flex; align-items: center; gap: 12px; padding: 12px;
-  background: rgba(255, 255, 255, 0.5); border-radius: 8px; cursor: pointer;
-  transition: all 0.2s ease; border-left: 3px solid transparent; text-align: left;
-}
+/* Inbox List */
+.inbox-list { width: 35%; border-right: 1px solid rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; }
+.section-header { font-family: 'Gemunu Libre', sans-serif; font-size: 1.5rem; font-weight: 700; color: #334155; padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left; flex-shrink: 0; }
+.email-items-wrapper { overflow-y: auto; flex-grow: 1; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.email-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; cursor: pointer; transition: all 0.2s ease; border-left: 3px solid transparent; text-align: left; }
 .email-item:hover { background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .email-item.selected { background: white; border-left-color: rgb(43, 84, 192); box-shadow: 0 4px 10px rgba(43, 84, 192, 0.15); }
 .email-item.unread .email-subject { font-weight: 700; color: #0f172a; }
-.email-avatar {
-  width: 40px; height: 40px; background: rgb(43, 84, 192); color: white; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; flex-shrink: 0;
-}
+.email-avatar { width: 40px; height: 40px; background: rgb(43, 84, 192); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
 .email-details { display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; }
 .email-top-row { display: flex; justify-content: space-between; margin-bottom: 2px; }
 .email-sender { font-size: 0.9rem; font-weight: 600; color: #1e293b; }
@@ -593,112 +490,24 @@ const toggleDontShow = () => {
 .email-subject { font-size: 0.9rem; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .email-preview { font-size: 0.8rem; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* Message Preview */
+.message-preview { width: 65%; display: flex; flex-direction: column; background: #f8fafc; }
+.email-content-wrapper { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+.email-header-area { padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1); background: white; text-align: left; flex-shrink: 0; }
+.email-subject-large { font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-bottom: 15px; font-family: 'Segoe UI', sans-serif; text-align: left; }
+.email-meta-row { display: flex; align-items: center; gap: 12px; }
+.email-avatar.large { width: 50px; height: 50px; font-size: 1.2rem; }
+.sender-info { display: flex; flex-direction: column; flex-grow: 1; }
+.sender-name { font-weight: 700; color: #0f172a; font-size: 1rem; }
+.sender-email { font-size: 0.85rem; color: #64748b; }
+.email-timestamp { font-size: 0.85rem; color: #94a3b8; }
+.email-body-area { padding: 30px; flex-grow: 1; overflow-y: auto; text-align: left; color: #334155; font-size: 1rem; line-height: 1.6; }
+.empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: #94a3b8; }
+.empty-icon { width: 60px; height: 60px; margin-bottom: 10px; color: #cbd5e1; }
 
-/* 2. Message Preview (Right Column) */
-.message-preview {
-  width: 65%;
-  display: flex;
-  flex-direction: column;
-  background: #f8fafc; /* Very light grey for contrast */
-}
-
-/* Dynamic Email Content Styles */
-.email-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden; /* Ensure only body scrolls */
-}
-
-.email-header-area {
-  padding: 20px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  background: white;
-  text-align: left;
-  flex-shrink: 0;
-}
-
-.email-subject-large {
-  font-size: 1.8rem; /* Increased size */
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 15px;
-  font-family: 'Segoe UI', sans-serif;
-  text-align: left; /* Ensure left align */
-}
-
-.email-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* New style for the large avatar in reading pane */
-.email-avatar.large {
-  width: 50px;
-  height: 50px;
-  font-size: 1.2rem;
-}
-
-.sender-icon-large {
-  width: 40px; height: 40px; color: #cbd5e1;
-}
-
-.sender-info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.sender-name {
-  font-weight: 700;
-  color: #0f172a;
-  font-size: 1rem;
-}
-
-.sender-email {
-  font-size: 0.85rem;
-  color: #64748b;
-}
-
-.email-timestamp {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-.email-body-area {
-  padding: 30px;
-  flex-grow: 1;
-  overflow-y: auto; /* Allow scrolling if email is long */
-  text-align: left;
-  color: #334155;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.email-body-content p {
-  margin-bottom: 15px;
-}
-
-/* Empty State */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  color: #94a3b8;
-}
-
-.empty-icon {
-  width: 60px; height: 60px; margin-bottom: 10px; color: #cbd5e1;
-}
-
-
-/* (Sidebar & Stats Styling remains the same) */
 .round-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.8rem; font-weight: 700; color: black; letter-spacing: 1px; }
 .lives-wrapper { display: flex; gap: 8px; margin-bottom: 5px; }
-.heart-icon { width: 32px; height: 32px; color: #ef4444; filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3)); transition: all 0.3s ease; }
+.heart-icon { width: 37px; height: 37px; color: #ef4444; filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3)); transition: all 0.3s ease; }
 .heart-icon.lost { color: #cbd5e1; filter: none; }
 .score-wrapper { display: flex; justify-content: space-around; width: 100%; padding-top: 10px; border-top: 1px solid rgba(0, 0, 0, 0.1); }
 .score-item { display: flex; align-items: center; gap: 8px; }
@@ -713,7 +522,115 @@ const toggleDontShow = () => {
 .menu-icon { width: 24px; height: 24px; }
 .menu-text { font-size: 1.1rem; font-weight: 600; font-family: 'Segoe UI', sans-serif; }
 
-/* --- ANIMATION CLASSES --- */
+/* MODAL STYLES */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-card {
+  background: white;
+  width: 90%;
+  max-width: 1000px;
+  border-radius: 12px;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  animation: slideIn 0.3s ease;
+  color: #334155;
+  text-align: left;
+  overflow: hidden; /* Clips animation content */
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: #f1f5f9;
+  color: #ef4444;
+}
+
+.close-icon { width: 24px; height: 24px; }
+
+.modal-title {
+  font-family: 'Gemunu Libre', sans-serif;
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+/* Modal Content Grid */
+.guide-grid {
+  display: flex;
+  gap: 40px; /* Increased separation */
+  margin-bottom: 20px;
+}
+
+.guide-box {
+  flex: 1;
+  height: 500px; /* Increased height */
+  background: #f1f5f9;
+  /* Visual separation styling */
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  opacity: 0; 
+  /* UPDATED ANIMATION */
+  animation: fadeInUpBig 1.5s ease forwards;
+}
+
+/* Staggered Animations */
+.guide-box:nth-child(1) { animation-delay: 0.1s; }
+.guide-box:nth-child(2) { animation-delay: 0.3s; }
+.guide-box:nth-child(3) { animation-delay: 0.5s; }
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.return-btn {
+  width: auto;
+  padding: 10px 40px;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Updated Big Animation */
+@keyframes fadeInUpBig {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 500px, 0); /* Starts far below */
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Animation Classes */
 .fade-enter-active, .fade-appear-active { animation: fadeInDown 0.8s ease forwards; }
 @keyframes fadeInDown { 0% { opacity: 0; transform: translate3d(0, -100px, 0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); } }
 .fade-leave-active { transition: opacity 0.8s ease, transform 0.8s ease; }
