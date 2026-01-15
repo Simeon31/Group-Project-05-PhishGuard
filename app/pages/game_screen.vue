@@ -18,11 +18,7 @@ const activeMenu = ref('inbox');
 
 // Game Stats
 const roundNumber = ref(1);
-<<<<<<< HEAD
-const lives = ref(4); // CHANGED: Set to 4 to demonstrate the "lost heart" visual
-=======
 const lives = ref(5);
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 const correctCount = ref(0);
 const incorrectCount = ref(0);
 const streak = ref(0);
@@ -236,34 +232,19 @@ const toggleDontShow = () => {
   dontShowAgain.value = !dontShowAgain.value;
 };
 
-<<<<<<< HEAD
 const toggleHelpModal = () => {
   showHelpModal.value = !showHelpModal.value;
 };
-=======
-onUnmounted(() => {
-  stopTimer();
-});
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 </script>
 
 <template>
   <div class="page-container">
-<<<<<<< HEAD
     
     <!-- === WELCOME SCREEN (Overlay) === -->
     <Transition name="fade" appear>
       <div v-if="!gameStarted" class="welcome-wrapper">
         <div class="welcome-card">
           
-=======
-
-    <Transition name="fade" appear>
-      <div v-if="!gameStarted" class="welcome-wrapper">
-        <div class="welcome-card">
-
-          <!-- 1. Header: Logo Top Left (Centered in row) -->
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
           <div class="welcome-header-row">
             <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="welcome-logo-small" />
             <div class="welcome-title-small">Welcome to phishguard</div>
@@ -302,16 +283,11 @@ onUnmounted(() => {
           </div>
 
           <div class="welcome-footer">
-<<<<<<< HEAD
             <button 
               @click="toggleDontShow" 
               class="secondary-btn toggle-btn"
               :class="{ 'active': dontShowAgain }"
             >
-=======
-            <!-- "Don't show again" as a toggle button -->
-            <button @click="toggleDontShow" class="secondary-btn toggle-btn" :class="{ 'active': dontShowAgain }">
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
               <span v-if="dontShowAgain">☑ Don't show again</span>
               <span v-else>☐ Don't show again</span>
             </button>
@@ -416,28 +392,8 @@ onUnmounted(() => {
 
         <!-- 2. Message Preview (Reading Pane) -->
         <div class="message-preview">
-<<<<<<< HEAD
           
           <div v-if="currentEmail" class="email-content-wrapper">
-=======
-
-          <!-- Loading State -->
-          <div v-if="loading" class="empty-state">
-            <div class="loading-spinner"></div>
-            <p>Loading scenarios...</p>
-          </div>
-
-          <!-- Error State -->
-          <div v-else-if="error" class="empty-state">
-            <XCircleIcon class="empty-icon error-icon" />
-            <p>{{ error }}</p>
-            <button @click="fetchScenarios" class="primary-btn">Retry</button>
-          </div>
-
-          <!-- Dynamic Content -->
-          <div v-else-if="currentEmail" class="email-content-wrapper" @click="handleInvestigate">
-
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
             <div class="email-header-area">
               <div class="email-subject-large">{{ currentEmail.subject }}</div>
               <div class="email-meta-row">
