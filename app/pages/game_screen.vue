@@ -1,11 +1,7 @@
 <script setup>
 import { ref, computed, onUnmounted } from 'vue';
 // Import Heroicons
-<<<<<<< HEAD
-import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, XMarkIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
-=======
-import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, FireIcon, ClockIcon } from '@heroicons/vue/24/solid';
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
+import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, XMarkIcon, QuestionMarkCircleIcon, ExclamationTriangleIcon, FireIcon, ClockIcon } from '@heroicons/vue/24/solid';
 
 // We use a 'ref' to track if the game has started. 
 // true = show game, false = show welcome screen.
@@ -18,11 +14,7 @@ const activeMenu = ref('inbox');
 
 // Game Stats
 const roundNumber = ref(1);
-<<<<<<< HEAD
-const lives = ref(4); // CHANGED: Set to 4 to demonstrate the "lost heart" visual
-=======
-const lives = ref(5);
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
+const lives = ref(5); 
 const correctCount = ref(0);
 const incorrectCount = ref(0);
 const streak = ref(0);
@@ -166,34 +158,19 @@ const toggleDontShow = () => {
   dontShowAgain.value = !dontShowAgain.value;
 };
 
-<<<<<<< HEAD
-const toggleHelpModal = () => {
-  showHelpModal.value = !showHelpModal.value;
-};
-=======
 onUnmounted(() => {
   stopTimer();
 });
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 </script>
 
 <template>
   <div class="page-container">
-<<<<<<< HEAD
-    
-    <!-- === WELCOME SCREEN (Overlay) === -->
-    <Transition name="fade" appear>
-      <div v-if="!gameStarted" class="welcome-wrapper">
-        <div class="welcome-card">
-          
-=======
 
     <Transition name="fade" appear>
       <div v-if="!gameStarted" class="welcome-wrapper">
         <div class="welcome-card">
 
           <!-- 1. Header: Logo Top Left (Centered in row) -->
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
           <div class="welcome-header-row">
             <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="welcome-logo-small" />
             <div class="welcome-title-small">Welcome to phishguard</div>
@@ -232,16 +209,8 @@ onUnmounted(() => {
           </div>
 
           <div class="welcome-footer">
-<<<<<<< HEAD
-            <button 
-              @click="toggleDontShow" 
-              class="secondary-btn toggle-btn"
-              :class="{ 'active': dontShowAgain }"
-            >
-=======
             <!-- "Don't show again" as a toggle button -->
             <button @click="toggleDontShow" class="secondary-btn toggle-btn" :class="{ 'active': dontShowAgain }">
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
               <span v-if="dontShowAgain">☑ Don't show again</span>
               <span v-else>☐ Don't show again</span>
             </button>
@@ -346,10 +315,6 @@ onUnmounted(() => {
 
         <!-- 2. Message Preview (Reading Pane) -->
         <div class="message-preview">
-<<<<<<< HEAD
-          
-          <div v-if="currentEmail" class="email-content-wrapper">
-=======
 
           <!-- Loading State -->
           <div v-if="loading" class="empty-state">
@@ -367,7 +332,6 @@ onUnmounted(() => {
           <!-- Dynamic Content -->
           <div v-else-if="currentEmail" class="email-content-wrapper">
 
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
             <div class="email-header-area">
               <div class="email-subject-large">{{ currentEmail.subject }}</div>
               <div class="email-meta-row">
@@ -383,8 +347,6 @@ onUnmounted(() => {
             <div class="email-body-area">
               <div v-html="currentEmail.body" class="email-body-content"></div>
             </div>
-<<<<<<< HEAD
-=======
 
             <!-- ACTION FOOTER -->
             <div class="email-action-footer">
@@ -398,7 +360,6 @@ onUnmounted(() => {
               </button>
             </div>
 
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
           </div>
 
           <div v-else class="empty-state">
@@ -498,14 +459,9 @@ onUnmounted(() => {
 }
 
 .welcome-card {
-<<<<<<< HEAD
-  background: rgb(23, 28, 42); 
-  padding: 30px; 
-=======
   background: rgb(23, 28, 42);
   /* Reduced padding to fit better */
   padding: 30px;
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
   border-radius: 12px;
   border: 1px solid rgba(0, 229, 255, 0.2);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -517,7 +473,6 @@ onUnmounted(() => {
   text-align: center;
 }
 
-<<<<<<< HEAD
 /* Header */
 .welcome-header-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px; }
 .welcome-logo-small { width: 80px; height: auto; }
@@ -544,50 +499,11 @@ onUnmounted(() => {
 /* Footer */
 .welcome-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; }
 .footer-buttons { display: flex; gap: 10px; }
-=======
-/* 1. Header (Centered) */
-.welcome-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 5px;
-}
-
-.welcome-logo-small {
-  width: 80px;
-  height: auto;
-}
-
-.welcome-title-small {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 600;
-  color: white;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-/* 2. Hero Text (Centered) */
-.welcome-hero {
-  /* Reduced margin to save vertical space */
-  margin-bottom: 20px;
-}
-
-.welcome-hero h2 {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #00e5ff;
-  margin: 0 0 5px 0;
-}
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 
 /* Buttons */
 .primary-btn { background: #00e5ff; color: #0f172a; padding: 10px 24px; border-radius: 6px; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; letter-spacing: 1px; border: none; cursor: pointer; transition: background 0.2s; }
 .primary-btn:hover { background: #00b8d4; }
 
-<<<<<<< HEAD
 .secondary-btn { background: transparent; color: #00e5ff; padding: 10px 20px; border: 1px solid #00e5ff; border-radius: 6px; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
 .secondary-btn:hover { background: rgba(0, 229, 255, 0.1); }
 
@@ -603,7 +519,7 @@ onUnmounted(() => {
   position: absolute; 
   bottom: 30px;
   left: 30px;
-=======
+}
 /* 3. Features Grid (Stacked One Under Another - Single Line) */
 .features-grid {
   display: flex;
@@ -733,7 +649,6 @@ onUnmounted(() => {
 .toggle-btn {
   font-size: 0.9rem;
   padding: 10px 15px;
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
   display: flex;
   align-items: center;
   justify-content: center;
@@ -754,18 +669,16 @@ onUnmounted(() => {
   z-index: 20;
 }
 
-<<<<<<< HEAD
 .bottom-left-btn:hover {
   background: #fff;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
   color: #00e5ff;
-=======
+}
 .toggle-btn.active {
   background: rgba(0, 229, 255, 0.2);
   border-color: #00e5ff;
   color: #fff;
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 }
 
 .btn-icon {
@@ -776,7 +689,6 @@ onUnmounted(() => {
 /* --- GAME UI STYLES --- */
 .game-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-<<<<<<< HEAD
 /* Sidebar Elements */
 .logo-container { position: absolute; top: 30px; left: 30px; display: flex; align-items: center; gap: 5px; z-index: 10; }
 .logo-icon { width: 80px; height: auto; filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.3)); }
@@ -804,7 +716,6 @@ onUnmounted(() => {
 .email-date { font-size: 0.75rem; color: #64748b; }
 .email-subject { font-size: 0.9rem; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .email-preview { font-size: 0.8rem; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-=======
 /* --- SIDEBAR ELEMENTS (LEFT) --- */
 .logo-container {
   position: absolute;
@@ -990,7 +901,6 @@ onUnmounted(() => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 
 /* Message Preview */
 .message-preview { width: 65%; display: flex; flex-direction: column; background: #f8fafc; }
@@ -1007,7 +917,6 @@ onUnmounted(() => {
 .empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: #94a3b8; }
 .empty-icon { width: 60px; height: 60px; margin-bottom: 10px; color: #cbd5e1; }
 
-<<<<<<< HEAD
 .round-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.8rem; font-weight: 700; color: black; letter-spacing: 1px; }
 .lives-wrapper { display: flex; gap: 8px; margin-bottom: 5px; }
 .heart-icon { width: 37px; height: 37px; color: #ef4444; filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3)); transition: all 0.3s ease; }
@@ -1018,7 +927,6 @@ onUnmounted(() => {
 .correct-color { color: #22c55e; }
 .incorrect-color { color: #ef4444; }
 .score-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.5rem; font-weight: 700; color: #334155; }
-=======
 /* 2. Message Preview (Right Column) */
 .message-preview {
   width: 65%;
@@ -1138,7 +1046,6 @@ onUnmounted(() => {
   color: black;
   letter-spacing: 1px;
 }
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 
 .lives-wrapper {
   display: flex;
@@ -1226,7 +1133,6 @@ onUnmounted(() => {
   font-family: 'Segoe UI', sans-serif;
 }
 
-<<<<<<< HEAD
 /* MODAL STYLES */
 .modal-overlay {
   position: fixed;
@@ -1330,7 +1236,11 @@ onUnmounted(() => {
     transform: translate3d(0, 500px, 0); /* Starts far below */
   }
   to {
-=======
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 /* --- ANIMATION CLASSES --- */
 .fade-enter-active,
 .fade-appear-active {
@@ -1344,19 +1254,11 @@ onUnmounted(() => {
   }
 
   100% {
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 }
 
-<<<<<<< HEAD
-/* Animation Classes */
-.fade-enter-active, .fade-appear-active { animation: fadeInDown 0.8s ease forwards; }
-@keyframes fadeInDown { 0% { opacity: 0; transform: translate3d(0, -100px, 0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); } }
-.fade-leave-active { transition: opacity 0.8s ease, transform 0.8s ease; }
-.fade-leave-to { opacity: 0; transform: scale(0.9); }
-=======
 .fade-leave-active {
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
@@ -1563,5 +1465,5 @@ onUnmounted(() => {
 .error-icon {
   color: #ef4444 !important;
 }
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
+
 </style>
