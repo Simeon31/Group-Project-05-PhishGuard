@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onUnmounted } from 'vue';
 // Import Heroicons
-import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, XMarkIcon, QuestionMarkCircleIcon, ExclamationTriangleIcon, FireIcon, ClockIcon } from '@heroicons/vue/24/solid';
+import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, FireIcon, ClockIcon } from '@heroicons/vue/24/solid';
 
 // We use a 'ref' to track if the game has started. 
 // true = show game, false = show welcome screen.
@@ -14,15 +14,23 @@ const activeMenu = ref('inbox');
 
 // Game Stats
 const roundNumber = ref(1);
-const lives = ref(5); 
+const lives = ref(5);
 const correctCount = ref(0);
 const incorrectCount = ref(0);
 const streak = ref(0);
 const timeLeft = ref(30);
 let timerInterval = null;
-const feedback = ref(null); // { visible: boolean, isCorrect: boolean, message: string, title: string }
+const feedback = ref(null);
 const loading = ref(false);
 const error = ref(null);
+
+// Interactive Red Flag Stats
+const foundFlags = ref(new Set());
+const requiredFlags = computed(() => {
+  if (!currentEmail.value || !currentEmail.value.redFlags) return 0;
+  return currentEmail.value.redFlags.length;
+});
+const missingFlagsError = ref(false);
 
 // --- EMAIL DATA (Fetched from API) ---
 const emails = ref([]);
@@ -35,13 +43,18 @@ const fetchScenarios = async () => {
   try {
     const response = await $fetch('/api/scenarios', {
       query: {
-        difficulty: roundNumber.value, // Fetch emails for current difficulty
+        difficulty: roundNumber.value,
         limit: 10
       }
     });
 
     if (response.success && response.data) {
-      emails.value = response.data;
+      emails.value = response.data.map(email => ({
+        ...email,
+        // API returns camelCase for these fields, just ensure array existence
+        redFlags: email.redFlags || [],
+        // Keep snake_case for sender_email as expected by template
+      }));
       if (emails.value.length > 0) {
         selectedEmailId.value = emails.value[0].id;
       }
@@ -56,16 +69,13 @@ const fetchScenarios = async () => {
 
 const startTimer = () => {
   stopTimer();
-  timeLeft.value = 30; // Reset to 30s per email
+  timeLeft.value = 30;
   timerInterval = setInterval(() => {
     if (timeLeft.value > 0) {
       timeLeft.value--;
     } else {
       stopTimer();
-      // Time out counts as a mistake? Or just notify? 
-      // User case: "mimics high-pressure environment". 
-      // Let's treat valid timeout as a passive choice if we want to be strict, 
-      // or just force a decision. For now, we'll just pause and show 'Time's Up'.
+
       handleDecision(null, true);
     }
   }, 1000);
@@ -83,12 +93,69 @@ const selectEmail = (id) => {
   startTimer();
   // Clear any existing feedback when switching
   feedback.value = null;
+  foundFlags.value.clear();
+  missingFlagsError.value = false;
 };
 
 // Computed property to get the full object of the currently selected email
 const currentEmail = computed(() => {
   return emails.value.find(e => e.id === selectedEmailId.value);
 });
+
+// Helper to check if header elements (Sender Name / Email) are suspicious
+const isSenderNameRisky = (email) => {
+  if (!email || !email.redFlags) return 'safe';
+  return email.redFlags.some(flag =>
+    /Sender Name|Typosquatting/i.test(flag)
+  ) ? 'danger' : 'safe';
+};
+
+// Helper to check if the sender email/domain is suspicious
+const isSenderEmailRisky = (email) => {
+  if (!email || !email.redFlags) return 'safe';
+  return email.redFlags.some(flag =>
+    /Domain|Address|Email|Gmail|Hotmail|Yahoo|AOL/i.test(flag)
+  ) ? 'danger' : 'safe';
+};
+
+// Handle clicking on investigate areas
+const handleInvestigate = (event) => {
+  const target = event.target.closest('.investigate-area');
+  if (!target) return;
+
+  const status = target.dataset.status;
+
+  // Logic: 
+  // If dangerous (red flag) -> mark found
+  // If safe (false positive) -> deduct life? or just warn?
+
+  if (status === 'danger') {
+    if (!target.classList.contains('found')) {
+      target.classList.add('found');
+      // Create a unique key for the flag based on text content
+      foundFlags.value.add(target.textContent.trim());
+
+      // Calculate remaining flags
+      const totalFlags = currentEmail.value.redFlags.length;
+      const progress = foundFlags.value.size;
+
+      // If we cleared the "missing flags" error condition, hide it
+      if (progress >= totalFlags) {
+        missingFlagsError.value = false;
+      }
+    }
+  } else {
+    // False positive!
+    if (!target.classList.contains('clicked-safe')) {
+      target.classList.add('clicked-safe');
+      lives.value--; // Deduct life for false positive
+      streak.value = 0; // Reset streak on mistake
+
+      // Show brief visual feedback (optional toast)
+      // For now, the red outline class 'clicked-safe' is the feedback
+    }
+  }
+};
 
 const handleDecision = (markedSafe, isTimeout = false) => {
   stopTimer();
@@ -99,6 +166,18 @@ const handleDecision = (markedSafe, isTimeout = false) => {
   let title = "";
   let message = "";
 
+  // Rule 1: All red flags must be spotted if it's a phishing email
+  if (isActuallyPhishing && !markedSafe && !isTimeout) {
+    const totalFlags = currentEmail.value.redFlags.length;
+
+    // block the decision (unless it's a timeout)
+    if (foundFlags.value.size < totalFlags) {
+      missingFlagsError.value = true;
+
+      return;
+    }
+  }
+
   if (isTimeout) {
     success = false;
     title = "Time's Up!";
@@ -107,20 +186,16 @@ const handleDecision = (markedSafe, isTimeout = false) => {
     incorrectCount.value++;
     lives.value--;
   } else {
-    // Logic: 
-    // markedSafe=true AND isPhishing=false -> CORRECT
-    // markedSafe=false (Reported) AND isPhishing=true -> CORRECT
     success = (markedSafe && !isActuallyPhishing) || (!markedSafe && isActuallyPhishing);
 
     if (success) {
       title = "Correct!";
       message = markedSafe
-        ? "Good eye. This email is safe."
+        ? "Good catch. This email is safe."
         : "Well done! You spotted the phishing attempt.";
       streak.value++;
       correctCount.value++;
-      // Difficulty progression: if streak % 3 == 0, maybe increase difficulty? 
-      // For now, simpler implementation just tracks streak.
+
     } else {
       title = "Incorrect";
       message = currentEmail.value.educationalMessage || currentEmail.value.reason || "You missed the signs.";
@@ -135,17 +210,12 @@ const handleDecision = (markedSafe, isTimeout = false) => {
 
 const closeFeedback = () => {
   feedback.value = null;
-  // Auto-advance or just let user pick next? 
-  // Let's just restart timer if they stay on same email, 
-  // OR better, marking an email as "done" would be good UX.
-  // For this prototype, we just let them click another email or re-read.
-  // Ideally, remove email from list or mark 'completed'.
 };
 
 const startGame = async () => {
   console.log('Game started! transitions occurring...');
   gameStarted.value = true;
-  await fetchScenarios(); // Load scenarios from API
+  await fetchScenarios();
   startTimer();
 };
 
@@ -158,6 +228,11 @@ const toggleDontShow = () => {
   dontShowAgain.value = !dontShowAgain.value;
 };
 
+<<<<<<< HEAD
+const toggleHelpModal = () => {
+  showHelpModal.value = !showHelpModal.value;
+};
+=======
 onUnmounted(() => {
   stopTimer();
 });
@@ -165,12 +240,21 @@ onUnmounted(() => {
 
 <template>
   <div class="page-container">
+<<<<<<< HEAD
+    
+    <!-- === WELCOME SCREEN (Overlay) === -->
+    <Transition name="fade" appear>
+      <div v-if="!gameStarted" class="welcome-wrapper">
+        <div class="welcome-card">
+          
+=======
 
     <Transition name="fade" appear>
       <div v-if="!gameStarted" class="welcome-wrapper">
         <div class="welcome-card">
 
           <!-- 1. Header: Logo Top Left (Centered in row) -->
+>>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
           <div class="welcome-header-row">
             <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="welcome-logo-small" />
             <div class="welcome-title-small">Welcome to phishguard</div>
@@ -203,12 +287,19 @@ onUnmounted(() => {
             <div class="look-for-title">Look for:</div>
             <ul class="look-for-list">
               <li>⚠️ Sender domain that looks slightly incorrect</li>
-              <li>⚠️ Threatening language (e.g. “now”, “account locked”)</li>
+              <li>⚠️ Threatening language (e.g. "now", "account locked")</li>
               <li>⚠️ Mismatched links or unexpected attachments</li>
             </ul>
           </div>
 
           <div class="welcome-footer">
+<<<<<<< HEAD
+            <button 
+              @click="toggleDontShow" 
+              class="secondary-btn toggle-btn"
+              :class="{ 'active': dontShowAgain }"
+            >
+=======
             <!-- "Don't show again" as a toggle button -->
             <button @click="toggleDontShow" class="secondary-btn toggle-btn" :class="{ 'active': dontShowAgain }">
               <span v-if="dontShowAgain">☑ Don't show again</span>
@@ -283,7 +374,7 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- NEW: Bottom Left Guide Button (Positioned Absolute now) -->
+      <!-- Bottom Left Guide Button -->
       <button class="bottom-left-btn" @click="toggleHelpModal">
         <QuestionMarkCircleIcon class="btn-icon" />
         <span>GUIDE</span>
@@ -330,15 +421,17 @@ onUnmounted(() => {
           </div>
 
           <!-- Dynamic Content -->
-          <div v-else-if="currentEmail" class="email-content-wrapper">
+          <div v-else-if="currentEmail" class="email-content-wrapper" @click="handleInvestigate">
 
             <div class="email-header-area">
               <div class="email-subject-large">{{ currentEmail.subject }}</div>
               <div class="email-meta-row">
                 <div class="email-avatar large">{{ currentEmail.initials }}</div>
                 <div class="sender-info">
-                  <span class="sender-name">{{ currentEmail.sender }}</span>
-                  <span class="sender-email">&lt;{{ currentEmail.sender_email }}&gt;</span>
+                  <span class="sender-name investigate-area" :data-status="isSenderNameRisky(currentEmail)"
+                    title="Click to investigate sender name">{{ currentEmail.sender }}</span>
+                  <span class="sender-email investigate-area" :data-status="isSenderEmailRisky(currentEmail)"
+                    title="Click to investigate email address">&lt;{{ currentEmail.sender_email }}&gt;</span>
                 </div>
                 <div class="email-timestamp">{{ currentEmail.date }}</div>
               </div>
@@ -347,9 +440,18 @@ onUnmounted(() => {
             <div class="email-body-area">
               <div v-html="currentEmail.body" class="email-body-content"></div>
             </div>
+<<<<<<< HEAD
+=======
 
             <!-- ACTION FOOTER -->
             <div class="email-action-footer">
+              <div class="found-counter" v-if="currentEmail.redFlags.length > 0">
+                <span class="label">RED FLAGS:</span>
+                <span class="count" :class="{ 'all-found': foundFlags.size === currentEmail.redFlags.length }">
+                  {{ foundFlags.size }} / {{ currentEmail.redFlags.length }}
+                </span>
+              </div>
+
               <button @click="handleDecision(true)" class="action-btn safe-btn">
                 <ShieldCheckIcon class="btn-icon" />
                 Mark Safe
@@ -394,9 +496,9 @@ onUnmounted(() => {
           <button class="close-btn" @click="toggleHelpModal">
             <XMarkIcon class="close-icon" />
           </button>
-          
+
           <h2 class="modal-title">Examples & Tips</h2>
-          
+
           <div class="modal-content">
             <!-- 3 Pop-up Containers with Animation -->
             <div class="guide-grid">
@@ -419,6 +521,73 @@ onUnmounted(() => {
 
   </div>
 </template>
+
+<style>
+/* Global styles for dynamic content */
+.investigate-area {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  border: 1px dashed transparent;
+}
+
+.investigate-area:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 229, 255, 0.3);
+}
+
+.investigate-area.found {
+  background-color: rgba(220, 38, 38, 0.2);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  cursor: default;
+}
+
+.investigate-area.clicked-safe {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.email-header-area .investigate-area {
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px dashed transparent;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.email-header-area .investigate-area:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 229, 255, 0.3);
+  cursor: pointer;
+}
+</style>
 
 <style scoped>
 /* --- IMPORT GOOGLE FONT (Gemunu Libre) --- */
@@ -459,9 +628,14 @@ onUnmounted(() => {
 }
 
 .welcome-card {
+<<<<<<< HEAD
+  background: rgb(23, 28, 42); 
+  padding: 30px; 
+=======
   background: rgb(23, 28, 42);
   /* Reduced padding to fit better */
   padding: 30px;
+>>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
   border-radius: 12px;
   border: 1px solid rgba(0, 229, 255, 0.2);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -473,6 +647,7 @@ onUnmounted(() => {
   text-align: center;
 }
 
+<<<<<<< HEAD
 /* Header */
 .welcome-header-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px; }
 .welcome-logo-small { width: 80px; height: auto; }
@@ -499,11 +674,50 @@ onUnmounted(() => {
 /* Footer */
 .welcome-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; }
 .footer-buttons { display: flex; gap: 10px; }
+=======
+/* 1. Header (Centered) */
+.welcome-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.welcome-logo-small {
+  width: 80px;
+  height: auto;
+}
+
+.welcome-title-small {
+  font-family: 'Gemunu Libre', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* 2. Hero Text (Centered) */
+.welcome-hero {
+  /* Reduced margin to save vertical space */
+  margin-bottom: 20px;
+}
+
+.welcome-hero h2 {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #00e5ff;
+  margin: 0 0 5px 0;
+}
+>>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 
 /* Buttons */
 .primary-btn { background: #00e5ff; color: #0f172a; padding: 10px 24px; border-radius: 6px; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; letter-spacing: 1px; border: none; cursor: pointer; transition: background 0.2s; }
 .primary-btn:hover { background: #00b8d4; }
 
+<<<<<<< HEAD
 .secondary-btn { background: transparent; color: #00e5ff; padding: 10px 20px; border: 1px solid #00e5ff; border-radius: 6px; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
 .secondary-btn:hover { background: rgba(0, 229, 255, 0.1); }
 
@@ -519,15 +733,13 @@ onUnmounted(() => {
   position: absolute; 
   bottom: 30px;
   left: 30px;
-}
+=======
 /* 3. Features Grid (Stacked One Under Another - Single Line) */
 .features-grid {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  /* Slightly tighter gap */
   margin-bottom: 20px;
-  /* Reduced margin */
   text-align: left;
 }
 
@@ -536,12 +748,10 @@ onUnmounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 10px 15px;
-  /* Tighter padding */
   display: flex;
   align-items: center;
 }
 
-/* Inline Styles for Gemunu Libre and No Wrap */
 .f-title {
   font-family: 'Gemunu Libre', sans-serif;
   font-size: 1.3rem;
@@ -554,7 +764,6 @@ onUnmounted(() => {
   font-family: 'Gemunu Libre', sans-serif;
   font-size: 1.3rem;
   color: #00e5ff;
-  /* Cyan Divider */
   margin: 0 10px;
   font-weight: 700;
 }
@@ -562,19 +771,15 @@ onUnmounted(() => {
 .f-desc {
   font-family: 'Gemunu Libre', sans-serif;
   font-size: 1.2rem;
-  /* Slightly larger for readability */
   color: #cbd5e1;
   white-space: nowrap;
 }
 
-/* 4. Look For Section */
 .look-for-section {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 10px 15px;
-  /* Tighter padding */
   margin-bottom: 20px;
-  /* Reduced margin */
   text-align: left;
 }
 
@@ -596,14 +801,12 @@ onUnmounted(() => {
   margin-bottom: 3px;
 }
 
-/* 5. Footer */
 .welcome-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 15px;
-  /* Reduced padding */
 }
 
 .footer-buttons {
@@ -645,16 +848,16 @@ onUnmounted(() => {
   background: rgba(0, 229, 255, 0.1);
 }
 
-/* Toggle Button Style */
 .toggle-btn {
   font-size: 0.9rem;
   padding: 10px 15px;
+>>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   padding: 12px 20px;
-  width: 260px; /* Matched width */
+  width: 260px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(8px);
   color: #0f172a;
@@ -664,7 +867,7 @@ onUnmounted(() => {
   font-weight: 700;
   font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
   z-index: 20;
 }
@@ -672,13 +875,14 @@ onUnmounted(() => {
 .bottom-left-btn:hover {
   background: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   color: #00e5ff;
-}
+=======
 .toggle-btn.active {
   background: rgba(0, 229, 255, 0.2);
   border-color: #00e5ff;
   color: #fff;
+>>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 }
 
 .btn-icon {
@@ -689,6 +893,7 @@ onUnmounted(() => {
 /* --- GAME UI STYLES --- */
 .game-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
+<<<<<<< HEAD
 /* Sidebar Elements */
 .logo-container { position: absolute; top: 30px; left: 30px; display: flex; align-items: center; gap: 5px; z-index: 10; }
 .logo-icon { width: 80px; height: auto; filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.3)); }
@@ -716,6 +921,7 @@ onUnmounted(() => {
 .email-date { font-size: 0.75rem; color: #64748b; }
 .email-subject { font-size: 0.9rem; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .email-preview { font-size: 0.8rem; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+=======
 /* --- SIDEBAR ELEMENTS (LEFT) --- */
 .logo-container {
   position: absolute;
@@ -791,7 +997,6 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-/* 1. Inbox List */
 .inbox-list {
   width: 35%;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -901,6 +1106,7 @@ onUnmounted(() => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+>>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 
 /* Message Preview */
 .message-preview { width: 65%; display: flex; flex-direction: column; background: #f8fafc; }
@@ -917,6 +1123,7 @@ onUnmounted(() => {
 .empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: #94a3b8; }
 .empty-icon { width: 60px; height: 60px; margin-bottom: 10px; color: #cbd5e1; }
 
+<<<<<<< HEAD
 .round-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.8rem; font-weight: 700; color: black; letter-spacing: 1px; }
 .lives-wrapper { display: flex; gap: 8px; margin-bottom: 5px; }
 .heart-icon { width: 37px; height: 37px; color: #ef4444; filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3)); transition: all 0.3s ease; }
@@ -927,22 +1134,20 @@ onUnmounted(() => {
 .correct-color { color: #22c55e; }
 .incorrect-color { color: #ef4444; }
 .score-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.5rem; font-weight: 700; color: #334155; }
+=======
 /* 2. Message Preview (Right Column) */
 .message-preview {
   width: 65%;
   display: flex;
   flex-direction: column;
   background: #f8fafc;
-  /* Very light grey for contrast */
 }
 
-/* Dynamic Email Content Styles */
 .email-content-wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  /* Ensure only body scrolls */
 }
 
 .email-header-area {
@@ -955,13 +1160,11 @@ onUnmounted(() => {
 
 .email-subject-large {
   font-size: 1.8rem;
-  /* Increased size */
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 15px;
   font-family: 'Segoe UI', sans-serif;
   text-align: left;
-  /* Ensure left align */
 }
 
 .email-meta-row {
@@ -970,17 +1173,10 @@ onUnmounted(() => {
   gap: 12px;
 }
 
-/* New style for the large avatar in reading pane */
 .email-avatar.large {
   width: 50px;
   height: 50px;
   font-size: 1.2rem;
-}
-
-.sender-icon-large {
-  width: 40px;
-  height: 40px;
-  color: #cbd5e1;
 }
 
 .sender-info {
@@ -1006,21 +1202,63 @@ onUnmounted(() => {
 }
 
 .email-body-area {
+  flex: 1;
   padding: 30px;
-  flex-grow: 1;
-  overflow-y: auto;
-  /* Allow scrolling if email is long */
-  text-align: left;
-  color: #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
+  overflow-y: auto;
+  position: relative;
+}
+
+.email-body-content.blur-content {
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.investigate-warning-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.warning-box {
+  background: #1e293b;
+  border: 1px solid #f59e0b;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.warning-icon-lg {
+  width: 48px;
+  height: 48px;
+  color: #f59e0b;
+}
+
+.warning-sub {
+  color: #94a3b8;
+  font-size: 0.9rem;
 }
 
 .email-body-content p {
   margin-bottom: 15px;
 }
 
-/* Empty State */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -1037,8 +1275,6 @@ onUnmounted(() => {
   color: #cbd5e1;
 }
 
-
-/* (Sidebar & Stats Styling remains the same) */
 .round-text {
   font-family: 'Gemunu Libre', sans-serif;
   font-size: 1.8rem;
@@ -1054,8 +1290,8 @@ onUnmounted(() => {
 }
 
 .heart-icon {
-  width: 32px;
-  height: 32px;
+  width: 37px;
+  height: 37px;
   color: #ef4444;
   filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3));
   transition: all 0.3s ease;
@@ -1136,7 +1372,10 @@ onUnmounted(() => {
 /* MODAL STYLES */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   display: flex;
@@ -1152,11 +1391,11 @@ onUnmounted(() => {
   border-radius: 12px;
   padding: 30px;
   position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   animation: slideIn 0.3s ease;
   color: #334155;
   text-align: left;
-  overflow: hidden; /* Clips animation content */
+  overflow: hidden;
 }
 
 .close-btn {
@@ -1177,7 +1416,10 @@ onUnmounted(() => {
   color: #ef4444;
 }
 
-.close-icon { width: 24px; height: 24px; }
+.close-icon {
+  width: 24px;
+  height: 24px;
+}
 
 .modal-title {
   font-family: 'Gemunu Libre', sans-serif;
@@ -1188,31 +1430,35 @@ onUnmounted(() => {
   padding-bottom: 10px;
 }
 
-/* Modal Content Grid */
 .guide-grid {
   display: flex;
-  gap: 40px; /* Increased separation */
+  gap: 40px;
   margin-bottom: 20px;
 }
 
 .guide-box {
   flex: 1;
-  height: 500px; /* Increased height */
+  height: 500px;
   background: #f1f5f9;
-  /* Visual separation styling */
   background-color: white;
   border: 1px solid #e2e8f0;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border-radius: 8px;
-  opacity: 0; 
-  /* UPDATED ANIMATION */
+  opacity: 0;
   animation: fadeInUpBig 1.5s ease forwards;
 }
 
-/* Staggered Animations */
-.guide-box:nth-child(1) { animation-delay: 0.1s; }
-.guide-box:nth-child(2) { animation-delay: 0.3s; }
-.guide-box:nth-child(3) { animation-delay: 0.5s; }
+.guide-box:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.guide-box:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.guide-box:nth-child(3) {
+  animation-delay: 0.5s;
+}
 
 .modal-footer {
   display: flex;
@@ -1225,16 +1471,23 @@ onUnmounted(() => {
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Updated Big Animation */
 @keyframes fadeInUpBig {
   from {
     opacity: 0;
-    transform: translate3d(0, 500px, 0); /* Starts far below */
+    transform: translate3d(0, 500px, 0);
   }
+
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -1270,14 +1523,43 @@ onUnmounted(() => {
 
 /* --- NEW GAME STYLES --- */
 
-/* Action Footer */
 .email-action-footer {
-  padding: 20px;
-  background: #fff;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  background: #0f172a;
+  border-top: 1px solid #334155;
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: flex-end;
+  gap: 15px;
+  align-items: center;
+}
+
+.found-counter {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.found-counter .label {
+  font-family: 'Gemunu Libre';
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.found-counter .count {
+  font-family: 'Gemunu Libre';
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.found-counter .count.all-found {
+  color: #4ade80;
 }
 
 .action-btn {
@@ -1311,12 +1593,6 @@ onUnmounted(() => {
   border: 1px solid #ef4444;
 }
 
-.btn-icon {
-  width: 24px;
-  height: 24px;
-}
-
-/* Stats Additions */
 .timer-display {
   display: flex;
   align-items: center;
@@ -1371,7 +1647,6 @@ onUnmounted(() => {
   }
 }
 
-/* Feedback Modal */
 .feedback-overlay {
   position: absolute;
   top: 0;
@@ -1426,27 +1701,12 @@ onUnmounted(() => {
   color: #ef4444;
 }
 
-.modal-title {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1e293b;
-  text-transform: uppercase;
-}
-
-.modal-message {
-  color: #475569;
-  font-size: 1.1rem;
-  line-height: 1.5;
-}
-
 .modal-btn {
   margin-top: 20px;
   width: 100%;
   font-size: 1.2rem;
 }
 
-/* Loading Spinner */
 .loading-spinner {
   width: 50px;
   height: 50px;
@@ -1465,5 +1725,5 @@ onUnmounted(() => {
 .error-icon {
   color: #ef4444 !important;
 }
-
+>>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 </style>
