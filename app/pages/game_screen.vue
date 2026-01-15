@@ -19,9 +19,17 @@ const incorrectCount = ref(0);
 const streak = ref(0);
 const timeLeft = ref(30);
 let timerInterval = null;
-const feedback = ref(null); // { visible: boolean, isCorrect: boolean, message: string, title: string }
+const feedback = ref(null); 
 const loading = ref(false);
 const error = ref(null);
+
+// Interactive Red Flag Stats
+const foundFlags = ref(new Set());
+const requiredFlags = computed(() => {
+  if (!currentEmail.value || !currentEmail.value.redFlags) return 0;
+  return currentEmail.value.redFlags.length;
+});
+const missingFlagsError = ref(false);
 
 // --- EMAIL DATA (Fetched from API) ---
 const emails = ref([]);
@@ -34,13 +42,18 @@ const fetchScenarios = async () => {
   try {
     const response = await $fetch('/api/scenarios', {
       query: {
-        difficulty: roundNumber.value, // Fetch emails for current difficulty
+        difficulty: roundNumber.value,
         limit: 10
       }
     });
 
     if (response.success && response.data) {
-      emails.value = response.data;
+      emails.value = response.data.map(email => ({
+        ...email,
+        // API returns camelCase for these fields, just ensure array existence
+        redFlags: email.redFlags || [],
+        // Keep snake_case for sender_email as expected by template
+      }));
       if (emails.value.length > 0) {
         selectedEmailId.value = emails.value[0].id;
       }
@@ -55,16 +68,13 @@ const fetchScenarios = async () => {
 
 const startTimer = () => {
   stopTimer();
-  timeLeft.value = 30; // Reset to 30s per email
+  timeLeft.value = 30;
   timerInterval = setInterval(() => {
     if (timeLeft.value > 0) {
       timeLeft.value--;
     } else {
       stopTimer();
-      // Time out counts as a mistake? Or just notify? 
-      // User case: "mimics high-pressure environment". 
-      // Let's treat valid timeout as a passive choice if we want to be strict, 
-      // or just force a decision. For now, we'll just pause and show 'Time's Up'.
+
       handleDecision(null, true);
     }
   }, 1000);
@@ -82,12 +92,69 @@ const selectEmail = (id) => {
   startTimer();
   // Clear any existing feedback when switching
   feedback.value = null;
+  foundFlags.value.clear();
+  missingFlagsError.value = false;
 };
 
 // Computed property to get the full object of the currently selected email
 const currentEmail = computed(() => {
   return emails.value.find(e => e.id === selectedEmailId.value);
 });
+
+// Helper to check if header elements (Sender Name / Email) are suspicious
+const isSenderNameRisky = (email) => {
+  if (!email || !email.redFlags) return 'safe';
+  return email.redFlags.some(flag =>
+    /Sender Name|Typosquatting/i.test(flag)
+  ) ? 'danger' : 'safe';
+};
+
+// Helper to check if the sender email/domain is suspicious
+const isSenderEmailRisky = (email) => {
+  if (!email || !email.redFlags) return 'safe';
+  return email.redFlags.some(flag =>
+    /Domain|Address|Email|Gmail|Hotmail|Yahoo|AOL/i.test(flag)
+  ) ? 'danger' : 'safe';
+};
+
+// Handle clicking on investigate areas
+const handleInvestigate = (event) => {
+  const target = event.target.closest('.investigate-area');
+  if (!target) return;
+
+  const status = target.dataset.status;
+
+  // Logic: 
+  // If dangerous (red flag) -> mark found
+  // If safe (false positive) -> deduct life? or just warn?
+
+  if (status === 'danger') {
+    if (!target.classList.contains('found')) {
+      target.classList.add('found');
+      // Create a unique key for the flag based on text content
+      foundFlags.value.add(target.textContent.trim());
+
+      // Calculate remaining flags
+      const totalFlags = currentEmail.value.redFlags.length;
+      const progress = foundFlags.value.size;
+
+      // If we cleared the "missing flags" error condition, hide it
+      if (progress >= totalFlags) {
+        missingFlagsError.value = false;
+      }
+    }
+  } else {
+    // False positive!
+    if (!target.classList.contains('clicked-safe')) {
+      target.classList.add('clicked-safe');
+      lives.value--; // Deduct life for false positive
+      streak.value = 0; // Reset streak on mistake
+
+      // Show brief visual feedback (optional toast)
+      // For now, the red outline class 'clicked-safe' is the feedback
+    }
+  }
+};
 
 const handleDecision = (markedSafe, isTimeout = false) => {
   stopTimer();
@@ -98,6 +165,18 @@ const handleDecision = (markedSafe, isTimeout = false) => {
   let title = "";
   let message = "";
 
+  // Rule 1: All red flags must be spotted if it's a phishing email
+  if (isActuallyPhishing && !markedSafe && !isTimeout) {
+    const totalFlags = currentEmail.value.redFlags.length;
+
+    // block the decision (unless it's a timeout)
+    if (foundFlags.value.size < totalFlags) {
+      missingFlagsError.value = true;
+
+      return;
+    }
+  }
+
   if (isTimeout) {
     success = false;
     title = "Time's Up!";
@@ -106,20 +185,16 @@ const handleDecision = (markedSafe, isTimeout = false) => {
     incorrectCount.value++;
     lives.value--;
   } else {
-    // Logic: 
-    // markedSafe=true AND isPhishing=false -> CORRECT
-    // markedSafe=false (Reported) AND isPhishing=true -> CORRECT
     success = (markedSafe && !isActuallyPhishing) || (!markedSafe && isActuallyPhishing);
 
     if (success) {
       title = "Correct!";
       message = markedSafe
-        ? "Good eye. This email is safe."
+        ? "Good catch. This email is safe."
         : "Well done! You spotted the phishing attempt.";
       streak.value++;
       correctCount.value++;
-      // Difficulty progression: if streak % 3 == 0, maybe increase difficulty? 
-      // For now, simpler implementation just tracks streak.
+      
     } else {
       title = "Incorrect";
       message = currentEmail.value.educationalMessage || currentEmail.value.reason || "You missed the signs.";
@@ -134,17 +209,12 @@ const handleDecision = (markedSafe, isTimeout = false) => {
 
 const closeFeedback = () => {
   feedback.value = null;
-  // Auto-advance or just let user pick next? 
-  // Let's just restart timer if they stay on same email, 
-  // OR better, marking an email as "done" would be good UX.
-  // For this prototype, we just let them click another email or re-read.
-  // Ideally, remove email from list or mark 'completed'.
 };
 
 const startGame = async () => {
   console.log('Game started! transitions occurring...');
   gameStarted.value = true;
-  await fetchScenarios(); // Load scenarios from API
+  await fetchScenarios(); 
   startTimer();
 };
 
@@ -325,7 +395,7 @@ onUnmounted(() => {
           </div>
 
           <!-- Dynamic Content -->
-          <div v-else-if="currentEmail" class="email-content-wrapper">
+          <div v-else-if="currentEmail" class="email-content-wrapper" @click="handleInvestigate">
 
             <div class="email-header-area">
               <div class="email-subject-large">{{ currentEmail.subject }}</div>
@@ -333,19 +403,38 @@ onUnmounted(() => {
                 <!-- UPDATED: Matching Avatar Icon -->
                 <div class="email-avatar large">{{ currentEmail.initials }}</div>
                 <div class="sender-info">
-                  <span class="sender-name">{{ currentEmail.sender }}</span>
-                  <span class="sender-email">&lt;{{ currentEmail.sender_email }}&gt;</span>
+                  <span class="sender-name investigate-area" :data-status="isSenderNameRisky(currentEmail)"
+                    title="Click to investigate sender name">{{ currentEmail.sender }}</span>
+                  <span class="sender-email investigate-area" :data-status="isSenderEmailRisky(currentEmail)"
+                    title="Click to investigate email address">&lt;{{ currentEmail.sender_email }}&gt;</span>
                 </div>
                 <div class="email-timestamp">{{ currentEmail.date }}</div>
               </div>
             </div>
 
             <div class="email-body-area">
-              <div v-html="currentEmail.body" class="email-body-content"></div>
+              <div v-html="currentEmail.body" class="email-body-content" :class="{ 'blur-content': missingFlagsError }">
+              </div>
+
+              <div v-if="missingFlagsError" class="investigate-warning-overlay">
+                <div class="warning-box">
+                  <ExclamationTriangleIcon class="warning-icon-lg" />
+                  <span>You must find all red flags before reporting!</span>
+                  <span class="warning-sub">{{ foundFlags.size }} / {{ currentEmail.redFlags.length }} found</span>
+                  <button @click="missingFlagsError = false" class="secondary-btn small-btn">KEEP LOOKING</button>
+                </div>
+              </div>
             </div>
 
             <!-- ACTION FOOTER -->
             <div class="email-action-footer">
+              <div class="found-counter" v-if="currentEmail.redFlags.length > 0">
+                <span class="label">RED FLAGS:</span>
+                <span class="count" :class="{ 'all-found': foundFlags.size === currentEmail.redFlags.length }">
+                  {{ foundFlags.size }} / {{ currentEmail.redFlags.length }}
+                </span>
+              </div>
+
               <button @click="handleDecision(true)" class="action-btn safe-btn">
                 <ShieldCheckIcon class="btn-icon" />
                 Mark Safe
@@ -386,6 +475,74 @@ onUnmounted(() => {
 
   </div>
 </template>
+
+<style>
+/* Global styles for dynamic content */
+.investigate-area {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  border: 1px dashed transparent;
+}
+
+.investigate-area:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 229, 255, 0.3);
+}
+
+.investigate-area.found {
+  background-color: rgba(220, 38, 38, 0.2);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  cursor: default;
+}
+
+.investigate-area.clicked-safe {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.email-header-area .investigate-area {
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px dashed transparent;
+  transition: all 0.2s;
+  /* Ensure header text remains aligned */
+  display: inline-block;
+}
+
+.email-header-area .investigate-area:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 229, 255, 0.3);
+  cursor: pointer;
+}
+</style>
 
 <style scoped>
 /* --- IMPORT GOOGLE FONT (Gemunu Libre) --- */
@@ -899,14 +1056,63 @@ onUnmounted(() => {
 }
 
 .email-body-area {
+  flex: 1;
   padding: 30px;
-  flex-grow: 1;
-  overflow-y: auto;
-  /* Allow scrolling if email is long */
-  text-align: left;
-  color: #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
+  overflow-y: auto;
+  position: relative;
+}
+
+.email-body-content.blur-content {
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.investigate-warning-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.warning-box {
+  background: #1e293b;
+  border: 1px solid #f59e0b;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.warning-icon-lg {
+  width: 48px;
+  height: 48px;
+  color: #f59e0b;
+}
+
+.warning-sub {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.small-btn {
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  margin-top: 10px;
 }
 
 .email-body-content p {
@@ -1057,12 +1263,42 @@ onUnmounted(() => {
 
 /* Action Footer */
 .email-action-footer {
-  padding: 20px;
-  background: #fff;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  background: #0f172a;
+  border-top: 1px solid #334155;
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: flex-end;
+  gap: 15px;
+  align-items: center;
+}
+
+.found-counter {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.found-counter .label {
+  font-family: 'Gemunu Libre';
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.found-counter .count {
+  font-family: 'Gemunu Libre';
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.found-counter .count.all-found {
+  color: #4ade80;
 }
 
 .action-btn {

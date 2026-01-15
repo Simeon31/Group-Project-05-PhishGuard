@@ -98,27 +98,32 @@ export default defineEventHandler(async (event) => {
                 continue;
             }
 
-            // Check if scenario already exists
-            const existing = await client.query(
-                `SELECT "id" FROM ${schema}.${psTable} WHERE "externalid" = $1`,
-                [scenario.id]
-            );
-
-            if (existing.rows.length > 0) {
-                console.log(`Scenario ${scenario.id} already exists, skipping...`);
-                continue;
-            }
-
-            // Insert PhishingScenario
-            const scenarioResult = await client.query(
-                `INSERT INTO ${schema}.${psTable} 
+            // UPSERT PhishingScenario
+            const queryText = `
+                INSERT INTO ${schema}.${psTable} 
                 ("attacktypeid", "attackbody", "difficultylevel", 
                  "sender", "senderemail", "initials", "subject", "preview", 
                  "educationalmessage", "hint", "isphishing", "externalid", "timestamp",
                  "attackcontext", "attackquestion", "answer") 
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(), $13, $14, $15)
-                RETURNING "id"`,
-                [
+                ON CONFLICT ("externalid") DO UPDATE SET
+                    "attacktypeid" = EXCLUDED."attacktypeid",
+                    "attackbody" = EXCLUDED."attackbody",
+                    "difficultylevel" = EXCLUDED."difficultylevel",
+                    "sender" = EXCLUDED."sender",
+                    "senderemail" = EXCLUDED."senderemail",
+                    "initials" = EXCLUDED."initials",
+                    "subject" = EXCLUDED."subject",
+                    "preview" = EXCLUDED."preview",
+                    "educationalmessage" = EXCLUDED."educationalmessage",
+                    "hint" = EXCLUDED."hint",
+                    "isphishing" = EXCLUDED."isphishing",
+                    "attackcontext" = EXCLUDED."attackcontext",
+                    "attackquestion" = EXCLUDED."attackquestion",
+                    "answer" = EXCLUDED."answer"
+                RETURNING "id"`;
+
+            const scenarioResult = await client.query(queryText, [
                     attackTypeId,
                     scenario.body,
                     scenario.difficulty.toString(),
@@ -137,15 +142,21 @@ export default defineEventHandler(async (event) => {
                 ]
             );
 
-            // Insert Red Flags
-            if (scenarioResult.rows.length > 0 && scenario.redFlags && scenario.redFlags.length > 0) {
+            // Update Red Flags (Delete existing and re-insert)
+            if (scenarioResult.rows.length > 0) {
                 const scenarioId = scenarioResult.rows[0].id;
-                for (const flag of scenario.redFlags) {
-                    await client.query(
-                        `INSERT INTO ${schema}.${siTable} ("phishingscenarioid", "warningsign", "timestamp")
-                         VALUES ($1, $2, NOW())`,
-                        [scenarioId, flag]
-                    );
+
+                // Clear existing flags for this scenario
+                await client.query(`DELETE FROM ${schema}.${siTable} WHERE "phishingscenarioid" = $1`, [scenarioId]);
+
+                if (scenario.redFlags && scenario.redFlags.length > 0) {
+                    for (const flag of scenario.redFlags) {
+                        await client.query(
+                            `INSERT INTO ${schema}.${siTable} ("phishingscenarioid", "warningsign", "timestamp")
+                             VALUES ($1, $2, NOW())`,
+                            [scenarioId, flag]
+                        );
+                    }
                 }
             }
         }
