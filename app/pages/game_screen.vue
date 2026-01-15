@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onUnmounted } from 'vue';
 // Import Heroicons
-import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, FireIcon, ClockIcon } from '@heroicons/vue/24/solid';
+import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, FireIcon, ClockIcon, XMarkIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
 
 // We use a 'ref' to track if the game has started. 
 // true = show game, false = show welcome screen.
@@ -24,7 +24,7 @@ const feedback = ref(null);
 const loading = ref(false);
 const error = ref(null);
 
-// Interactive Red Flag Stats
+// Red Flag Stats
 const foundFlags = ref(new Set());
 const requiredFlags = computed(() => {
   if (!currentEmail.value || !currentEmail.value.redFlags) return 0;
@@ -61,7 +61,7 @@ const fetchScenarios = async () => {
     }
   } catch (err) {
     console.error('Failed to fetch scenarios:', err);
-    error.value = 'Failed to load emails. Please try again.';
+    error.value = 'Failed to load emails. Please try again later.';
   } finally {
     loading.value = false;
   }
@@ -228,11 +228,10 @@ const toggleDontShow = () => {
   dontShowAgain.value = !dontShowAgain.value;
 };
 
-<<<<<<< HEAD
 const toggleHelpModal = () => {
   showHelpModal.value = !showHelpModal.value;
 };
-=======
+
 onUnmounted(() => {
   stopTimer();
 });
@@ -240,21 +239,12 @@ onUnmounted(() => {
 
 <template>
   <div class="page-container">
-<<<<<<< HEAD
-    
+
     <!-- === WELCOME SCREEN (Overlay) === -->
     <Transition name="fade" appear>
       <div v-if="!gameStarted" class="welcome-wrapper">
         <div class="welcome-card">
-          
-=======
 
-    <Transition name="fade" appear>
-      <div v-if="!gameStarted" class="welcome-wrapper">
-        <div class="welcome-card">
-
-          <!-- 1. Header: Logo Top Left (Centered in row) -->
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
           <div class="welcome-header-row">
             <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="welcome-logo-small" />
             <div class="welcome-title-small">Welcome to phishguard</div>
@@ -293,14 +283,6 @@ onUnmounted(() => {
           </div>
 
           <div class="welcome-footer">
-<<<<<<< HEAD
-            <button 
-              @click="toggleDontShow" 
-              class="secondary-btn toggle-btn"
-              :class="{ 'active': dontShowAgain }"
-            >
-=======
-            <!-- "Don't show again" as a toggle button -->
             <button @click="toggleDontShow" class="secondary-btn toggle-btn" :class="{ 'active': dontShowAgain }">
               <span v-if="dontShowAgain">☑ Don't show again</span>
               <span v-else>☐ Don't show again</span>
@@ -438,10 +420,18 @@ onUnmounted(() => {
             </div>
 
             <div class="email-body-area">
-              <div v-html="currentEmail.body" class="email-body-content"></div>
+              <div v-html="currentEmail.body" class="email-body-content" :class="{ 'blur-content': missingFlagsError }">
+              </div>
+
+              <div v-if="missingFlagsError" class="investigate-warning-overlay">
+                <div class="warning-box">
+                  <ExclamationTriangleIcon class="warning-icon-lg" />
+                  <span>You must find all red flags before reporting!</span>
+                  <span class="warning-sub">{{ foundFlags.size }} / {{ currentEmail.redFlags.length }} found</span>
+                  <button @click="missingFlagsError = false" class="secondary-btn small-btn">KEEP LOOKING</button>
+                </div>
+              </div>
             </div>
-<<<<<<< HEAD
-=======
 
             <!-- ACTION FOOTER -->
             <div class="email-action-footer">
@@ -628,14 +618,8 @@ onUnmounted(() => {
 }
 
 .welcome-card {
-<<<<<<< HEAD
-  background: rgb(23, 28, 42); 
-  padding: 30px; 
-=======
   background: rgb(23, 28, 42);
-  /* Reduced padding to fit better */
   padding: 30px;
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
   border-radius: 12px;
   border: 1px solid rgba(0, 229, 255, 0.2);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -647,35 +631,6 @@ onUnmounted(() => {
   text-align: center;
 }
 
-<<<<<<< HEAD
-/* Header */
-.welcome-header-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px; }
-.welcome-logo-small { width: 80px; height: auto; }
-.welcome-title-small { font-family: 'Gemunu Libre', sans-serif; font-size: 2.8rem; font-weight: 600; color: white; letter-spacing: 2px; text-transform: uppercase; }
-
-/* Hero Text */
-.welcome-hero { margin-bottom: 20px; }
-.welcome-hero h2 { font-family: 'Segoe UI', sans-serif; font-size: 1.4rem; font-weight: 600; color: #00e5ff; margin: 0 0 5px 0; }
-.welcome-hero p { font-size: 1rem; color: #94a3b8; margin: 0; }
-
-/* Features Grid */
-.features-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; text-align: left; }
-.feature-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; }
-.f-title { font-family: 'Gemunu Libre', sans-serif; font-size: 1.3rem; font-weight: 700; color: white; white-space: nowrap; }
-.f-divider { font-family: 'Gemunu Libre', sans-serif; font-size: 1.3rem; color: #00e5ff; margin: 0 10px; font-weight: 700; }
-.f-desc { font-family: 'Gemunu Libre', sans-serif; font-size: 1.2rem; color: #cbd5e1; white-space: nowrap; }
-
-/* Look For */
-.look-for-section { background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 10px 15px; margin-bottom: 20px; text-align: left; }
-.look-for-title { font-weight: 700; color: #e2e8f0; margin-bottom: 5px; }
-.look-for-list { list-style: none; padding: 0; margin: 0; }
-.look-for-list li { font-size: 0.9rem; color: #94a3b8; margin-bottom: 3px; }
-
-/* Footer */
-.welcome-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; }
-.footer-buttons { display: flex; gap: 10px; }
-=======
-/* 1. Header (Centered) */
 .welcome-header-row {
   display: flex;
   align-items: center;
@@ -698,9 +653,7 @@ onUnmounted(() => {
   text-transform: uppercase;
 }
 
-/* 2. Hero Text (Centered) */
 .welcome-hero {
-  /* Reduced margin to save vertical space */
   margin-bottom: 20px;
 }
 
@@ -711,30 +664,13 @@ onUnmounted(() => {
   color: #00e5ff;
   margin: 0 0 5px 0;
 }
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 
-/* Buttons */
-.primary-btn { background: #00e5ff; color: #0f172a; padding: 10px 24px; border-radius: 6px; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; letter-spacing: 1px; border: none; cursor: pointer; transition: background 0.2s; }
-.primary-btn:hover { background: #00b8d4; }
+.welcome-hero p {
+  font-size: 1rem;
+  color: #94a3b8;
+  margin: 0;
+}
 
-<<<<<<< HEAD
-.secondary-btn { background: transparent; color: #00e5ff; padding: 10px 20px; border: 1px solid #00e5ff; border-radius: 6px; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
-.secondary-btn:hover { background: rgba(0, 229, 255, 0.1); }
-
-.toggle-btn { font-size: 0.9rem; padding: 10px 15px; display: flex; align-items: center; justify-content: center; }
-.toggle-btn.active { background: rgba(0, 229, 255, 0.2); border-color: #00e5ff; color: #fff; }
-
-.mt-3 { margin-top: 1rem; }
-.small-btn { width: 100%; padding: 8px 0; font-size: 1.1rem; }
-
-/* BOTTOM LEFT GUIDE BUTTON STYLE */
-.bottom-left-btn {
-  /* Changed from fixed to absolute to align with mail-container bottom */
-  position: absolute; 
-  bottom: 30px;
-  left: 30px;
-=======
-/* 3. Features Grid (Stacked One Under Another - Single Line) */
 .features-grid {
   display: flex;
   flex-direction: column;
@@ -851,7 +787,32 @@ onUnmounted(() => {
 .toggle-btn {
   font-size: 0.9rem;
   padding: 10px 15px;
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-btn.active {
+  background: rgba(0, 229, 255, 0.2);
+  border-color: #00e5ff;
+  color: #fff;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.small-btn {
+  width: 100%;
+  padding: 8px 0;
+  font-size: 1.1rem;
+}
+
+/* BOTTOM LEFT GUIDE BUTTON */
+.bottom-left-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -877,12 +838,6 @@ onUnmounted(() => {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   color: #00e5ff;
-=======
-.toggle-btn.active {
-  background: rgba(0, 229, 255, 0.2);
-  border-color: #00e5ff;
-  color: #fff;
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 }
 
 .btn-icon {
@@ -891,37 +846,14 @@ onUnmounted(() => {
 }
 
 /* --- GAME UI STYLES --- */
-.game-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.game-ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
-<<<<<<< HEAD
-/* Sidebar Elements */
-.logo-container { position: absolute; top: 30px; left: 30px; display: flex; align-items: center; gap: 5px; z-index: 10; }
-.logo-icon { width: 80px; height: auto; filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.3)); }
-.logo-text { font-family: 'Gemunu Libre', sans-serif; font-size: 2rem; font-weight: 700; color: black; text-shadow: none; letter-spacing: 2px; margin-top: 5px; }
-
-.sidebar-container { position: absolute; top: 130px; left: 30px; width: 260px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 12px; backdrop-filter: blur(8px); padding: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 5; }
-
-.stats-container { position: absolute; top: 380px; left: 30px; width: 260px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 12px; backdrop-filter: blur(8px); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 5; }
-
-/* Mail Interface */
-.mail-container { position: absolute; top: 30px; right: 30px; bottom: 30px; left: 320px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 12px; backdrop-filter: blur(8px); display: flex; overflow: hidden; }
-
-/* Inbox List */
-.inbox-list { width: 35%; border-right: 1px solid rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; }
-.section-header { font-family: 'Gemunu Libre', sans-serif; font-size: 1.5rem; font-weight: 700; color: #334155; padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left; flex-shrink: 0; }
-.email-items-wrapper { overflow-y: auto; flex-grow: 1; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
-.email-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; cursor: pointer; transition: all 0.2s ease; border-left: 3px solid transparent; text-align: left; }
-.email-item:hover { background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-.email-item.selected { background: white; border-left-color: rgb(43, 84, 192); box-shadow: 0 4px 10px rgba(43, 84, 192, 0.15); }
-.email-item.unread .email-subject { font-weight: 700; color: #0f172a; }
-.email-avatar { width: 40px; height: 40px; background: rgb(43, 84, 192); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
-.email-details { display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; }
-.email-top-row { display: flex; justify-content: space-between; margin-bottom: 2px; }
-.email-sender { font-size: 0.9rem; font-weight: 600; color: #1e293b; }
-.email-date { font-size: 0.75rem; color: #64748b; }
-.email-subject { font-size: 0.9rem; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.email-preview { font-size: 0.8rem; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-=======
 /* --- SIDEBAR ELEMENTS (LEFT) --- */
 .logo-container {
   position: absolute;
@@ -1106,36 +1038,7 @@ onUnmounted(() => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 
-/* Message Preview */
-.message-preview { width: 65%; display: flex; flex-direction: column; background: #f8fafc; }
-.email-content-wrapper { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-.email-header-area { padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1); background: white; text-align: left; flex-shrink: 0; }
-.email-subject-large { font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-bottom: 15px; font-family: 'Segoe UI', sans-serif; text-align: left; }
-.email-meta-row { display: flex; align-items: center; gap: 12px; }
-.email-avatar.large { width: 50px; height: 50px; font-size: 1.2rem; }
-.sender-info { display: flex; flex-direction: column; flex-grow: 1; }
-.sender-name { font-weight: 700; color: #0f172a; font-size: 1rem; }
-.sender-email { font-size: 0.85rem; color: #64748b; }
-.email-timestamp { font-size: 0.85rem; color: #94a3b8; }
-.email-body-area { padding: 30px; flex-grow: 1; overflow-y: auto; text-align: left; color: #334155; font-size: 1rem; line-height: 1.6; }
-.empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: #94a3b8; }
-.empty-icon { width: 60px; height: 60px; margin-bottom: 10px; color: #cbd5e1; }
-
-<<<<<<< HEAD
-.round-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.8rem; font-weight: 700; color: black; letter-spacing: 1px; }
-.lives-wrapper { display: flex; gap: 8px; margin-bottom: 5px; }
-.heart-icon { width: 37px; height: 37px; color: #ef4444; filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3)); transition: all 0.3s ease; }
-.heart-icon.lost { color: #cbd5e1; filter: none; }
-.score-wrapper { display: flex; justify-content: space-around; width: 100%; padding-top: 10px; border-top: 1px solid rgba(0, 0, 0, 0.1); }
-.score-item { display: flex; align-items: center; gap: 8px; }
-.score-icon { width: 28px; height: 28px; }
-.correct-color { color: #22c55e; }
-.incorrect-color { color: #ef4444; }
-.score-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.5rem; font-weight: 700; color: #334155; }
-=======
-/* 2. Message Preview (Right Column) */
 .message-preview {
   width: 65%;
   display: flex;
@@ -1725,5 +1628,4 @@ onUnmounted(() => {
 .error-icon {
   color: #ef4444 !important;
 }
->>>>>>> 71118bbcb2d6bd481e46d6c45e9913430353c338
 </style>
