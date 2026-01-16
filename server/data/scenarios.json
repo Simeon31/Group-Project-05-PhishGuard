@@ -167,7 +167,7 @@
     "initials": "CS",
     "subject": "Storage Limit Reached: Action Required",
     "preview": "Your cloud storage is full. Incoming files may be...",
-    "body": "Dear User,\n\nYour cloud storage has reached 98% capacity. You will not be able to receive new files or sync documents starting tomorrow.\n\nPlease upgrade your storage or verify your current tier to clear this error.\n\nBest,\nCloud Ops Team",
+    "body": "Dear User,\nYour cloud storage has reached 98% capacity. You will not be able to receive new files or sync documents starting tomorrow.\nPlease upgrade your storage or verify your current tier to clear this error.\n\nBest,\nDropbox Team",
     "custom_links": [
       {
         "text": "upgrade your storage",
@@ -192,7 +192,7 @@
     "initials": "AC",
     "subject": "Payment Method Expiring Soon",
     "preview": "Your credit card ending in... is set to expire.",
-    "body": "Hi there,\n\nThis is a reminder that the payment method associated with your Creative Cloud membership is set to expire soon.\n\nPlease update your billing info to ensure uninterrupted access to Photoshop and Acrobat.\n\nThanks,\nThe Adobe Team",
+    "body": "Hi there,\n\nThis is a reminder that the payment method associated with your Creative Cloud membership is set to expire soon.\nPlease update your billing info to ensure uninterrupted access to Photoshop and Acrobat.\n\nThanks,\nAdobe Creative Cloud Billing Team",
     "custom_links": [
       {
         "text": "update your billing info",
@@ -217,7 +217,7 @@
     "initials": "IT",
     "subject": "MFA Policy Update: Re-registration Required",
     "preview": "Due to a security policy update, all employees must...",
-    "body": "Hi Team,\n\nAs part of our Q1 Security Policy update, we are migrating to a new Multi-Factor Authentication (MFA) provider. All active directories must be synced by 5:00 PM Friday.\n\nPlease validate your current credentials to initiate the migration for your account.\n\nIf you have questions, please submit a ticket.\n\nRegards,\nIT Infrastructure",
+    "body": "Hi Team,\n\nAs part of our Q1 Security Policy update, we are migrating to a new Multi-Factor Authentication (MFA) provider. All active directories must be synced by 5:00 PM Friday.\nPlease validate your current credentials to initiate the migration for your account.\nIf you have questions, please submit a ticket.\n\nRegards,\nIT Infrastructure",
     "custom_links": [
       {
         "text": "validate your current credentials",
@@ -242,7 +242,7 @@
     "initials": "DS",
     "subject": "Completed: Master Service Agreement - Q3",
     "preview": "All parties have signed the document. Please view the...",
-    "body": "Your document has been completed.\n\nReview and download the final signed copy of Master Service Agreement - Q3.\n\n[ View Completed Document ]\n\nPowered by DocuSign",
+    "body": "Hello!\n\n Your document has been completed.\nReview and download the final signed copy of Master Service Agreement - Q3.\n\n[ View Completed Document ]\n\nPowered by DocuSign",
     "custom_links": [
       {
         "text": "[ View Completed Document ]",
@@ -267,7 +267,7 @@
     "initials": "SJ",
     "subject": "Review needed: Q1 Financials",
     "preview": "I need you to take a look at these figures before...",
-    "body": "Hi,\n\nI'm about to step into a board meeting, but I need you to double-check the attached figures on the secure drive.\n\nPlease login to view the report and let me know if the variance in column D is correct.\n\nThanks,\nSarah\nSent from my iPhone",
+    "body": "Hi,\n\nI'm about to step into a board meeting, but I need you to double-check the attached figures on the secure drive.\nPlease login to view the report and let me know if the variance in column D is correct.\n\nThanks,\nSarah\nSent from my iPhone",
     "custom_links": [
       {
         "text": "login to view the report",
@@ -292,7 +292,7 @@
     "initials": "LI",
     "subject": "You have 3 new messages from Recruiters",
     "preview": "Talent scouts are looking at your profile. See who...",
-    "body": "Your profile is getting noticed.\n\nYou appeared in 12 searches this week, and you have 3 unread messages from Talent Acquisition Leads at Fortune 500 companies.\n\n[ View Messages ]\n\nUnsubscribe | Help Center",
+    "body": "Your profile is getting noticed.\nYou appeared in 12 searches this week, and you have 3 unread messages from Talent Acquisition Leads at Fortune 500 companies.\n\n[ View Messages ]\n\nUnsubscribe | Help Center",
     "custom_links": [
       {
         "text": "[ View Messages ]",
@@ -317,7 +317,7 @@
     "initials": "ZM",
     "subject": "Missed Meeting: Project Delta Standup",
     "preview": "You missed a scheduled meeting. A recording is available...",
-    "body": "Hello,\n\nYou were marked as absent for the Project Delta Standup meeting held at 9:00 AM.\n\nThe host has provided a cloud recording of the session. You must authenticate here to watch the recording.\n\nPasscode: 882931\n\nZoom Video Communications, Inc.",
+    "body": "Hello,\n\nYou were marked as absent for the Project Delta Standup meeting held at 9:00 AM.\nThe host has provided a cloud recording of the session. You must authenticate here to watch the recording.\n\nPasscode: 882931\n\nZoom Video Communications, Inc.",
     "custom_links": [
       {
         "text": "authenticate here to watch",
@@ -342,7 +342,7 @@
     "initials": "SL",
     "subject": "New device signed in to your workspace",
     "preview": "A new device (iPhone 14) just signed in to...",
-    "body": "Slack Account Alert\n\nWe detected a new sign-in to [Company Name] Workspace.\n\nDevice: iPhone 14\nLocation: Dallas, TX (IP: 192.168.0.1)\n\nIf this was you, you can ignore this message. If not, please review device activity immediately.\n\nSent by Slackbot",
+    "body": "Slack Account Alert\n\nWe detected a new sign-in to [Company Name] Workspace.\nDevice: iPhone 14\nLocation: Dallas, TX (IP: 192.168.0.1)\n\nIf this was you, you can ignore this message. If not, please review device activity immediately.\n\nSent by Slackbot",
     "custom_links": [
       {
         "text": "review device activity",
@@ -367,7 +367,7 @@
     "initials": "CH",
     "subject": "URGENT: Verify charge of $4,200.00",
     "preview": "Did you authorize a payment to Best Buy for...",
-    "body": "Chase Fraud Protection\n\nWe declined a transaction of $4,200.00 at Best Buy on your Corporate Card ending in 4092.\n\nTo authorize this charge, reply YES. To block this card and reset your access, sign in to the Fraud Center.\n\nJPMorgan Chase & Co.",
+    "body": "Chase Fraud Protection\n\nWe declined a transaction of $4,200.00 at Best Buy on your Corporate Card ending in 4092.\nTo authorize this charge, reply YES. To block this card and reset your access, sign in to the Fraud Center.\n\nJPMorgan Chase & Co.",
     "custom_links": [
       {
         "text": "sign in to the Fraud Center",
