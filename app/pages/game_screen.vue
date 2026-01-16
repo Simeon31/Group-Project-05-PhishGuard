@@ -51,7 +51,7 @@ const fetchScenarios = async () => {
     if (response.success && response.data) {
       emails.value = response.data.map(email => ({
         ...email,
-        // API returns camelCase for these fields, just ensure array existence
+        // API returns camelCase for these fields
         redFlags: email.redFlags || [],
         // Keep snake_case for sender_email as expected by template
       }));
@@ -127,7 +127,7 @@ const handleInvestigate = (event) => {
 
   // Logic: 
   // If dangerous (red flag) -> mark found
-  // If safe (false positive) -> deduct life? or just warn?
+  
 
   if (status === 'danger') {
     if (!target.classList.contains('found')) {

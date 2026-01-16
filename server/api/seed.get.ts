@@ -13,10 +13,23 @@ export default defineEventHandler(async (event) => {
         const atTable = '"attacktype"';
         const psTable = '"phishingscenario"';
         const siTable = '"suspiciousindicator"';
+        const uTable = '"users"';
 
         console.log(`Using schema: ${schema}`);
 
-        // 0. Add missing columns if they don't exist
+
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS ${schema}.${uTable} (
+                "id" SERIAL PRIMARY KEY,
+                "email" varchar(255) UNIQUE NOT NULL,
+                "name" varchar(255),
+                "picture" varchar(500),
+                "auth_id" varchar(255) UNIQUE,
+                "last_login" TIMESTAMP DEFAULT NOW(),
+                "created_at" TIMESTAMP DEFAULT NOW()
+            );
+        `);
+
         await client.query(`
             ALTER TABLE ${schema}.${psTable}
             ADD COLUMN IF NOT EXISTS "sender" varchar(255),
@@ -124,22 +137,22 @@ export default defineEventHandler(async (event) => {
                 RETURNING "id"`;
 
             const scenarioResult = await client.query(queryText, [
-                    attackTypeId,
-                    scenario.body,
-                    scenario.difficulty.toString(),
-                    scenario.sender,
-                    scenario.sender_email,
-                    scenario.initials,
-                    scenario.subject,
-                    scenario.preview,
-                    scenario.educationalMessage,
-                    scenario.hint || null,
-                    scenario.isPhishing,
-                    scenario.id,
-                    `Email from ${scenario.sender}`, 
-                    scenario.subject,                
-                    scenario.isPhishing ? 'Phishing' : 'Safe' 
-                ]
+                attackTypeId,
+                scenario.body,
+                scenario.difficulty.toString(),
+                scenario.sender,
+                scenario.sender_email,
+                scenario.initials,
+                scenario.subject,
+                scenario.preview,
+                scenario.educationalMessage,
+                scenario.hint || null,
+                scenario.isPhishing,
+                scenario.id,
+                `Email from ${scenario.sender}`,
+                scenario.subject,
+                scenario.isPhishing ? 'Phishing' : 'Safe'
+            ]
             );
 
             // Update Red Flags (Delete existing and re-insert)
