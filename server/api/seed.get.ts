@@ -104,8 +104,8 @@ export default defineEventHandler(async (event) => {
                 ("attacktypeid", "attackbody", "difficultylevel", 
                  "sender", "senderemail", "initials", "subject", "preview", 
                  "educationalmessage", "hint", "isphishing", "externalid", "timestamp",
-                 "attackcontext", "attackquestion", "answer") 
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(), $13, $14, $15)
+                 "attackcontext", "attackquestion", "answer", "custom_links") 
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(), $13, $14, $15, $16)
                 ON CONFLICT ("externalid") DO UPDATE SET
                     "attacktypeid" = EXCLUDED."attacktypeid",
                     "attackbody" = EXCLUDED."attackbody",
@@ -120,7 +120,8 @@ export default defineEventHandler(async (event) => {
                     "isphishing" = EXCLUDED."isphishing",
                     "attackcontext" = EXCLUDED."attackcontext",
                     "attackquestion" = EXCLUDED."attackquestion",
-                    "answer" = EXCLUDED."answer"
+                    "answer" = EXCLUDED."answer",
+                    "custom_links" = EXCLUDED."custom_links"
                 RETURNING "id"`;
 
             const scenarioResult = await client.query(queryText, [
@@ -138,7 +139,8 @@ export default defineEventHandler(async (event) => {
                     scenario.id,
                     `Email from ${scenario.sender}`, 
                     scenario.subject,                
-                    scenario.isPhishing ? 'Phishing' : 'Safe' 
+                    scenario.isPhishing ? 'Phishing' : 'Safe',
+                    scenario.custom_links  // Remove JSON.stringify to pass the array directly
                 ]
             );
 

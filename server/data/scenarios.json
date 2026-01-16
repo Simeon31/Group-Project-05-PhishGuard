@@ -1,403 +1,3351 @@
 [
-    {
-        "id": "phish_av_000",
-        "type": "Credential Harvesting",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "Netf1ix Support",
-        "sender_email": "support@netfl1x-billing-alert.com",
-        "initials": "NS",
-        "subject": "Final Notice: Your Subscription is Suspended",
-        "preview": "We could not process your last payment. Your account is now...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hi User,</span></p><p>We tried to renew your subscription but the payment failed. <span class=\"investigate-area\" data-status=\"danger\">Your account is locked</span> until you update your details.</p><p><span class=\"investigate-area\" data-status=\"danger\">[ CLICK HERE TO RE-ACTIVATE ]</span></p><p>If you don't act in 24 hours your account will be deleted forever.</p><p>Cheers,<br><span class=\"investigate-area\" data-status=\"safe\">Netflix Team</span></p>",
-        "redFlags": [
-            "Typosquatting in Sender Name (Netf1ix)",
-            "Extreme/Unrealistic Threat (Deleted forever)",
-            "Generic Greeting"
-        ],
-        "hint": "Check the spelling of the company name in the sender field.",
-        "educationalMessage": "This is a basic phishing attempt. Legitimate companies like Netflix will never threaten to delete your account 'forever' after 24 hours of a failed payment, and the sender name contains a number '1' instead of an 'l'."
-    },
-    {
-        "id": "phish_av_001",
-        "type": "Credential Harvesting",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "Pay_Pal Security",
-        "sender_email": "security-alert-paypal@hotmail.com",
-        "initials": "PS",
-        "subject": "Warning: Unauthorized access detected",
-        "preview": "We noticed a login from a new device in Russia...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Dear Client,</span></p><p>We detected a login from <span class=\"investigate-area\" data-status=\"safe\">Moscow, Russia</span>.</p><p>Kindly <span class=\"investigate-area\" data-status=\"danger\">click the link below</span> to verify your password immediately or we will freeze your funds.</p><p><span class=\"investigate-area\" data-status=\"danger\">http://bit.ly/secure-paypal-login</span></p><p>Thanks,<br><span class=\"investigate-area\" data-status=\"safe\">Security Department</span></p>",
-        "redFlags": [
-            "Public Email Domain (@hotmail.com)",
-            "Shortened URL (bit.ly) hiding destination",
-            "Poor Grammar ('Kindly', 'Dear Client')"
-        ],
-        "hint": null,
-        "educationalMessage": "Financial institutions will never email you from a public domain like Hotmail or Gmail. Additionally, legitimate emails rarely use shortened links (bit.ly) for security actions."
-    },
-    {
-        "id": "phish_av_002",
-        "type": "Credential Harvesting",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "IT DESK",
-        "sender_email": "admin-alert@yahoo.com",
-        "initials": "IT",
-        "subject": "PASSWORD EXPIRY NOTIFICATION",
-        "preview": "Your mailbox password will expire in 2 hours.",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">ATTENTION:</span></p><p>Your workstation password expires TODAY.</p><p>You must <span class=\"investigate-area\" data-status=\"danger\">validate your current login</span> to keep your access.</p><p><span class=\"investigate-area\" data-status=\"danger\">>>> VALIDATE NOW <<<</span></p><p>Failure to do so will result in lockout.</p><p><span class=\"investigate-area\" data-status=\"safe\">System Administrator</span></p>",
-        "redFlags": [
-            "All Caps Subject Line",
-            "Public Sender Domain (@yahoo.com)",
-            "Vague Signature ('System Administrator')"
-        ],
-        "hint": "Would your company IT department use a Yahoo email address?",
-        "educationalMessage": "This email screams phishing through its use of all-caps urgency and a public Yahoo email address for what should be an internal corporate communication."
-    },
-    {
-        "id": "phish_av_003",
-        "type": "Credential Harvesting",
-        "isPhishing": true,
-        "difficulty": 2,
-        "sender": "Microsoft 365 Security",
-        "sender_email": "alerts@microsoft-security-check.com",
-        "initials": "MS",
-        "subject": "Action Required: Review blocked sign-in attempt",
-        "preview": "We blocked a sign-in attempt to your account due to...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hello,</span></p><p>We blocked a sign-in attempt to your Office 365 account because the location profile did not match your history.</p><p><strong>Location:</strong> Lagos, Nigeria<br><strong>Time:</strong> 04:32 AM EST</p><p>If this wasn't you, please <span class=\"investigate-area\" data-status=\"danger\">review your recent activity</span> to secure your account.</p><p>Regards,<br><span class=\"investigate-area\" data-status=\"safe\">The Microsoft 365 Team</span></p>",
-        "redFlags": [
-            "Spoofed Domain (microsoft-security-check.com)",
-            "Standard Fear Tactic (Foreign login)",
-            "Generic Greeting"
-        ],
-        "hint": null,
-        "educationalMessage": "While the formatting looks professional, the domain 'microsoft-security-check.com' is not owned by Microsoft. Attackers often buy domains that contain the brand name to fool users."
-    },
-    {
-        "id": "phish_av_004",
-        "type": "Credential Harvesting",
-        "isPhishing": true,
-        "difficulty": 2,
-        "sender": "HR Benefits",
-        "sender_email": "benefits@workday-updates.net",
-        "initials": "HR",
-        "subject": "Open Enrollment: Verification Pending",
-        "preview": "Your benefits election for 2026 requires confirmation...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hi Employee,</span></p><p>We are finalizing the 2026 benefits enrollment. It appears your profile is missing a <span class=\"investigate-area\" data-status=\"safe\">secondary beneficiary verification</span>.</p><p>Please log in to the portal below to finalize your election before Friday.</p><p><span class=\"investigate-area\" data-status=\"danger\">[ Go to Workday Portal ]</span></p><p>Thank you,<br><span class=\"investigate-area\" data-status=\"safe\">Human Resources</span></p>",
-        "redFlags": [
-            "Mismatched URL context",
-            "Vague greeting ('Hi Employee')",
-            "Unofficial Domain (@workday-updates.net)"
-        ],
-        "hint": "Check the email address. Does your company use 'workday-updates.net'?",
-        "educationalMessage": "This email targets employees by mimicking HR software. However, the sender domain is a generic registration, not the official company domain or the official vendor domain."
-    },
-    {
-        "id": "phish_av_005",
-        "type": "Credential Harvesting",
-        "isPhishing": true,
-        "difficulty": 2,
-        "sender": "Amazon Protection",
-        "sender_email": "security@amazon-support-case.com",
-        "initials": "AM",
-        "subject": "Your account has been temporarily locked",
-        "preview": "For your protection, we have locked your account due to...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hello Customer,</span></p><p>We have detected suspicious activity on your Amazon account. As a precaution, we have <span class=\"investigate-area\" data-status=\"safe\">removed your stored payment methods</span>.</p><p>To restore full access, please <span class=\"investigate-area\" data-status=\"danger\">verify your identity here</span>.</p><p>We apologize for the inconvenience.</p><p><span class=\"investigate-area\" data-status=\"safe\">Amazon.com</span></p>",
-        "redFlags": [
-            "Generic Greeting",
-            "Suspicious Link text (hover check required)",
-            "Domain spoofing"
-        ],
-        "hint": "Hover over the 'verify your identity' link (or look at the sender). Is it amazon.com?",
-        "educationalMessage": "This email creates anxiety by claiming your account is locked. The sender uses a hyphenated domain that looks real but isn't Amazon."
-    },
-    {
-        "id": "safe_av_015",
-        "type": "Legitimate Security Alert",
-        "isPhishing": false,
-        "difficulty": 1,
-        "sender": "Google",
-        "sender_email": "no-reply@accounts.google.com",
-        "initials": "GO",
-        "subject": "Security alert: New sign-in on Windows",
-        "preview": "Your Google Account was just signed in to from a new...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">New sign-in detected</span></p><p>Your Google Account was just signed in to from a new Windows device. You are getting this email to make sure it was you.</p><p><span class=\"investigate-area\" data-status=\"safe\">Check activity</span></p><p>You can also go directly to myaccount.google.com/notifications to review this alert.</p><p><span class=\"investigate-area\" data-status=\"safe\">The Google Accounts Team</span></p>",
-        "redFlags": [],
-        "hint": null,
-        "educationalMessage": "This is a legitimate security alert. The sender is the official 'no-reply@accounts.google.com', the branding is correct, and it offers a way to check without clicking the button (navigating to the URL manually)."
-    },
-    {
-        "id": "phish_av_016",
-        "type": "Credential Harvesting",
-        "isPhishing": true,
-        "difficulty": 2,
-        "sender": "Google Support",
-        "sender_email": "alerts@google-safety-check.com",
-        "initials": "GS",
-        "subject": "CRITICAL: Unauthorized access detected",
-        "preview": "Someone in Russia just logged into your account...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Security Warning</span></p><p>We detected a login from <strong>Moscow, Russia</strong>.</p><p>If this was not you, you must <span class=\"investigate-area\" data-status=\"danger\">secure your account immediately</span> to prevent data theft.</p><p><span class=\"investigate-area\" data-status=\"danger\">[ CLICK TO BLOCK ACCESS ]</span></p><p>Regards,<br><span class=\"investigate-area\" data-status=\"safe\">Google Security Team</span></p>",
-        "redFlags": [
-            "Unofficial Domain (@google-safety-check.com)",
-            "Hyper-linked panic button",
-            "Vague signature"
-        ],
-        "hint": "Check the domain name in the sender's email address. Is it exactly 'google.com'?",
-        "educationalMessage": "Compare this to a real Google alert. This one uses a spoofed domain (@google-safety-check.com) and uses fear to make you click the button immediately."
-    },
-    {
-        "id": "safe_av_017",
-        "type": "MFA Verification",
-        "isPhishing": false,
-        "difficulty": 2,
-        "sender": "Slack",
-        "sender_email": "feedback@slack.com",
-        "initials": "SL",
-        "subject": "Slack magic link",
-        "preview": "Here is your magic link to sign in to the workspace...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Sign in to Slack</span></p><p>We heard you needed a magic link for <strong>[Company] Workspace</strong>.</p><p><span class=\"investigate-area\" data-status=\"safe\">[ Sign in with Email ]</span></p><p>If you didn't ask for this link, you can ignore this email.</p><p><span class=\"investigate-area\" data-status=\"safe\">Made with ♥ by Slack</span></p>",
-        "redFlags": [],
-        "hint": null,
-        "educationalMessage": "This is a standard 'Magic Link' email from Slack. The domain is correct (@slack.com) and the context implies you (the user) likely requested it by trying to log in."
-    },
-    {
-        "id": "safe_av_019",
-        "type": "Internal Announcement",
-        "isPhishing": false,
-        "difficulty": 3,
-        "sender": "Sarah Jenkins (CISO)",
-        "sender_email": "s.jenkins@phishguard.com",
-        "initials": "SJ",
-        "subject": "Upcoming Security Maintenance",
-        "preview": "Please be advised that we will be performing maintenance...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Team,</span></p><p>We are rolling out a security patch this weekend. <span class=\"investigate-area\" data-status=\"safe\">No action is required from you.</span></p><p>However, you may notice a brief disconnection from the VPN between 2:00 AM and 4:00 AM on Sunday.</p><p>If you experience issues Monday morning, please submit a ticket via the usual portal.</p><p>Best,<br><span class=\"investigate-area\" data-status=\"safe\">Sarah</span></p>",
-        "redFlags": [],
-        "hint": "Does this email ask you to click anything or do anything urgent?",
-        "educationalMessage": "This is a safe internal email. Key indicators: It asks for NO action, provides information only, comes from the correct internal domain, and directs you to a known internal process (ticket portal) without providing a suspicious link."
-    },
-    {
-        "id": "phish_gift_021",
-        "type": "Reward Scam",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "Lottery Winner",
-        "sender_email": "prize-distributor@yahoo.co.jp",
-        "initials": "LW",
-        "subject": "CONGRATS!!! You have won a iPhone 16 Pro",
-        "preview": "Your email address was selected at random from our...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Dear Lucky Winner,</span></p><p>We are happy to announce that your email has won our monthly gadget draw!</p><p>You have won a <span class=\"investigate-area\" data-status=\"safe\">Apple iPhone 16 Pro Max</span>.</p><p>Please <span class=\"investigate-area\" data-status=\"danger\">click here to claim shipment</span>. You only need to pay $1.99 for shipping.</p><p>Hurry, offer expires in 1 hour!!!</p>",
-        "redFlags": [
-            "Too good to be true (Free iPhone)",
-            "Public foreign domain (@yahoo.co.jp)",
-            "Request for 'shipping fee' (Classic scam tactic)"
-        ],
-        "hint": "If you won a contest you didn't enter, it's a scam. Also, why pay shipping for a prize?",
-        "educationalMessage": "This is a classic advance-fee fraud. They promise a high-value item (iPhone) but ask for a small payment (shipping). The goal is to steal your credit card number."
-    },
-    {
-        "id": "safe_gift_023",
-        "type": "Internal Announcement",
-        "isPhishing": false,
-        "difficulty": 1,
-        "sender": "Jenny (Office Manager)",
-        "sender_email": "j.smith@phishguard.com",
-        "initials": "JS",
-        "subject": "Bagels in the kitchen!",
-        "preview": "Happy Friday everyone! I brought in some bagels and...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Morning Team!</span></p><p>Happy Friday! I picked up some <span class=\"investigate-area\" data-status=\"safe\">bagels and cream cheese</span> for the office. They are on the counter in the breakroom.</p><p>First come, first served!</p><p>Cheers,<br><span class=\"investigate-area\" data-status=\"safe\">Jenny</span></p>",
-        "redFlags": [],
-        "hint": null,
-        "educationalMessage": "This is a safe, standard internal email. There are no links, no requests for sensitive info, and the sender is a known colleague offering a physical perk in the office."
-    },
-    {
-        "id": "phish_hr_051",
-        "type": "Internal Impersonation",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "HR Department",
-        "sender_email": "human-resources-dept-99@gmail.com",
-        "initials": "HR",
-        "subject": "URGENT: Sign new employment contract",
-        "preview": "We have updated all contracts. You must sign immediately...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Dear Staff,</span></p><p>We have updated the company terms of service. You must <span class=\"investigate-area\" data-status=\"danger\">sign the new contract here</span> by end of day or your employment is terminated.</p><p>Please do not ignore this.</p><p>Sincerely,<br><span class=\"investigate-area\" data-status=\"safe\">The Manager</span></p>",
-        "redFlags": [
-            "Public Domain (@gmail.com)",
-            "Threat of termination",
-            "Vague signature"
-        ],
-        "hint": "Would HR fire you via a Gmail address?",
-        "educationalMessage": "This is an intimidation attack. No professional HR department uses a public Gmail account for contracts, nor do they threaten immediate termination in an initial email."
-    },
-    {
-        "id": "safe_hr_053",
-        "type": "Internal Announcement",
-        "isPhishing": false,
-        "difficulty": 1,
-        "sender": "Office Manager",
-        "sender_email": "office@phishguard.com",
-        "initials": "OM",
-        "subject": "Office Closed: Martin Luther King Jr. Day",
-        "preview": "Just a reminder that the office will be closed on...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hi Team,</span></p><p>Just a reminder that the office will be closed this coming Monday in observance of MLK Day.</p><p>Enjoy the long weekend!</p><p>Best,<br><span class=\"investigate-area\" data-status=\"safe\">Facilities Team</span></p>",
-        "redFlags": [],
-        "hint": null,
-        "educationalMessage": "Safe. It's a standard informational email with no links, attachments, or requests for action."
-    },
-    {
-        "id": "phish_bank_066",
-        "type": "Financial Fraud",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "Chase_Bank",
-        "sender_email": "support-center-992@gmail.com",
-        "initials": "CB",
-        "subject": "ACCOUNT SUSPENDED: Unusual Activity",
-        "preview": "Your debit card has been blocked due to a suspicious...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Dear Customer,</span></p><p>We detected a strange purchase in Mexico.</p><p>You must <span class=\"investigate-area\" data-status=\"danger\">verify your identity here</span> or your money will be frozen.</p><p><span class=\"investigate-area\" data-status=\"danger\">[ UNLOCK CARD NOW ]</span></p><p>Chase Online Banking</p>",
-        "redFlags": [
-            "Public Sender Domain (@gmail.com)",
-            "Generic Greeting",
-            "Panic/Threat of frozen money"
-        ],
-        "hint": "Banks don't use Gmail addresses.",
-        "educationalMessage": "This is a low-effort phishing attempt. The biggest giveaway is the sender address using a public Gmail account instead of the official bank domain."
-    },
-    {
-        "id": "safe_bank_068",
-        "type": "Legitimate Security Alert",
-        "isPhishing": false,
-        "difficulty": 1,
-        "sender": "Wells Fargo",
-        "sender_email": "alerts@notify.wellsfargo.com",
-        "initials": "WF",
-        "subject": "Your January 2026 Statement is available",
-        "preview": "Your checking account statement is now available online...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Monthly Statement Available</span></p><p>Your statement for the period ending Jan 14, 2026 is ready.</p><p>Please log in to <span class=\"investigate-area\" data-status=\"safe\">wellsfargo.com</span> to view your documents.</p><p>For security, we do not attach statements to emails.</p><p><span class=\"investigate-area\" data-status=\"safe\">Wells Fargo Online</span></p>",
-        "redFlags": [],
-        "hint": null,
-        "educationalMessage": "Safe. The email instructs you to go to the official website yourself ('log in to wellsfargo.com') rather than providing a direct login link."
-    },
-    {
-        "id": "phish_bec_111",
-        "type": "Business Email Compromise",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "The Boss",
-        "sender_email": "ceo-direct-mail@gmail.com",
-        "initials": "TB",
-        "subject": "Are you at your desk?",
-        "preview": "I need a favor. Are you available to text?",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hi,</span></p><p>I am stuck in a meeting and can't talk.</p><p>Can you <span class=\"investigate-area\" data-status=\"danger\">send me your cell number</span>? I need to ask you to do something discreetly.</p><p>Thanks,<br><span class=\"investigate-area\" data-status=\"safe\">Director</span></p>",
-        "redFlags": [
-            "Public Gmail address",
-            "Vague 'Director' signature",
-            "Request for personal info (cell number)"
-        ],
-        "hint": "Why would your boss email you from a Gmail account asking for your number?",
-        "educationalMessage": "This is a classic 'pre-texting' attack. They want to move the conversation to SMS (Smishing) where security filters can't block them."
-    },
-    {
-        "id": "safe_bec_113",
-        "type": "Internal Announcement",
-        "isPhishing": false,
-        "difficulty": 1,
-        "sender": "Sarah Jenkins",
-        "sender_email": "s.jenkins@phishguard.com",
-        "initials": "SJ",
-        "subject": "Lunch?",
-        "preview": "Hey, are you free to grab lunch around 12?",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hey!</span></p><p>Are you free to grab lunch around 12? I want to hear about your weekend.</p><p>Let me know!</p><p><span class=\"investigate-area\" data-status=\"safe\">Sarah</span></p>",
-        "redFlags": [],
-        "hint": null,
-        "educationalMessage": "Safe. Standard casual email between colleagues from a verified internal address."
-    },
-    {
-        "id": "phish_bec_114",
-        "type": "Business Email Compromise",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "Company President",
-        "sender_email": "president.office.mail@aol.com",
-        "initials": "CP",
-        "subject": "URGENT TASK",
-        "preview": "I need you to buy some gift cards for a client...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hello,</span></p><p>I need you to run to the store and <span class=\"investigate-area\" data-status=\"danger\">buy 5x $100 Apple Gift Cards</span> for a client gift.</p><p>Scratch the backs and <span class=\"investigate-area\" data-status=\"danger\">email me the codes</span> immediately.</p><p>I will reimburse you.</p><p><span class=\"investigate-area\" data-status=\"safe\">Sent from my iPad</span></p>",
-        "redFlags": [
-            "AOL address for a President",
-            "Gift Card request",
-            "Urgency"
-        ],
-        "hint": "Gift cards + Urgency = Scam. Always.",
-        "educationalMessage": "Any request to buy gift cards and email the codes is 100% a scam. Executives do not pay clients with Apple Gift Cards."
-    },
-    {
-        "id": "phish_sub_096",
-        "type": "Payment Scam",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "Netf1ix",
-        "sender_email": "billing@gmail.com",
-        "initials": "NF",
-        "subject": "Payment Declined: Membership Paused",
-        "preview": "We could not resolve your payment for this month...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Hi Friend,</span></p><p>We tried to charge your card for your monthly subscription but it failed.</p><p>Please <span class=\"investigate-area\" data-status=\"danger\">update your credit card</span> immediately to keep watching.</p><p><span class=\"investigate-area\" data-status=\"danger\">[ RESTART MEMBERSHIP ]</span></p><p><span class=\"investigate-area\" data-status=\"safe\">The Netf1ix Team</span></p>",
-        "redFlags": [
-            "Typosquatting (Netf1ix with a one)",
-            "Public Sender Domain (@gmail.com)",
-            "Generic Greeting"
-        ],
-        "hint": "Check the spelling of the sender name and the email address.",
-        "educationalMessage": "Major streaming services will never email you from a Gmail account. Also, look closely at the name 'Netf1ix'—it swaps the 'l' for a '1'."
-    },
-    {
-        "id": "safe_sub_098",
-        "type": "Legitimate Security Alert",
-        "isPhishing": false,
-        "difficulty": 1,
-        "sender": "Spotify",
-        "sender_email": "no-reply@spotify.com",
-        "initials": "SP",
-        "subject": "Your receipt for January",
-        "preview": "Thanks for sticking with Premium. Here is your receipt...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Spotify Premium Receipt</span></p><p>You have successfully paid <strong>$11.99</strong> for January 2026.</p><p>Payment Method: PayPal</p><p>You can view your account details anytime at spotify.com/account.</p><p><span class=\"investigate-area\" data-status=\"safe\">Spotify USA, Inc.</span></p>",
-        "redFlags": [],
-        "hint": null,
-        "educationalMessage": "Safe. This is a standard receipt. It provides transaction details and directs you to the main website, not a suspicious link."
-    },
-    {
-        "id": "phish_act_141",
-        "type": "Account Activity",
-        "isPhishing": true,
-        "difficulty": 1,
-        "sender": "Google Security",
-        "sender_email": "security-alert-team-99@hotmail.com",
-        "initials": "GS",
-        "subject": "MAJOR SECURITY ALERT: HACKER DETECTED",
-        "preview": "We detected a hacker in your account from Russia...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">Warning User,</span></p><p>A hacker from Russia (IP: 102.99.1.2) has full access to your account.</p><p>You must <span class=\"investigate-area\" data-status=\"danger\">click here immediately</span> to kick them out.</p><p>If you wait 10 minutes, your account is gone.</p><p><span class=\"investigate-area\" data-status=\"safe\">Google Team</span></p>",
-        "redFlags": [
-            "Public Domain (@hotmail.com)",
-            "Unprofessional/Panic language ('HACKER DETECTED')",
-            "Generic greeting"
-        ],
-        "hint": "Google does not send security alerts from Hotmail.",
-        "educationalMessage": "This is a low-effort panic attack. The sender is using a public Hotmail address, and the language is designed solely to make you click without thinking."
-    },
-    {
-        "id": "safe_act_143",
-        "type": "Legitimate Security Alert",
-        "isPhishing": false,
-        "difficulty": 1,
-        "sender": "Instagram",
-        "sender_email": "security@mail.instagram.com",
-        "initials": "IG",
-        "subject": "New login to Instagram from Chrome on Windows",
-        "preview": "We noticed a new login, account center...",
-        "body": "<p><span class=\"investigate-area\" data-status=\"safe\">New Login on Instagram</span></p><p>We noticed a login from a device you don't usually use.</p><p><strong>Chrome on Windows</strong><br>New York, NY</p><p>If this was you, you can ignore this email. If this wasn't you, you can <span class=\"investigate-area\" data-status=\"safe\">secure your account here</span>.</p><p><span class=\"investigate-area\" data-status=\"safe\">from Meta</span></p>",
-        "redFlags": [],
-        "hint": null,
-        "educationalMessage": "Safe. The sender domain `mail.instagram.com` is the official subdomain for Instagram notifications."
-    }
+  {
+    "id": "phish_av_000",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Netf1ix Support",
+    "sender_email": "support@netfl1x-billing-alert.com",
+    "initials": "NS",
+    "subject": "Final Notice: Your Subscription is Suspended",
+    "preview": "We could not process your last payment. Your account is now...",
+    "body": "Hi User,\n\nWe tried to renew your subscription but the payment failed. Your account is locked until you update your details.\n\n[ CLICK HERE TO RE-ACTIVATE ]\n\nIf you don't act in 24 hours your account will be deleted forever.\nCheers,\nNetflix Team",
+    "custom_links": [
+      {
+        "text": "[ CLICK HERE TO RE-ACTIVATE ]",
+        "url": "http://netfl1x-billing-alert.com/login"
+      }
+    ],
+    "redFlags": [
+      "Typosquatting in Sender Name (Netf1ix)",
+      "Extreme/Unrealistic Threat (Deleted forever)",
+      "Generic Greeting"
+    ],
+    "hint": "Check the spelling of the company name in the sender field.",
+    "educationalMessage": "This is a basic phishing attempt. Legitimate companies like Netflix will never threaten to delete your account 'forever' after 24 hours of a failed payment, and the sender name contains a number '1' instead of an 'l'."
+  },
+  {
+    "id": "phish_av_001",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Pay_Pal Security",
+    "sender_email": "security-alert-paypal@hotmail.com",
+    "initials": "PS",
+    "subject": "Warning: Unauthorized access detected",
+    "preview": "We noticed a login from a new device in Russia...",
+    "body": "Dear Client,\n\nWe detected a login from Moscow, Russia.\nKindly click the link below to verify your password immediately or we will freeze your funds.\nhttp://bit.ly/secure-paypal-login\n\nThanks,\nSecurity Department",
+    "custom_links": [
+      {
+        "text": "click the link below",
+        "url": "http://bit.ly/secure-paypal-login"
+      },
+      {
+        "text": "http://bit.ly/secure-paypal-login",
+        "url": "http://bit.ly/secure-paypal-login"
+      }
+    ],
+    "redFlags": [
+      "Public Email Domain (@hotmail.com)",
+      "Shortened URL (bit.ly) hiding destination",
+      "Poor Grammar ('Kindly', 'Dear Client')"
+    ],
+    "hint": null,
+    "educationalMessage": "Financial institutions will never email you from a public domain like Hotmail or Gmail. Additionally, legitimate emails rarely use shortened links (bit.ly) for security actions."
+  },
+  {
+    "id": "phish_av_002",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "IT DESK",
+    "sender_email": "admin-alert@yahoo.com",
+    "initials": "IT",
+    "subject": "PASSWORD EXPIRY NOTIFICATION",
+    "preview": "Your mailbox password will expire in 2 hours.",
+    "body": "ATTENTION:\n\nYour workstation password expires TODAY.\nYou must validate your current login to keep your access.\n\n>>> VALIDATE NOW <<<\n\nFailure to do so will result in lockout.\nSystem Administrator",
+    "custom_links": [
+      {
+        "text": "validate your current login",
+        "url": "http://admin-alert-yahoo.com/validate"
+      },
+      {
+        "text": ">>> VALIDATE NOW <<<",
+        "url": "http://admin-alert-yahoo.com/validate"
+      }
+    ],
+    "redFlags": [
+      "All Caps Subject Line",
+      "Public Sender Domain (@yahoo.com)",
+      "Vague Signature ('System Administrator')"
+    ],
+    "hint": "Would your company IT department use a Yahoo email address?",
+    "educationalMessage": "This email screams phishing through its use of all-caps urgency and a public Yahoo email address for what should be an internal corporate communication."
+  },
+  {
+    "id": "phish_av_003",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Microsoft 365 Security",
+    "sender_email": "alerts@microsoft-security-check.com",
+    "initials": "MS",
+    "subject": "Action Required: Review blocked sign-in attempt",
+    "preview": "We blocked a sign-in attempt to your account due to...",
+    "body": "Hello,\n\nWe blocked a sign-in attempt to your Office 365 account because the location profile did not match your history.\nLocation: Lagos, Nigeria\nTime: 04:32 AM EST\n\nIf this wasn't you, please review your recent activity to secure your account.\n\nRegards,\nThe Microsoft 365 Team",
+    "custom_links": [
+      {
+        "text": "review your recent activity",
+        "url": "http://microsoft-security-check.com/review"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (microsoft-security-check.com)",
+      "Standard Fear Tactic (Foreign login)",
+      "Generic Greeting"
+    ],
+    "hint": null,
+    "educationalMessage": "While the formatting looks professional, the domain 'microsoft-security-check.com' is not owned by Microsoft. Attackers often buy domains that contain the brand name to fool users."
+  },
+  {
+    "id": "phish_av_004",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "HR Benefits",
+    "sender_email": "benefits@workday-updates.net",
+    "initials": "HR",
+    "subject": "Open Enrollment: Verification Pending",
+    "preview": "Your benefits election for 2026 requires confirmation...",
+    "body": "Hi Employee,\n\nWe are finalizing the 2026 benefits enrollment. It appears your profile is missing a secondary beneficiary verification.\nPlease log in to the portal below to finalize your election before Friday.\n\n[ Go to Workday Portal ]\n\nThank you,\nHuman Resources",
+    "custom_links": [
+      {
+        "text": "[ Go to Workday Portal ]",
+        "url": "http://workday-updates.net/portal"
+      }
+    ],
+    "redFlags": [
+      "Mismatched URL context",
+      "Vague greeting ('Hi Employee')",
+      "Unofficial Domain (@workday-updates.net)"
+    ],
+    "hint": "Check the email address. Does your company use 'workday-updates.net'?",
+    "educationalMessage": "This email targets employees by mimicking HR software. However, the sender domain is a generic registration, not the official company domain or the official vendor domain."
+  },
+  {
+    "id": "phish_av_005",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Amazon Protection",
+    "sender_email": "security@amazon-support-case.com",
+    "initials": "AM",
+    "subject": "Your account has been temporarily locked",
+    "preview": "For your protection, we have locked your account due to...",
+    "body": "Hello Customer,\n\nWe have detected suspicious activity on your Amazon account. As a precaution, we have removed your stored payment methods.\n\nTo restore full access, please verify your identity here.\n\nWe apologize for the inconvenience.\n\nAmazon.com",
+    "custom_links": [
+      {
+        "text": "verify your identity here",
+        "url": "http://amazon-support-case.com/verify"
+      }
+    ],
+    "redFlags": [
+      "Generic Greeting",
+      "Suspicious Link text (hover check required)",
+      "Domain spoofing"
+    ],
+    "hint": "Hover over the 'verify your identity' link (or look at the sender). Is it amazon.com?",
+    "educationalMessage": "This email creates anxiety by claiming your account is locked. The sender uses a hyphenated domain that looks real but isn't Amazon."
+  },
+  {
+    "id": "phish_av_006",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Cloud Services",
+    "sender_email": "admin@dropbox-file-share.io",
+    "initials": "CS",
+    "subject": "Storage Limit Reached: Action Required",
+    "preview": "Your cloud storage is full. Incoming files may be...",
+    "body": "Dear User,\n\nYour cloud storage has reached 98% capacity. You will not be able to receive new files or sync documents starting tomorrow.\n\nPlease upgrade your storage or verify your current tier to clear this error.\n\nBest,\nCloud Ops Team",
+    "custom_links": [
+      {
+        "text": "upgrade your storage",
+        "url": "http://dropbox-file-share.io/upgrade"
+      }
+    ],
+    "redFlags": [
+      "Urgency regarding service loss",
+      "Generic 'Cloud Services' sender name",
+      "Unofficial TLD (.io for a corporate alert)"
+    ],
+    "hint": null,
+    "educationalMessage": "Storage limit warnings are a common lure. The sender email is vague ('Cloud Services') and uses a .io domain that doesn't match a specific provider like Dropbox or Google."
+  },
+  {
+    "id": "phish_av_007",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Adobe Creative Cloud",
+    "sender_email": "billing@adobe-subscription-team.com",
+    "initials": "AC",
+    "subject": "Payment Method Expiring Soon",
+    "preview": "Your credit card ending in... is set to expire.",
+    "body": "Hi there,\n\nThis is a reminder that the payment method associated with your Creative Cloud membership is set to expire soon.\n\nPlease update your billing info to ensure uninterrupted access to Photoshop and Acrobat.\n\nThanks,\nThe Adobe Team",
+    "custom_links": [
+      {
+        "text": "update your billing info",
+        "url": "http://adobe-subscription-team.com/billing"
+      }
+    ],
+    "redFlags": [
+      "Domain Spoofing (@adobe-subscription-team.com)",
+      "Vague Greeting",
+      "Link goes to credential harvester"
+    ],
+    "hint": "Is that the official Adobe website in the sender address?",
+    "educationalMessage": "While the design is clean, the sender address is a 'look-alike' domain. Official Adobe emails come from @adobe.com."
+  },
+  {
+    "id": "phish_av_008",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "IT Service Desk",
+    "sender_email": "support@company-sso-update.com",
+    "initials": "IT",
+    "subject": "MFA Policy Update: Re-registration Required",
+    "preview": "Due to a security policy update, all employees must...",
+    "body": "Hi Team,\n\nAs part of our Q1 Security Policy update, we are migrating to a new Multi-Factor Authentication (MFA) provider. All active directories must be synced by 5:00 PM Friday.\n\nPlease validate your current credentials to initiate the migration for your account.\n\nIf you have questions, please submit a ticket.\n\nRegards,\nIT Infrastructure",
+    "custom_links": [
+      {
+        "text": "validate your current credentials",
+        "url": "http://company-sso-update.com/validate"
+      }
+    ],
+    "redFlags": [
+      "Subtle Domain Spoofing",
+      "Contextual Lure (Policy Update)",
+      "Request for credentials via link"
+    ],
+    "hint": null,
+    "educationalMessage": "This is a dangerous Spear Phishing attack. It uses professional IT language ('MFA', 'Active Directories', 'Migration') to lower your guard. The domain 'company-sso-update.com' was likely registered just for this attack."
+  },
+  {
+    "id": "phish_av_009",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "DocuSign System",
+    "sender_email": "dse_NA3@docusign.net.mail-service.io",
+    "initials": "DS",
+    "subject": "Completed: Master Service Agreement - Q3",
+    "preview": "All parties have signed the document. Please view the...",
+    "body": "Your document has been completed.\n\nReview and download the final signed copy of Master Service Agreement - Q3.\n\n[ View Completed Document ]\n\nPowered by DocuSign",
+    "custom_links": [
+      {
+        "text": "[ View Completed Document ]",
+        "url": "http://docusign.net.mail-service.io/view"
+      }
+    ],
+    "redFlags": [
+      "Subdomain Chaining (@docusign.net.mail-service.io)",
+      "Unexpected Document",
+      "Link destination obfuscation"
+    ],
+    "hint": "Look very carefully at the end of the sender's email address.",
+    "educationalMessage": "This attack uses 'Subdomain Chaining'. The beginning of the email looks real (docusign.net), but the actual domain ending is 'mail-service.io'. Always check the *end* of the email domain."
+  },
+  {
+    "id": "phish_av_010",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Sarah Jenkins (CEO)",
+    "sender_email": "s.jenkins@company-group-mgmt.com",
+    "initials": "SJ",
+    "subject": "Review needed: Q1 Financials",
+    "preview": "I need you to take a look at these figures before...",
+    "body": "Hi,\n\nI'm about to step into a board meeting, but I need you to double-check the attached figures on the secure drive.\n\nPlease login to view the report and let me know if the variance in column D is correct.\n\nThanks,\nSarah\nSent from my iPhone",
+    "custom_links": [
+      {
+        "text": "login to view the report",
+        "url": "http://company-group-mgmt.com/login"
+      }
+    ],
+    "redFlags": [
+      "CEO Fraud / Authority Pressure",
+      "Mobile Signature creates excuse for brevity",
+      "Off-domain sender"
+    ],
+    "hint": "Is this the exact domain your CEO normally emails from?",
+    "educationalMessage": "This is CEO Fraud. The attacker creates a sense of urgency ('stepping into a meeting') and uses a mobile signature to excuse the brief message. They want your credentials to 'view the report'."
+  },
+  {
+    "id": "phish_av_011",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "LinkedIn Messages",
+    "sender_email": "notifications@linked1n-service.com",
+    "initials": "LI",
+    "subject": "You have 3 new messages from Recruiters",
+    "preview": "Talent scouts are looking at your profile. See who...",
+    "body": "Your profile is getting noticed.\n\nYou appeared in 12 searches this week, and you have 3 unread messages from Talent Acquisition Leads at Fortune 500 companies.\n\n[ View Messages ]\n\nUnsubscribe | Help Center",
+    "custom_links": [
+      {
+        "text": "[ View Messages ]",
+        "url": "http://linked1n-service.com/messages"
+      }
+    ],
+    "redFlags": [
+      "Typosquatting (linked1n with a one)",
+      "Curiosity bait",
+      "Hidden malicious link"
+    ],
+    "hint": "Curiosity killed the cat. Check the sender spelling closely.",
+    "educationalMessage": "Professional networking lures are highly effective because they appeal to career growth (curiosity/greed). The spoofing here is subtle—swapping the 'i' in LinkedIn for a '1'."
+  },
+  {
+    "id": "phish_av_012",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Zoom Meetings",
+    "sender_email": "invites@zoom-video-communications.com",
+    "initials": "ZM",
+    "subject": "Missed Meeting: Project Delta Standup",
+    "preview": "You missed a scheduled meeting. A recording is available...",
+    "body": "Hello,\n\nYou were marked as absent for the Project Delta Standup meeting held at 9:00 AM.\n\nThe host has provided a cloud recording of the session. You must authenticate here to watch the recording.\n\nPasscode: 882931\n\nZoom Video Communications, Inc.",
+    "custom_links": [
+      {
+        "text": "authenticate here to watch",
+        "url": "http://zoom-video-communications.com/authenticate"
+      }
+    ],
+    "redFlags": [
+      "Anxiety Trigger (Missed Work)",
+      "Long, fake domain name",
+      "Credential harvesting link"
+    ],
+    "hint": null,
+    "educationalMessage": "Attackers know that 'missing a meeting' creates instant anxiety in a corporate setting. They use this fear to make you click a link to 'catch up' without checking the URL."
+  },
+  {
+    "id": "phish_av_013",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Slack Security",
+    "sender_email": "admin@slack-corp-alerts.net",
+    "initials": "SL",
+    "subject": "New device signed in to your workspace",
+    "preview": "A new device (iPhone 14) just signed in to...",
+    "body": "Slack Account Alert\n\nWe detected a new sign-in to [Company Name] Workspace.\n\nDevice: iPhone 14\nLocation: Dallas, TX (IP: 192.168.0.1)\n\nIf this was you, you can ignore this message. If not, please review device activity immediately.\n\nSent by Slackbot",
+    "custom_links": [
+      {
+        "text": "review device activity",
+        "url": "http://slack-corp-alerts.net/review"
+      }
+    ],
+    "redFlags": [
+      "Mimics standard security alert perfectly",
+      "Fake domain (@slack-corp-alerts.net)",
+      "Link goes to phishing site"
+    ],
+    "hint": "Does Slack send alerts from 'slack-corp-alerts.net'?",
+    "educationalMessage": "This email is difficult because it looks exactly like a real security warning. The only giveaways are the slight irregularity in the sender domain and the link destination."
+  },
+  {
+    "id": "phish_av_014",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Chase Fraud Ops",
+    "sender_email": "alert@chase-bank-secure.com",
+    "initials": "CH",
+    "subject": "URGENT: Verify charge of $4,200.00",
+    "preview": "Did you authorize a payment to Best Buy for...",
+    "body": "Chase Fraud Protection\n\nWe declined a transaction of $4,200.00 at Best Buy on your Corporate Card ending in 4092.\n\nTo authorize this charge, reply YES. To block this card and reset your access, sign in to the Fraud Center.\n\nJPMorgan Chase & Co.",
+    "custom_links": [
+      {
+        "text": "sign in to the Fraud Center",
+        "url": "http://chase-bank-secure.com/fraud-center"
+      }
+    ],
+    "redFlags": [
+      "High Financial Stakes",
+      "Domain spoofing",
+      "Pushes user to 'Sign In' rather than call"
+    ],
+    "hint": null,
+    "educationalMessage": "This uses a high dollar amount to induce panic. The attacker hopes you will click the link to 'cancel' the charge, where they will steal your banking credentials."
+  },
+  {
+    "id": "safe_av_015",
+    "type": "Legitimate Security Alert",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Google",
+    "sender_email": "no-reply@accounts.google.com",
+    "initials": "GO",
+    "subject": "Security alert: New sign-in on Windows",
+    "preview": "Your Google Account was just signed in to from a new...",
+    "body": "New sign-in detected\n\nYour Google Account was just signed in to from a new Windows device. You are getting this email to make sure it was you.\n\nCheck activity\n\nYou can also go directly to myaccount.google.com/notifications to review this alert.\n\nThe Google Accounts Team",
+    "custom_links": [
+      {
+        "text": "Check activity",
+        "url": "https://myaccount.google.com/notifications"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "This is a legitimate security alert. The sender is the official 'no-reply@accounts.google.com', the branding is correct, and it offers a way to check without clicking the button (navigating to the URL manually)."
+  },
+  {
+    "id": "phish_av_016",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Google Support",
+    "sender_email": "alerts@google-safety-check.com",
+    "initials": "GS",
+    "subject": "CRITICAL: Unauthorized access detected",
+    "preview": "Someone in Russia just logged into your account...",
+    "body": "Security Warning\n\nWe detected a login from Moscow, Russia.\n\nIf this was not you, you must secure your account immediately to prevent data theft.\n\n[ CLICK TO BLOCK ACCESS ]\n\nRegards,\nGoogle Security Team",
+    "custom_links": [
+      {
+        "text": "secure your account immediately",
+        "url": "http://google-safety-check.com/secure"
+      },
+      {
+        "text": "[ CLICK TO BLOCK ACCESS ]",
+        "url": "http://google-safety-check.com/secure"
+      }
+    ],
+    "redFlags": [
+      "Unofficial Domain (@google-safety-check.com)",
+      "Hyper-linked panic button",
+      "Vague signature"
+    ],
+    "hint": "Check the domain name in the sender's email address. Is it exactly 'google.com'?",
+    "educationalMessage": "Compare this to a real Google alert. This one uses a spoofed domain (@google-safety-check.com) and uses fear to make you click the button immediately."
+  },
+  {
+    "id": "safe_av_017",
+    "type": "MFA Verification",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Slack",
+    "sender_email": "feedback@slack.com",
+    "initials": "SL",
+    "subject": "Slack magic link",
+    "preview": "Here is your magic link to sign in to the workspace...",
+    "body": "Sign in to Slack\n\nWe heard you needed a magic link for [Company] Workspace.\n\n[ Sign in with Email ]\n\nIf you didn't ask for this link, you can ignore this email.\n\nMade with ♥ by Slack",
+    "custom_links": [
+      {
+        "text": "[ Sign in with Email ]",
+        "url": "https://slack.com/magic-link"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "This is a standard 'Magic Link' email from Slack. The domain is correct (@slack.com) and the context implies you (the user) likely requested it by trying to log in."
+  },
+  {
+    "id": "phish_av_018",
+    "type": "Credential Harvesting",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "IT Helpdesk",
+    "sender_email": "support@company-portal-login.net",
+    "initials": "IT",
+    "subject": "Action Required: Password Expiry Warning",
+    "preview": "Your network password will expire in 24 hours...",
+    "body": "Hi User,\n\nYour Active Directory password is set to expire in 24 hours.\n\nTo keep your current password, please confirm your credentials here.\n\nIf you do not act, you will be locked out of Outlook and Teams.\n\nThanks,\nIT Department",
+    "custom_links": [
+      {
+        "text": "confirm your credentials here",
+        "url": "http://company-portal-login.net/confirm"
+      }
+    ],
+    "redFlags": [
+      "Bad advice (IT never asks you to click a link to 'keep' a password)",
+      "Spoofed domain",
+      "Threat of lockout"
+    ],
+    "hint": "Does IT ever ask you to click a link to 'keep' an old password?",
+    "educationalMessage": "Real IT departments will ask you to change your password via system settings (Ctrl+Alt+Del), not click a link to 'keep' it. Also, the domain is not your company's official domain."
+  },
+  {
+    "id": "safe_av_019",
+    "type": "Internal Announcement",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Sarah Jenkins (CISO)",
+    "sender_email": "s.jenkins@phishguard.com",
+    "initials": "SJ",
+    "subject": "Upcoming Security Maintenance",
+    "preview": "Please be advised that we will be performing maintenance...",
+    "body": "Team,\n\nWe are rolling out a security patch this weekend. No action is required from you.\n\nHowever, you may notice a brief disconnection from the VPN between 2:00 AM and 4:00 AM on Sunday.\n\nIf you experience issues Monday morning, please submit a ticket via the usual portal.\n\nBest,\nSarah",
+    "redFlags": [],
+    "hint": "Does this email ask you to click anything or do anything urgent?",
+    "educationalMessage": "This is a safe internal email. Key indicators: It asks for NO action, provides information only, comes from the correct internal domain, and directs you to a known internal process (ticket portal) without providing a suspicious link."
+  },
+  {
+    "id": "phish_av_020",
+    "type": "Spear Phishing / CEO Fraud",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "John Doe (CEO)",
+    "sender_email": "john.doe.corp@gmail.com",
+    "initials": "JD",
+    "subject": "Quick task",
+    "preview": "Are you available to handle a quick verification for me?",
+    "body": "Hi,\n\nI'm stuck in a conference and can't access the vendor portal. Can you purchase 5 gift cards for the client appreciation event?\n\nI need this done immediately. I will reimburse you once I'm back in the office.\n\nSent from my iPad\nJohn Doe",
+    "custom_links": [
+      {
+        "text": "purchase 5 gift cards",
+        "url": "mailto:john.doe.corp@gmail.com"
+      }
+    ],
+    "redFlags": [
+      "Public Domain (@gmail.com for CEO)",
+      "Financial Request (Gift Cards)",
+      "Urgency/Unusual Request"
+    ],
+    "hint": "Check the sender address. Would the CEO email you about work from a Gmail account?",
+    "educationalMessage": "This is a classic 'CEO Fraud' attack. Even though it doesn't have a link, it's asking for a financial action. The biggest giveaway is the CEO using a personal Gmail address for official business."
+  },
+  {
+    "id": "phish_gift_021",
+    "type": "Reward Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Lottery Winner",
+    "sender_email": "prize-distributor@yahoo.co.jp",
+    "initials": "LW",
+    "subject": "CONGRATS!!! You have won a iPhone 16 Pro",
+    "preview": "Your email address was selected at random from our...",
+    "body": "Dear Lucky Winner,\n\nWe are happy to announce that your email has won our monthly gadget draw!\n\nYou have won a Apple iPhone 16 Pro Max.\n\nPlease click here to claim shipment. You only need to pay $1.99 for shipping.\n\nHurry, offer expires in 1 hour!!!",
+    "custom_links": [
+      {
+        "text": "click here to claim shipment",
+        "url": "http://prize-distributor-yahoo.co.jp/claim"
+      }
+    ],
+    "redFlags": [
+      "Too good to be true (Free iPhone)",
+      "Public foreign domain (@yahoo.co.jp)",
+      "Request for 'shipping fee' (Classic scam tactic)"
+    ],
+    "hint": "If you won a contest you didn't enter, it's a scam. Also, why pay shipping for a prize?",
+    "educationalMessage": "This is a classic advance-fee fraud. They promise a high-value item (iPhone) but ask for a small payment (shipping). The goal is to steal your credit card number."
+  },
+  {
+    "id": "phish_gift_022",
+    "type": "Reward Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Amazon-Rewards",
+    "sender_email": "promo-team@free-stuff-usa.net",
+    "initials": "AR",
+    "subject": "You have a $100 credit pending",
+    "preview": "We have been trying to reach you about your unused...",
+    "body": "Hello Shopper,\n\nYou have an unclaimed $100 Amazon Voucher waiting in your account.\n\n[ Redeem Voucher Code ]\n\nThis link is valid for 24 hours only.\n\nBest,\nCustomer Care",
+    "custom_links": [
+      {
+        "text": "[ Redeem Voucher Code ]",
+        "url": "http://free-stuff-usa.net/redeem"
+      }
+    ],
+    "redFlags": [
+      "Generic Sender Name",
+      "Unofficial Domain (@free-stuff-usa.net)",
+      "Unsolicited free money"
+    ],
+    "hint": "Check the sender email. Does Amazon send emails from 'free-stuff-usa.net'?",
+    "educationalMessage": "Legitimate Amazon credits appear directly in your account. They do not email you from third-party domains like 'free-stuff-usa.net' asking you to click a link to 'redeem' cash."
+  },
+  {
+    "id": "safe_gift_023",
+    "type": "Internal Team Morale",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Jenny (Office Manager)",
+    "sender_email": "j.smith@phishguard.com",
+    "initials": "JS",
+    "subject": "Bagels in the kitchen!",
+    "preview": "Happy Friday everyone! I brought in some bagels and...",
+    "body": "Morning Team!\n\nHappy Friday! I picked up some bagels and cream cheese for the office. They are on the counter in the breakroom.\n\nFirst come, first served!\n\nCheers,\nJenny",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "This is a safe, standard internal email. There are no links, no requests for sensitive info, and the sender is a known colleague offering a physical perk in the office."
+  },
+  {
+    "id": "phish_gift_024",
+    "type": "Reward Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "C0STCO Survey",
+    "sender_email": "survey-bot-992@gmail.com",
+    "initials": "CS",
+    "subject": "Take a 30 second survey, get $50",
+    "preview": "Tell us about your recent shopping trip and get paid...",
+    "body": "Valued Customer,\n\nWe want your feedback! Complete this short survey about your recent experience and we will send you a $50 Gift Card.\n\nStart Survey >\n\nNote: You must enter your credit card to verify your identity/age.\n\nMarket Research Team",
+    "custom_links": [
+      {
+        "text": "Start Survey >",
+        "url": "http://survey-bot-992.com/start"
+      }
+    ],
+    "redFlags": [
+      "Typosquatting (C0STCO with a zero)",
+      "Public Sender Domain (@gmail.com)",
+      "Asking for Credit Card for a 'survey'"
+    ],
+    "hint": "Look at the letter 'O' in Costco in the sender name.",
+    "educationalMessage": "Surveys never require a credit card for 'age verification'. The sender name also swaps the letter 'O' for the number '0'."
+  },
+  {
+    "id": "safe_gift_025",
+    "type": "HR Benefit Notification",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "HR Benefits",
+    "sender_email": "benefits@phishguard.com",
+    "initials": "HR",
+    "subject": "New Perk: Gym Membership Discount",
+    "preview": "We are excited to announce a new partnership with Gold's...",
+    "body": "Hi Team,\n\nWe have partnered with Gold's Gym to offer a 20% corporate discount to all employees.\n\nTo sign up, simply show your employee badge at the front desk of any local branch. No online registration is required.\n\nStay healthy!\nPeople Ops",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "This is safe. It announces a benefit but explicitly states 'No online registration is required' and instructs you to use your physical badge. It lacks any phishing links."
+  },
+  {
+    "id": "phish_gift_026",
+    "type": "Reward Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Mystery Shopper",
+    "sender_email": "recruitment@mystery-jobs-usa.org",
+    "initials": "MS",
+    "subject": "Earn $500 Weekly Part-Time",
+    "preview": "We are looking for secret shoppers in your area...",
+    "body": "Job Offer:\n\nWe need people to evaluate local stores. We will send you a check for $2,000. You keep $500 and use the rest to buy gift cards to test the store.\n\nApply Here\n\nSincerely,\nHiring Manager",
+    "custom_links": [
+      {
+        "text": "Apply Here",
+        "url": "http://mystery-jobs-usa.org/apply"
+      }
+    ],
+    "redFlags": [
+      "Classic Check Cashing Scam structure",
+      "Too good to be true (high pay for little work)",
+      "Generic sender"
+    ],
+    "hint": "If a job asks you to deposit a check and buy gift cards, it is 100% a scam.",
+    "educationalMessage": "This is a 'Fake Check' scam. The check they send is fake, but the gift cards you buy and send to them are real money out of your pocket."
+  },
+  {
+    "id": "phish_gift_027",
+    "type": "Reward Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Shein Promo",
+    "sender_email": "deals@shein-giveaway-alert.com",
+    "initials": "SH",
+    "subject": "You've been selected!",
+    "preview": "Get a $500 shopping spree on us. Valid for new...",
+    "body": "Congrats!\n\nYou have been selected to receive a $500 Shein Haul.\n\nTo activate your balance, please download this form and fill out your details.\n\nThe Shein Team",
+    "custom_links": [
+      {
+        "text": "download this form",
+        "url": "http://shein-giveaway-alert.com/download"
+      }
+    ],
+    "redFlags": [
+      "Attachment/Download for a prize",
+      "Spoofed domain",
+      "High value reward for no reason"
+    ],
+    "hint": null,
+    "educationalMessage": "Retailers don't ask you to download forms to get coupons. This attachment likely contains malware."
+  },
+  {
+    "id": "phish_gift_028",
+    "type": "Reward Scam / Internal Spoof",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "HR Employee Satisfaction",
+    "sender_email": "feedback@company-surveys-external.com",
+    "initials": "HR",
+    "subject": "Complete our Q1 survey for a $20 Starbucks Card",
+    "preview": "We value your feedback. Complete the anonymous survey...",
+    "body": "Dear Employee,\n\nWe are collecting feedback on the new remote work policy. As a token of appreciation, the first 100 respondents will receive a $20 digital Starbucks card.\n\n[ Take Survey & Claim Reward ]\n\nThank you,\nHuman Resources",
+    "custom_links": [
+      {
+        "text": "[ Take Survey & Claim Reward ]",
+        "url": "http://company-surveys-external.com/survey"
+      }
+    ],
+    "redFlags": [
+      "Scarcity/Urgency ('First 100 respondents')",
+      "Spoofed Domain (@company-surveys-external.com)",
+      "External link for internal policy"
+    ],
+    "hint": "Look at the domain. Is 'company-surveys-external.com' an official vendor?",
+    "educationalMessage": "This is a common tactic. Attackers use the promise of a small reward (coffee) to get employees to click a link that captures their corporate login credentials."
+  },
+  {
+    "id": "safe_gift_029",
+    "type": "HR Notification",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Workday Alerts",
+    "sender_email": "no-reply@workday.com",
+    "initials": "WA",
+    "subject": "Referral Bonus Processed: Candidate #9921",
+    "preview": "The referral bonus for the successful hiring of...",
+    "body": "Payment Notification\n\nThe referral bonus for your candidate (Mark S.) has been approved. A net payment of $1,500.00 will be included in your next payroll cycle (Jan 30).\n\nYou can view the payslip details in your Workday dashboard.\n\nHR Payroll Team",
+    "redFlags": [],
+    "hint": "Does the email ask you to click a link to get the money?",
+    "educationalMessage": "This is a safe notification. It informs you of money you are receiving but directs you to a known internal location (Workday dashboard) rather than providing a clickable link to 'claim' the cash."
+  },
+  {
+    "id": "phish_gift_030",
+    "type": "Reward Scam",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Company Partner Rewards",
+    "sender_email": "rewards@partner-perks-portal.net",
+    "initials": "CP",
+    "subject": "Thank you for your hard work!",
+    "preview": "Management has sent you a gift to show appreciation...",
+    "body": "Hi Team,\n\nManagement wants to thank everyone for a great quarter. Please accept this Digital Gift Basket.\n\nSelect your preferred gift (Wine, Chocolate, or Tech) via the link below:\n\nhttp://bit.ly/claim-company-gift-q1\n\nEnjoy!\nEvents Committee",
+    "custom_links": [
+      {
+        "text": "http://bit.ly/claim-company-gift-q1",
+        "url": "http://bit.ly/claim-company-gift-q1"
+      }
+    ],
+    "redFlags": [
+      "Shortened URL (bit.ly) hides the destination",
+      "Vague sender 'Company Partner Rewards'",
+      "Generic 'Management' sign-off"
+    ],
+    "hint": "Hover over the link (or look at it). Legitimate company rewards rarely use 'bit.ly' links.",
+    "educationalMessage": "Shortened links (bit.ly, tinyurl) are a major red flag in emails about money or rewards. They hide the actual destination, which is likely a malicious site."
+  },
+  {
+    "id": "safe_gift_031",
+    "type": "Internal Announcement",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Brand Team",
+    "sender_email": "branding@phishguard.com",
+    "initials": "BT",
+    "subject": "New Company Swag Store is Live!",
+    "preview": "We have refreshed our branded merchandise. You can now...",
+    "body": "Hello everyone,\n\nWe have refreshed our branded merchandise! Each employee has been allocated 50 points to spend on shirts, mugs, or hoodies.\n\nAccess the store via the Company Intranet Portal -> Quick Links -> Swag Store.\n\nHappy shopping,\nMarketing",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "This is safe. It tells you how to access the reward by navigating through the Intranet yourself, rather than providing a direct external link to click."
+  },
+  {
+    "id": "phish_gift_032",
+    "type": "Reward Scam",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Delta SkyMiles",
+    "sender_email": "miles-expiry@delta-air-lines-promo.com",
+    "initials": "DL",
+    "subject": "Urgent: 50,000 Miles Expiring",
+    "preview": "Your loyalty balance is about to expire due to...",
+    "body": "Dear Traveler,\n\nDue to inactivity, your balance of 50,000 SkyMiles is set to expire on Jan 31st.\n\nTo keep your miles active, you must log in here and update your preferences.\n\nSafe Travels,\nDelta Loyalty Team",
+    "custom_links": [
+      {
+        "text": "log in here",
+        "url": "http://delta-air-lines-promo.com/login"
+      }
+    ],
+    "redFlags": [
+      "Loss Aversion (Threat of losing miles)",
+      "Spoofed Domain (delta-air-lines-promo.com)",
+      "Login link"
+    ],
+    "hint": "Check the domain carefully. Legitimate Delta emails come from delta.com.",
+    "educationalMessage": "Phishers use 'Loss Aversion' (fear of losing points/miles) to make you act quickly. The domain name is long and hyphenated, which is a sign of a spoof."
+  },
+  {
+    "id": "phish_gift_033",
+    "type": "Spear Phishing / Corporate Gift",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Sarah at SnappyGifts",
+    "sender_email": "sarah@snappy-gifts-rewards.com",
+    "initials": "SN",
+    "subject": "John Doe sent you a gift!",
+    "preview": "John Doe has sent you a token of appreciation...",
+    "body": "You've got a gift!\n\nJohn Doe (CEO) has sent you a gift via Snappy to say thanks for the hard work on the Q4 closing.\n\n[ Reveal Your Gift ]\n\nPlease confirm your home address for shipment.\n\nSnappy Gifts",
+    "custom_links": [
+      {
+        "text": "[ Reveal Your Gift ]",
+        "url": "http://snappy-gifts-rewards.com/claim"
+      }
+    ],
+    "redFlags": [
+      "Subtle Domain Spoofing (Snappy's real domain is snappy.com)",
+      "Uses real colleague name (John Doe) to build trust",
+      "Data Collection (Home address)"
+    ],
+    "hint": "This looks very real. Google 'Snappy Gifts official domain'. Does it match the sender?",
+    "educationalMessage": "Corporate gifting platforms (like Snappy or Sendoso) are real, making this a hard phish to spot. You must verify the sender domain. Snappy uses '@snappy.com', not '@snappy-gifts-rewards.com'."
+  },
+  {
+    "id": "safe_gift_034",
+    "type": "Legitimate Vendor Reward",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Amazon Gift Cards",
+    "sender_email": "gc-orders@gc.email.amazon.com",
+    "initials": "AM",
+    "subject": "You received a $50.00 Amazon Gift Card",
+    "preview": "TechWebinars Inc has sent you an Amazon Gift Card...",
+    "body": "You received an Amazon Gift Card!\n\nTechWebinars Inc sent you a $50.00 gift card.\n\n\"Thanks for being a panelist on our Cyber Security trends webinar!\"\n\n[ Apply to your Amazon account ]\n\nOrder #112-9938221-002",
+    "custom_links": [
+      {
+        "text": "[ Apply to your Amazon account ]",
+        "url": "https://www.amazon.com/gc/redeem"
+      }
+    ],
+    "redFlags": [],
+    "hint": "Check the sender email. 'gc.email.amazon.com' is a valid subdomain.",
+    "educationalMessage": "This is a legitimate gift card. The sender domain 'gc.email.amazon.com' is the official subdomain Amazon uses for digital gift cards, and the context (panelist thank you) is specific and expected."
+  },
+  {
+    "id": "phish_gift_035",
+    "type": "Spear Phishing / Bonus",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Comp & Benefits",
+    "sender_email": "compensation@internal-secure-docs.com",
+    "initials": "CB",
+    "subject": "Confidential: Annual Bonus Structure Adjustment",
+    "preview": "Please review your adjusted bonus calculation attached...",
+    "body": "Confidential - For Your Eyes Only\n\nWe have adjusted the bonus structure for your department.\n\nPlease review the attached PDF to acknowledge your new payout calculation before Friday.\n\nYou will need to sign in with your SSO credentials to decrypt the file.\n\nRegards,\nCompensation Team",
+    "custom_links": [
+      {
+        "text": "review the attached PDF",
+        "url": "http://internal-secure-docs.com/view"
+      }
+    ],
+    "redFlags": [
+      "Appeal to Greed/Curiosity (Bonus)",
+      "Generic but 'secure sounding' domain",
+      "Request to sign in to view a file"
+    ],
+    "hint": "Is 'internal-secure-docs.com' a domain your company owns?",
+    "educationalMessage": "This is a highly targeted attack. It appeals to greed (bonus money) and curiosity. The domain looks bureaucratic and boring ('internal-secure-docs'), which makes it seem safer than it is, but it is not the company's domain."
+  },
+  {
+    "id": "phish_cloud_036",
+    "type": "Cloud Storage Alert",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "iCloud Support",
+    "sender_email": "support-apple-cloud@hotmail.com",
+    "initials": "IC",
+    "subject": "PHOTOS DELETED IN 24 HOURS",
+    "preview": "Your storage is full. We will delete your photos if...",
+    "body": "Dear Customer,\n\nYour iCloud storage is full. Because you have not upgraded, we are scheduled to delete all your photos and backups tomorrow.\n\n[ KEEP MY PHOTOS ]\n\nPlan: 50GB Free\nStatus: Suspended\n\nApple Support",
+    "custom_links": [
+      {
+        "text": "[ KEEP MY PHOTOS ]",
+        "url": "http://apple-cloud-support.com/keep"
+      }
+    ],
+    "redFlags": [
+      "Public Domain (@hotmail.com)",
+      "Extreme Threat (Deleting photos immediately)",
+      "Generic Greeting"
+    ],
+    "hint": "Would Apple email you from a Hotmail account?",
+    "educationalMessage": "This is a basic panic attack. Legitimate services do not delete your data immediately after a warning, and they certainly don't use Hotmail addresses."
+  },
+  {
+    "id": "phish_cloud_037",
+    "type": "Link Manipulation",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Dr0pbox",
+    "sender_email": "admin@dropb0x-files.com",
+    "initials": "DB",
+    "subject": "New file shared with you: Contract.pdf",
+    "preview": "Unknown User has shared a file with you via Dr0pbox...",
+    "body": "Hello,\n\nYou have received a secure file via Dr0pbox.\n\nFile: Contract_signed.pdf\nSize: 2.4 MB\n\nTo view this document, please sign in with your email password.\n\nDownload Here",
+    "custom_links": [
+      {
+        "text": "sign in with your email password",
+        "url": "http://dropb0x-files.com/login"
+      },
+      {
+        "text": "Download Here",
+        "url": "http://dropb0x-files.com/download"
+      }
+    ],
+    "redFlags": [
+      "Typosquatting (Dr0pbox with a zero)",
+      "Request for email password",
+      "Generic sender"
+    ],
+    "hint": "Look closely at the spelling of 'Dropbox' in the sender name.",
+    "educationalMessage": "The sender name has a zero instead of an 'o'. Furthermore, cloud services never ask for your *email* password to view a file; they use their own login or a public link."
+  },
+  {
+    "id": "safe_cloud_038",
+    "type": "Internal IT Notification",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "IT Service Desk",
+    "sender_email": "support@phishguard.com",
+    "initials": "IT",
+    "subject": "Network Drive Maintenance: Tonight",
+    "preview": "The Z: Drive will be unavailable from 10pm to...",
+    "body": "Hi Team,\n\nWe are performing routine maintenance on the File Server (Z: Drive) tonight between 10:00 PM and 11:00 PM EST.\n\nPlease save your work locally before this time. No action is required on your part.\n\nThanks,\nIT Infrastructure",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "This is a standard informational email. It asks for no action, no login, and comes from the internal IT domain."
+  },
+  {
+    "id": "phish_cloud_039",
+    "type": "Cloud Storage Alert",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Google_Drive",
+    "sender_email": "drive-shares@yahoo.com",
+    "initials": "GD",
+    "subject": "You have 1 new share",
+    "preview": "Click below to open the shared folder...",
+    "body": "Google Drive Alert\n\nA folder has been shared with you.\n\nhttp://bit.ly/google-drive-share-992\n\nClick quickly before the link expires.\n\nThe Google Team",
+    "custom_links": [
+      {
+        "text": "http://bit.ly/google-drive-share-992",
+        "url": "http://bit.ly/google-drive-share-992"
+      }
+    ],
+    "redFlags": [
+      "Shortened URL (bit.ly)",
+      "Public Sender (@yahoo.com)",
+      "Unnecessary urgency"
+    ],
+    "hint": "Does Google send Drive links using 'bit.ly'?",
+    "educationalMessage": "Google Drive emails always contain the full document title and a link to `drive.google.com`. They never use `bit.ly` or Yahoo email addresses."
+  },
+  {
+    "id": "phish_cloud_040",
+    "type": "Link Manipulation",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Server Admin",
+    "sender_email": "administrator@192-168-0-1.net",
+    "initials": "SA",
+    "subject": "QUOTA EXCEEDED",
+    "preview": "Your mailbox is full. Messages are bouncing...",
+    "body": "SYSTEM ALERT\n\nYour mailbox has exceeded the storage limit of 5GB.\n\nIncoming messages are being returned to sender.\n\n[ Increase Quota Free ]\n\nFailure to upgrade will result in account suspension.\n\nHostmaster",
+    "custom_links": [
+      {
+        "text": "[ Increase Quota Free ]",
+        "url": "http://192-168-0-1.net/upgrade"
+      }
+    ],
+    "redFlags": [
+      "Technical jargon abuse",
+      "Suspicious button text",
+      "Threat of suspension"
+    ],
+    "hint": null,
+    "educationalMessage": "This email uses technical fear (bouncing messages). The 'Increase Quota Free' button is a clear trap; real storage upgrades usually require manager approval or a paid plan, not a magic button."
+  },
+  {
+    "id": "safe_cloud_041",
+    "type": "Google Activity",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Google Takeout",
+    "sender_email": "no-reply@accounts.google.com",
+    "initials": "GT",
+    "subject": "Your Google data archive is ready",
+    "preview": "The archive of Google data you requested on Jan 14 is...",
+    "body": "Your Google data archive is ready\n\nThe archive you requested on January 14, 2026 is now available to download.\n\n[ Download archive ]\n\nThis link will expire in 1 week.\n\nGoogle",
+    "custom_links": [
+      {
+        "text": "[ Download archive ]",
+        "url": "https://takeout.google.com/settings/takeout/downloads"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "This is a safe automated message from Google Takeout. It appears only after you have manually requested a data export. The sender is correct, and the context matches your recent action."
+  },
+  {
+    "id": "phish_cloud_042",
+    "type": "Link Manipulation",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "TransferFile",
+    "sender_email": "files@transfer-large-files.biz",
+    "initials": "TF",
+    "subject": "You received files",
+    "preview": "Someone sent you files via TransferFile...",
+    "body": "Files Ready\n\nYou have 3 files waiting for download.\n\nClick here to download zip\n\nNote: This file contains an encrypted script.\n\nTransfer Services",
+    "custom_links": [
+      {
+        "text": "Click here to download zip",
+        "url": "http://transfer-large-files.biz/download"
+      }
+    ],
+    "redFlags": [
+      "Sketchy TLD (.biz)",
+      "Generic Service Name"
+    ],
+    "hint": null,
+    "educationalMessage": "Generic file transfer services with .biz domains are often used to distribute malware."
+  },
+  {
+    "id": "phish_hr_051",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "HR Department",
+    "sender_email": "human-resources-dept-99@gmail.com",
+    "initials": "HR",
+    "subject": "URGENT: Sign new employment contract",
+    "preview": "We have updated all contracts. You must sign immediately...",
+    "body": "Dear Staff,\n\nWe have updated the company terms of service. You must sign the new contract here by end of day or your employment is terminated.\n\nPlease do not ignore this.\n\nSincerely,\nThe Manager",
+    "custom_links": [
+      {
+        "text": "sign the new contract here",
+        "url": "http://human-resources-dept-99.com/sign"
+      }
+    ],
+    "redFlags": [
+      "Public Domain (@gmail.com)",
+      "Threat of termination",
+      "Vague signature"
+    ],
+    "hint": "Would HR fire you via a Gmail address?",
+    "educationalMessage": "This is an intimidation attack. No professional HR department uses a public Gmail account for contracts, nor do they threaten immediate termination in an initial email."
+  },
+  {
+    "id": "phish_hr_052",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Payro11 Team",
+    "sender_email": "admin@pay-check-error.biz",
+    "initials": "PT",
+    "subject": "Salary Payment Stopped",
+    "preview": "We could not deposit your direct deposit due to...",
+    "body": "Attention Employee,\n\nYour direct deposit for Jan 30 has been put on hold.\n\nWe need you to verify your bank account number again.\n\n[ Update Bank Details ]\n\nRegards,\nFinance",
+    "custom_links": [
+      {
+        "text": "[ Update Bank Details ]",
+        "url": "http://pay-check-error.biz/verify"
+      }
+    ],
+    "redFlags": [
+      "Typosquatting (Payro11)",
+      "Sketchy TLD (.biz)",
+      "Financial threat"
+    ],
+    "hint": "Look at the sender name. Is that how you spell 'Payroll'?",
+    "educationalMessage": "The sender name replaces 'll' with '11'. This is a basic visual trick. Legitimate payroll errors are usually handled via a secure portal, not a .biz link."
+  },
+  {
+    "id": "safe_hr_053",
+    "type": "Company Announcement",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Office Manager",
+    "sender_email": "office@phishguard.com",
+    "initials": "OM",
+    "subject": "Office Closed: Martin Luther King Jr. Day",
+    "preview": "Just a reminder that the office will be closed on...",
+    "body": "Hi Team,\n\nJust a reminder that the office will be closed this coming Monday in observance of MLK Day.\n\nEnjoy the long weekend!\n\nBest,\nFacilities Team",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. It's a standard informational email with no links, attachments, or requests for action."
+  },
+  {
+    "id": "phish_hr_054",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Health Benefits",
+    "sender_email": "benefits@free-health-insure.com",
+    "initials": "HB",
+    "subject": "Open Enrollment Extended",
+    "preview": "You have 24 hours left to upgrade your dental plan...",
+    "body": "Hello,\n\nWe have extended the enrollment period for 24 hours.\n\nIf you want to add free vision and dental, please download the form here and reply with your SSN.\n\nHR Benefits",
+    "custom_links": [
+      {
+        "text": "download the form here",
+        "url": "http://free-health-insure.com/download"
+      }
+    ],
+    "redFlags": [
+      "Request for SSN via email",
+      "External domain",
+      "Too good to be true (Free upgrades)"
+    ],
+    "hint": "Never email your Social Security Number. Ever.",
+    "educationalMessage": "Requesting an SSN via email reply is a massive security violation. Real HR teams use secure portals (like Workday or ADP) for this data."
+  },
+  {
+    "id": "safe_hr_055",
+    "type": "Internal Newsletter",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Internal Comms",
+    "sender_email": "comms@phishguard.com",
+    "initials": "IC",
+    "subject": "January Newsletter: Welcome new hires!",
+    "preview": "Check out who joined the team this month and see...",
+    "body": "Happy New Year!\n\nIn this month's edition, we welcome 5 new engineers to the Chicago office.\n\nYou can read the full bios on the Intranet Home Page.\n\nCheers,\nThe Comms Team",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. It directs you to the internal Intranet without providing a suspicious external link."
+  },
+  {
+    "id": "phish_hr_056",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Human Resources",
+    "sender_email": "hr@company-policies-secure.net",
+    "initials": "HR",
+    "subject": "Action Required: 2026 Remote Work Policy",
+    "preview": "Please acknowledge the new handbook updates...",
+    "body": "Dear Employee,\n\nWe have updated the Remote Work Policy effective immediately. All staff must read and sign the acknowledgment form.\n\n[ Read & Sign Policy ]\n\nFailure to sign may result in revocation of remote privileges.\n\nPeople Operations",
+    "custom_links": [
+      {
+        "text": "[ Read & Sign Policy ]",
+        "url": "http://company-policies-secure.net/sign"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@company-policies-secure.net)",
+      "Threat of privilege revocation",
+      "Generic greeting"
+    ],
+    "hint": "Check the URL in the sender field. Does your company host policies on 'company-policies-secure.net'?",
+    "educationalMessage": "Policy updates are real, but the hosting domain is fake. Attackers register domains that *sound* secure to trick you into logging in."
+  },
+  {
+    "id": "phish_hr_057",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Compliance Team",
+    "sender_email": "audit@safety-training-external.io",
+    "initials": "CT",
+    "subject": "Mandatory Training: Harassment Prevention",
+    "preview": "You have been assigned a mandatory training course...",
+    "body": "Training Assignment\n\nYou have been assigned: Workplace Harassment Prevention 2026.\n\nDue Date: Friday, Jan 16.\n\n[ Start Course ]\n\nThis course takes approx 45 mins.",
+    "custom_links": [
+      {
+        "text": "[ Start Course ]",
+        "url": "http://safety-training-external.io/start"
+      }
+    ],
+    "redFlags": [
+      "External TLD (.io) for internal compliance",
+      "Generic link",
+      "Short deadline"
+    ],
+    "hint": "Is the training link hosted on your company's Learning Management System (LMS)?",
+    "educationalMessage": "Training emails are common, which makes them great bait. Always check if the link goes to your official LMS (like Cornerstone, Udemy, or internal) or a strange external site."
+  },
+  {
+    "id": "safe_hr_058",
+    "type": "HR Notification",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Workday",
+    "sender_email": "no-reply@workday.com",
+    "initials": "WD",
+    "subject": "Action: Time Off Request Approved",
+    "preview": "Your manager has approved your time off request for...",
+    "body": "Workday Notification\n\nYour time off request for Feb 12 - Feb 14 has been approved by your manager.\n\nYou can view your balance in the Time Off Dashboard.\n\nThis is an automated message.",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. This is a standard transactional email from Workday. The domain is correct, and the context (Time Off) is a specific event."
+  },
+  {
+    "id": "phish_hr_059",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "CFO Office",
+    "sender_email": "cfo-office@company-financials.org",
+    "initials": "CF",
+    "subject": "Update regarding Q1 Bonuses",
+    "preview": "Important changes to the payout schedule...",
+    "body": "All Staff,\n\nDue to banking regulations, we are updating the bonus payout schedule.\n\nPlease review the memo here to see how this affects your department.\n\nRegards,\nChief Financial Officer",
+    "custom_links": [
+      {
+        "text": "review the memo here",
+        "url": "http://company-financials.org/memo"
+      }
+    ],
+    "redFlags": [
+      ".org domain for corporate finance",
+      "Money-related lure",
+      "Vague signature"
+    ],
+    "hint": "Why would the CFO email you from a .org domain?",
+    "educationalMessage": "Financial updates get high click rates. The red flag here is the .org domain (usually for non-profits), which a corporate CFO would not use."
+  },
+  {
+    "id": "safe_hr_060",
+    "type": "L&D Team",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Learning & Development",
+    "sender_email": "learning@phishguard.com",
+    "initials": "LD",
+    "subject": "Invitation: Leadership Workshop",
+    "preview": "We have a few spots left for the workshop on...",
+    "body": "Hi Team,\n\nWe have 3 spots left for the \"Effective Leadership\" workshop next Tuesday in Conference Room B.\n\nIf you'd like to attend, please reply to this email or accept the calendar invite sent earlier.\n\nBest,\nSarah",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. It asks for a reply or calendar action, not a click on a suspicious link."
+  },
+  {
+    "id": "phish_hr_061",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Ethics Hotline",
+    "sender_email": "reports@ethics-point-secure.com",
+    "initials": "EH",
+    "subject": "New Whistleblower Policy - Acknowledge",
+    "preview": "We have updated our anonymous reporting guidelines...",
+    "body": "Confidential\n\nTo comply with new state regulations, we have updated the Whistleblower Policy.\n\nAll employees must acknowledge receipt of this document.\n\nReference: Compliance-2026-A",
+    "custom_links": [
+      {
+        "text": "acknowledge receipt",
+        "url": "http://ethics-point-secure.com/acknowledge"
+      }
+    ],
+    "redFlags": [
+      "Subtle domain spoofing (ethics-point-secure vs ethicspoint.com)",
+      "Bureaucratic camouflage",
+      "Forced compliance"
+    ],
+    "hint": "This looks boring and official. Double-check the exact vendor domain.",
+    "educationalMessage": "Attackers love 'boring' compliance emails because you click them just to get it over with. The domain 'ethics-point-secure.com' is a fake; the real vendor is usually 'ethicspoint.com'."
+  },
+  {
+    "id": "phish_hr_062",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Employee Relations",
+    "sender_email": "er@company-internal.net",
+    "initials": "ER",
+    "subject": "Code of Conduct: Incident #9921",
+    "preview": "A complaint has been filed regarding your conduct...",
+    "body": "Confidential Notification\n\nA formal complaint has been filed naming you as a respondent. (Incident #9921)\n\nYou are required to read the complaint details and submit a response within 48 hours.\n\nEmployee Relations Team",
+    "custom_links": [
+      {
+        "text": "read the complaint details",
+        "url": "http://company-internal.net/complaint"
+      }
+    ],
+    "redFlags": [
+      "Extreme emotional trigger (Fear/Accusation)",
+      "Generic 'company-internal' domain",
+      "Short deadline for legal matter"
+    ],
+    "hint": "If you were really in trouble, would HR email you a link, or call you into a meeting?",
+    "educationalMessage": "This is a high-stress phishing attack. It relies on the panic of being 'reported'. Real HR issues involve face-to-face (or Zoom) meetings, not anonymous links to read complaints."
+  },
+  {
+    "id": "safe_hr_063",
+    "type": "HR Process",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "People Ops",
+    "sender_email": "people@phishguard.com",
+    "initials": "PO",
+    "subject": "Performance Review Cycle Q1: Kickoff",
+    "preview": "The Q1 review cycle is now open. Please complete your...",
+    "body": "Team,\n\nThe Q1 Performance Review cycle is open.\n\nAction: Complete your self-assessment in Lattice by Friday.\n\nWe have also attached a guide on \"How to write effective goals\" for your reference.\n\nPeople Operations",
+    "redFlags": [],
+    "hint": "Does the email direct you to a known tool (Lattice) without a weird link?",
+    "educationalMessage": "Safe. The email references a known internal tool (Lattice) and attaches a guide. It does not force a suspicious login via a link."
+  },
+  {
+    "id": "phish_hr_064",
+    "type": "Internal Impersonation",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Legal Dept",
+    "sender_email": "legal@company-legal-docs.com",
+    "initials": "LG",
+    "subject": "Urgent: Non-Compete Agreement Update",
+    "preview": "Changes to federal law require an update to your...",
+    "body": "Privileged & Confidential\n\nDue to the recent FTC ruling, we must update your Non-Compete Agreement.\n\nPlease sign the addendum via DocuSign.\n\nNote: Access requires Multi-Factor Authentication.\n\nGeneral Counsel",
+    "custom_links": [
+      {
+        "text": "sign the addendum via DocuSign",
+        "url": "http://company-legal-docs.com/sign"
+      }
+    ],
+    "redFlags": [
+      "Sophisticated Context (FTC Ruling)",
+      "Look-alike domain",
+      "Mention of MFA to add legitimacy"
+    ],
+    "hint": "Legal documents are serious. Check the 'from' address character by character.",
+    "educationalMessage": "This attack uses current events (FTC rulings) to seem legitimate. It even mentions MFA to lower your guard. But the domain 'company-legal-docs.com' is a fabrication."
+  },
+  {
+    "id": "safe_hr_065",
+    "type": "Security/HR",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Physical Security",
+    "sender_email": "security@phishguard.com",
+    "initials": "PS",
+    "subject": "New ID Badge Requirement",
+    "preview": "All employees must update their badge photo by...",
+    "body": "Attention,\n\nWe are upgrading the badge readers next month. All employees need a new badge.\n\nPlease visit the Security Desk on the 1st Floor next week to have your photo taken.\n\nNo appointment needed.\n\nSecurity Team",
+    "redFlags": [],
+    "hint": "Does this email ask for digital credentials or a physical action?",
+    "educationalMessage": "Safe. Phishing emails want your data or money online. This email asks you to go to a physical location (the Security Desk) inside your office, which is impossible for a remote hacker to exploit."
+  },
+  {
+    "id": "phish_bank_066",
+    "type": "Financial Fraud",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Chase_Bank",
+    "sender_email": "support-center-992@gmail.com",
+    "initials": "CB",
+    "subject": "ACCOUNT SUSPENDED: Unusual Activity",
+    "preview": "Your debit card has been blocked due to a suspicious...",
+    "body": "Dear Customer,\n\nWe detected a strange purchase in Mexico.\n\nYou must verify your identity here or your money will be frozen.\n\n[ UNLOCK CARD NOW ]\n\nChase Online Banking",
+    "custom_links": [
+      {
+        "text": "verify your identity here",
+        "url": "http://support-center-992.com/verify"
+      },
+      {
+        "text": "[ UNLOCK CARD NOW ]",
+        "url": "http://support-center-992.com/verify"
+      }
+    ],
+    "redFlags": [
+      "Public Sender Domain (@gmail.com)",
+      "Generic Greeting",
+      "Panic/Threat of frozen money"
+    ],
+    "hint": "Banks don't use Gmail addresses.",
+    "educationalMessage": "This is a low-effort phishing attempt. The biggest giveaway is the sender address using a public Gmail account instead of the official bank domain."
+  },
+  {
+    "id": "phish_bank_067",
+    "type": "IRS / Tax Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "IRS Refund",
+    "sender_email": "tax-refund-gov@hotmail.com",
+    "initials": "IR",
+    "subject": "You have a pending tax refund of $600.00",
+    "preview": "Our records indicate you overpaid your taxes...",
+    "body": "Taxpayer,\n\nYou are eligible for a refund of $600.00.\n\nPlease submit your bank details to receive the direct deposit.\n\nNote: This link expires in 24 hours.\n\nInternal Revenue Service",
+    "custom_links": [
+      {
+        "text": "submit your bank details",
+        "url": "http://tax-refund-gov.com/claim"
+      }
+    ],
+    "redFlags": [
+      "IRS never emails about refunds",
+      "Public domain (@hotmail.com)",
+      "Request for bank details via link"
+    ],
+    "hint": "The IRS will never initiate contact with you via email to give you money.",
+    "educationalMessage": "The IRS does not send emails regarding tax refunds. Any email claiming to be from the IRS offering money is a scam."
+  },
+  {
+    "id": "safe_bank_068",
+    "type": "Statement Notification",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Wells Fargo",
+    "sender_email": "alerts@notify.wellsfargo.com",
+    "initials": "WF",
+    "subject": "Your January 2026 Statement is available",
+    "preview": "Your checking account statement is now available online...",
+    "body": "Monthly Statement Available\n\nYour statement for the period ending Jan 14, 2026 is ready.\n\nPlease log in to wellsfargo.com to view your documents.\n\nFor security, we do not attach statements to emails.\n\nWells Fargo Online",
+    "custom_links": [
+      {
+        "text": "wellsfargo.com",
+        "url": "https://www.wellsfargo.com"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The email instructs you to go to the official website yourself ('log in to wellsfargo.com') rather than providing a direct login link."
+  },
+  {
+    "id": "phish_bank_069",
+    "type": "Crypto Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Coinbase Support",
+    "sender_email": "admin@crypt0-wal1et.net",
+    "initials": "CS",
+    "subject": "Bitcoin Received: 0.5 BTC",
+    "preview": "You have received 0.5 BTC into your wallet...",
+    "body": "Deposit Confirmed\n\nA deposit of 0.5 BTC ($22,000 USD) is pending in your wallet.\n\nTo release the funds, you must connect your wallet here.\n\nIf you do not act, the funds will be returned.\n\nCoinbase Team",
+    "custom_links": [
+      {
+        "text": "connect your wallet here",
+        "url": "http://crypt0-wal1et.net/connect"
+      }
+    ],
+    "redFlags": [
+      "Typosquatting (crypt0-wal1et)",
+      "Unsolicited large sum of money",
+      "Malicious wallet connection link"
+    ],
+    "hint": "Check the spelling of the sender domain carefully.",
+    "educationalMessage": "If you didn't buy crypto, you don't have crypto. Attackers use the promise of free money to get you to connect your digital wallet to a drainer script."
+  },
+  {
+    "id": "safe_bank_070",
+    "type": "Transaction Alert",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "American Express",
+    "sender_email": "fraudprotection@americanexpress.com",
+    "initials": "AE",
+    "subject": "Large Purchase Alert",
+    "preview": "A transaction exceeding your alert limit was approved...",
+    "body": "Transaction Alert\n\nA charge of $500.00 was approved at APPLE STORE.\n\nIf you made this charge, no action is needed.\n\nIf you do not recognize this charge, please call the number on the back of your card.\n\nAmerican Express",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. It provides transaction details but explicitly tells you to 'call the number on the back of your card' rather than clicking a link or calling a number provided in the email."
+  },
+  {
+    "id": "phish_bank_071",
+    "type": "Vishing (Voice Phishing)",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "PayPal Fraud",
+    "sender_email": "service@paypal-billing-notice.com",
+    "initials": "PP",
+    "subject": "Invoice Paid: $899.00 to GeekSquad",
+    "preview": "You have successfully sent a payment of $899.00...",
+    "body": "Payment Successful\n\nYou sent $899.00 USD to GeekSquad Inc.\n\nIf you did not authorize this, you must call our Fraud Desk immediately to cancel.\n\nCall Toll-Free: +1 (888) 555-0199\n\nDo not reply to this email.",
+    "redFlags": [
+      "Vishing Tactic (Pushing a phone call)",
+      "Fake Invoice Context",
+      "Spoofed domain"
+    ],
+    "hint": "Do not call the number in the email. Google the official PayPal support number.",
+    "educationalMessage": "This is a 'Vishing' (Voice Phishing) attack. There is no malicious link; instead, they want you to call the fake support number. The operator on the phone will then trick you into installing remote access software."
+  },
+  {
+    "id": "phish_bank_072",
+    "type": "Malware Invoice",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Accounts Payable",
+    "sender_email": "invoicing@supply-chain-logistics.net",
+    "initials": "AP",
+    "subject": "Overdue Invoice #9921 - Please Remit",
+    "preview": "Please find attached the overdue invoice for...",
+    "body": "Hello,\n\nOur records show Invoice #9921 is 30 days overdue.\n\nPlease open the attached PDF invoice to review the line items and process payment immediately.\n\nThank you,\nBilling Dept",
+    "custom_links": [
+      {
+        "text": "open the attached PDF invoice",
+        "url": "http://supply-chain-logistics.net/download"
+      }
+    ],
+    "redFlags": [
+      "Generic sender name",
+      "Unexpected Invoice",
+      "Malicious attachment lure"
+    ],
+    "hint": "Were you expecting an invoice from this company? Don't open attachments you didn't request.",
+    "educationalMessage": "Fake invoices are the #1 way malware is delivered to businesses. If you aren't the person who usually handles billing, or you don't recognize the vendor, do not open the attachment."
+  },
+  {
+    "id": "safe_bank_073",
+    "type": "Bank Policy Update",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Bank of America",
+    "sender_email": "customerservice@bankofamerica.com",
+    "initials": "BO",
+    "subject": "Changes to your Online Banking Agreement",
+    "preview": "We are updating our Service Agreement effective...",
+    "body": "Service Update\n\nWe are updating our Online Banking Service Agreement effective February 1, 2026.\n\nWe have posted the updated terms on our website. You can review them at your convenience.\n\nNo action is required.\n\nBank of America",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The email informs you of a policy change but explicitly states 'No action is required' and provides no clickable buttons."
+  },
+  {
+    "id": "phish_bank_074",
+    "type": "Wire Transfer Fraud",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Security Alert",
+    "sender_email": "alerts@bank-fraud-verify.com",
+    "initials": "SA",
+    "subject": "Wire Transfer Initiated: $15,000",
+    "preview": "A wire transfer request was initiated from your...",
+    "body": "Wire Transfer Alert\n\nWe received a request to wire $15,000 to Hong Kong Investment Ltd.\n\nIf you did not make this request, please click here to CANCEL transaction immediately.\n\nTime remaining to cancel: 15 minutes.\n\nFraud Department",
+    "custom_links": [
+      {
+        "text": "click here to CANCEL transaction",
+        "url": "http://bank-fraud-verify.com/cancel"
+      }
+    ],
+    "redFlags": [
+      "High-value panic trigger",
+      "Spoofed domain (@bank-fraud-verify.com)",
+      "Time pressure (15 minutes)"
+    ],
+    "hint": "Check the sender domain. Is 'bank-fraud-verify.com' your bank?",
+    "educationalMessage": "This attack relies on panic. You see '$15,000' and 'Wire Transfer' and want to click 'Cancel' instantly. That 'Cancel' button leads to a fake login page."
+  },
+  {
+    "id": "safe_bank_075",
+    "type": "Fraud Check",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Citi Fraud Early Warning",
+    "sender_email": "fraud-alerts@citi.com",
+    "initials": "CI",
+    "subject": "Action: Did you attempt this charge?",
+    "preview": "We declined a transaction on your card ending in...",
+    "body": "Fraud Alert\n\nDid you attempt a $1.00 charge at Gas Station, FL?\n\nReply YES if this was you.\n\nReply NO if this was not you.\n\nWe have temporarily blocked your card until you respond.\n\nCiti Security",
+    "redFlags": [],
+    "hint": "This asks for a simple reply, not a click or a login.",
+    "educationalMessage": "Safe. Many banks use email (or SMS) allowing you to reply 'YES' or 'NO' to a specific transaction. It comes from the official domain (@citi.com) and doesn't ask for a password."
+  },
+  {
+    "id": "phish_bank_076",
+    "type": "Spear Phishing / BEC",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Robert Miller (CFO)",
+    "sender_email": "robert.miller.finance@gmail.com",
+    "initials": "RM",
+    "subject": "Overdue Vendor Payment - Urgent",
+    "preview": "I need you to handle a wire for me right now...",
+    "body": "Hi,\n\nWe missed the payment deadline for the Alpha Vendor account. They are threatening to stop supply.\n\nI need you to process a wire for $4,500 immediately.\n\nI will forward the invoice details in a moment, but please get the portal ready.\n\nSent from my iPhone\nRobert",
+    "custom_links": [
+      {
+        "text": "process a wire for $4,500",
+        "url": "mailto:robert.miller.finance@gmail.com"
+      }
+    ],
+    "redFlags": [
+      "Public Domain (@gmail.com for CFO)",
+      "Financial Urgency",
+      "Bypassing standard procedure"
+    ],
+    "hint": "Check the CFO's email address. Is it the corporate one?",
+    "educationalMessage": "This is Business Email Compromise (BEC). There is no link, just an instruction to send money. The red flag is the 'Ask' (send money now) combined with the sender using a personal Gmail account."
+  },
+  {
+    "id": "phish_bank_077",
+    "type": "Zelle Scam",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Zelle Pay",
+    "sender_email": "notification@zelle-payment-security.net",
+    "initials": "ZP",
+    "subject": "Payment sent to @unknown_user",
+    "preview": "You sent $250.00 to Mark. If this was a mistake...",
+    "body": "Zelle Payment Sent\n\nYou sent $250.00 to Mark J.\n\nTransaction ID: #8829100\n\nIf you did not authorize this payment, click here to Dispute immediately to reverse the funds.\n\nZelle Support",
+    "custom_links": [
+      {
+        "text": "click here to Dispute",
+        "url": "http://zelle-payment-security.net/dispute"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@zelle-payment-security.net)",
+      "Dispute Bait",
+      "Panic trigger"
+    ],
+    "hint": "Zelle payments are generally irreversible. A 'Dispute' link in an email is highly suspicious.",
+    "educationalMessage": "Scammers know Zelle payments are instant. They send fake notifications hoping you will panic and click 'Dispute', where they will harvest your banking login details."
+  },
+  {
+    "id": "safe_bank_078",
+    "type": "Legitimate Zelle Notification",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Chase",
+    "sender_email": "no-reply@alert.chase.com",
+    "initials": "CH",
+    "subject": "You sent money with Zelle",
+    "preview": "You sent $20.00 to Sarah for 'Lunch'...",
+    "body": "Payment Sent\n\nYou sent $20.00 to Sarah.\n\nMemo: \"Lunch\"\n\nThis money will be available in their account shortly.\n\nDon't recognize this? Sign in to chase.com.",
+    "redFlags": [],
+    "hint": "This email gives you information but directs you to the main website, not a 'dispute' link.",
+    "educationalMessage": "Safe. The email confirms a transaction (that likely just happened). Crucially, it tells you to 'Sign in to chase.com' if there is an issue, rather than giving you a panic link."
+  },
+  {
+    "id": "phish_bank_079",
+    "type": "Financial DocuSign Spoof",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "DocuSign for Finance",
+    "sender_email": "dse@docusign.net.financial-secure.com",
+    "initials": "DS",
+    "subject": "Please Sign: Investment Authorization Form",
+    "preview": "Your financial advisor has sent you a document...",
+    "body": "Advisor Group sent you a document.\n\nPlease review and sign the Q1 Portfolio Rebalancing Authorization.\n\n[ Review Document ]\n\nThis link expires in 48 hours.\n\nPowered by DocuSign",
+    "custom_links": [
+      {
+        "text": "[ Review Document ]",
+        "url": "http://docusign.net.financial-secure.com/review"
+      }
+    ],
+    "redFlags": [
+      "Subdomain Chaining (@docusign.net.financial-secure.com)",
+      "Vague sender ('Advisor Group')",
+      "Credential harvester"
+    ],
+    "hint": "Look at the very end of the sender domain. Is it docusign.net or something else?",
+    "educationalMessage": "This uses Subdomain Chaining. The domain starts with 'docusign.net' to fool you, but the actual domain ending is 'financial-secure.com'. Always check the end of the URL."
+  },
+  {
+    "id": "safe_bank_080",
+    "type": "2FA Code",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Capital One",
+    "sender_email": "verify@capitalone.com",
+    "initials": "CO",
+    "subject": "Your one-time verification code",
+    "preview": "Here is the code you requested to sign in...",
+    "body": "Verification Code\n\nHere is your one-time code:\n\n882 991\n\nIf you didn't request this code, please call us immediately.\n\nCapital One Fraud Protection",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. This is a standard 2FA email. It provides the code and nothing else. It assumes you triggered the request. If you didn't trigger it, someone has your password, but the email itself is not a phish."
+  },
+  {
+    "id": "phish_doc_081",
+    "type": "Link-Based Phishing",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Document Delivery",
+    "sender_email": "auto-sender@gmail.com",
+    "initials": "DD",
+    "subject": "You have received a secure document",
+    "preview": "A confidential file has been uploaded for you...",
+    "body": "System Notification\n\nYou have a new file waiting: Strategy_2026.pdf\n\nPlease click here to view.\n\nNote: This link expires in 24 hours.\n\nDoc Services",
+    "custom_links": [
+      {
+        "text": "click here to view",
+        "url": "http://auto-sender.com/view"
+      }
+    ],
+    "redFlags": [
+      "Public Sender Domain (@gmail.com)",
+      "Generic Service Name",
+      "No context on who sent it"
+    ],
+    "hint": "Check the sender's email address. Is it a corporate address?",
+    "educationalMessage": "Automated business systems do not send notifications from personal Gmail accounts. This is a generic mass-phishing attempt."
+  },
+  {
+    "id": "phish_doc_082",
+    "type": "Link-Based Phishing",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Xerox Scanner",
+    "sender_email": "scans@printer-error-alert.net",
+    "initials": "XS",
+    "subject": "Scanned from MFP-002",
+    "preview": "Please find attached your scanned document...",
+    "body": "Scan to Email\n\nYour document has been scanned and is ready for download.\n\n[ Download Scan ]\n\nPages: 12\nSize: 4.2 MB\n\nOffice Printer",
+    "custom_links": [
+      {
+        "text": "[ Download Scan ]",
+        "url": "http://printer-error-alert.net/download"
+      }
+    ],
+    "redFlags": [
+      "Unofficial Domain (@printer-error-alert.net)",
+      "Download button instead of attachment",
+      "Generic device name"
+    ],
+    "hint": null,
+    "educationalMessage": "Office printers usually email the PDF file directly as an attachment. They rarely ask you to click a link to a third-party website like 'printer-error-alert.net' to download it."
+  },
+  {
+    "id": "safe_doc_083",
+    "type": "Legitimate Google Share",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Google Drive",
+    "sender_email": "drive-shares-noreply@google.com",
+    "initials": "GD",
+    "subject": "Item shared with you: 'Q1 Budget'",
+    "preview": "Mark (m.smith@phishguard.com) shared an item...",
+    "body": "Mark Smith shared an item\n\nMark Smith (m.smith@phishguard.com) has invited you to edit Q1_Budget.xlsx.\n\n[ Open in Sheets ]\n\nGoogle Sheets: Create and edit spreadsheets online.\n\nGoogle LLC",
+    "custom_links": [
+      {
+        "text": "[ Open in Sheets ]",
+        "url": "https://docs.google.com/spreadsheets/d/12345"
+      }
+    ],
+    "redFlags": [],
+    "hint": "The sender is Google, and the person sharing is a known colleague with a correct email.",
+    "educationalMessage": "This is a standard Google Drive notification. The sender matches the service (@google.com) and the person sharing the file is explicitly identified with their corporate email."
+  },
+  {
+    "id": "phish_doc_084",
+    "type": "Link-Based Phishing",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "HR Records",
+    "sender_email": "hr-files@yahoo.com",
+    "initials": "HR",
+    "subject": "Please Sign: Employee Handbook",
+    "preview": "All employees must sign the updated handbook...",
+    "body": "Hello,\n\nPlease sign the attached Employee Handbook acknowledgment.\n\nhttp://tinyurl.com/hr-handbook-sign\n\nThanks,\nHuman Resources",
+    "custom_links": [
+      {
+        "text": "http://tinyurl.com/hr-handbook-sign",
+        "url": "http://tinyurl.com/hr-handbook-sign"
+      }
+    ],
+    "redFlags": [
+      "Public Yahoo address",
+      "TinyURL (hiding destination)",
+      "Generic signature"
+    ],
+    "hint": "HR departments don't use Yahoo emails or TinyURL links.",
+    "educationalMessage": "Using a public email provider and a link shortener (TinyURL) are two of the biggest red flags in cybersecurity."
+  },
+  {
+    "id": "safe_doc_085",
+    "type": "Internal Attachment",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Alice (Design)",
+    "sender_email": "a.jones@phishguard.com",
+    "initials": "AJ",
+    "subject": "Logo files attached",
+    "preview": "Hi, as requested, here are the transparent PNGs...",
+    "body": "Hi!\n\nAs requested, I've attached the transparent PNGs for the new website header.\n\n[ logos.zip (4 MB) - Attached ]\n\nLet me know if you need the SVGs.\n\nBest,\nAlice",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The email comes from a colleague's internal address and contains a direct attachment, not a suspicious link to a cloud service."
+  },
+  {
+    "id": "phish_doc_086",
+    "type": "SharePoint Spoof",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "SharePoint Online",
+    "sender_email": "notifications@sharepoint-secure-auth.com",
+    "initials": "SP",
+    "subject": "File Shared: Executive Summary",
+    "preview": "This file has been shared with 'All Staff'...",
+    "body": "Microsoft SharePoint\n\nA file Executive_Summary_2026.docx has been shared with you.\n\nTo access this secure file, you must authenticate your credentials.\n\n[ View Document ]\n\nMicrosoft Office 365",
+    "custom_links": [
+      {
+        "text": "authenticate your credentials",
+        "url": "http://sharepoint-secure-auth.com/login"
+      },
+      {
+        "text": "[ View Document ]",
+        "url": "http://sharepoint-secure-auth.com/view"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@sharepoint-secure-auth.com)",
+      "Generic 'All Staff' lure",
+      "Request to authenticate"
+    ],
+    "hint": "Does Microsoft use 'sharepoint-secure-auth.com'?",
+    "educationalMessage": "This is a convincing look-alike. The graphics look like Microsoft, but the domain `sharepoint-secure-auth.com` is fake. Real notifications come from your company domain or `sharepoint.com`."
+  },
+  {
+    "id": "phish_doc_087",
+    "type": "Subdomain Chain",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Dropbox Transfer",
+    "sender_email": "no-reply@dropbox.net.mail-sender.io",
+    "initials": "DT",
+    "subject": "Sam sent you 'Project_Assets'",
+    "preview": "These files expire in 7 days...",
+    "body": "Dropbox Transfer\n\nSam sent you Project_Assets.zip (1.2 GB).\n\n[ Download ]\n\n\"Here are the raw video files for the ad.\"\n\nDropbox, Inc.",
+    "custom_links": [
+      {
+        "text": "[ Download ]",
+        "url": "http://dropbox.net.mail-sender.io/download"
+      }
+    ],
+    "redFlags": [
+      "Subdomain Chaining (@dropbox.net.mail-sender.io)",
+      "Vague sender name 'Sam'",
+      "Malicious link"
+    ],
+    "hint": "Read the sender email carefully. The real domain is at the very end.",
+    "educationalMessage": "This uses 'Subdomain Chaining'. It starts with `dropbox.net` to look safe, but the actual domain is `mail-sender.io`. Always check the end of the URL."
+  },
+  {
+    "id": "safe_doc_088",
+    "type": "Legitimate DocuSign",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "DocuSign System",
+    "sender_email": "dse_NA3@docusign.net",
+    "initials": "DS",
+    "subject": "Completed: NDA - Vendor Agreement",
+    "preview": "All signers have completed the document...",
+    "body": "Your document is complete.\n\nYou can now view the signed PDF for NDA - Vendor Agreement.\n\n[ View Completed Document ]\n\nPowered by DocuSign",
+    "custom_links": [
+      {
+        "text": "[ View Completed Document ]",
+        "url": "https://www.docusign.net/member/MemberLogin.aspx"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The sender is `docusign.net` (official), and the context implies a document you were already involved in signing."
+  },
+  {
+    "id": "phish_doc_089",
+    "type": "Encrypted Message",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Secure Message Center",
+    "sender_email": "security@encryption-portal-mail.org",
+    "initials": "SM",
+    "subject": "You have (1) Encrypted Message",
+    "preview": "You have received a secure message from external...",
+    "body": "Encrypted Message Notification\n\nYou have received a secure email containing sensitive financial data.\n\nMessage ID: #9921-AZ\n\n[ Read Secure Message ]\n\nYou will need to login with your email password to decrypt.",
+    "custom_links": [
+      {
+        "text": "[ Read Secure Message ]",
+        "url": "http://encryption-portal-mail.org/read"
+      }
+    ],
+    "redFlags": [
+      ".org domain for encryption service",
+      "Request for email password",
+      "Generic 'Secure Message Center'"
+    ],
+    "hint": "A secure message portal should never ask for your *email account* password.",
+    "educationalMessage": "While encrypted email portals exist (like Cisco or Mimecast), they will never ask you to input your specific email account password on a third-party site. The domain here is also generic."
+  },
+  {
+    "id": "safe_doc_090",
+    "type": "Slack File Share",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Slack",
+    "sender_email": "notifications@slack.com",
+    "initials": "SL",
+    "subject": "New file in #general",
+    "preview": "Jenny uploaded a file to the #general channel...",
+    "body": "Slack Notification\n\nJenny uploaded a file to #general:\n\nQ1_Planning_Notes.pdf\n\n[ View in Slack ]\n\nSent by Slack",
+    "custom_links": [
+      {
+        "text": "[ View in Slack ]",
+        "url": "https://slack.com/app_redirect?channel=general"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The notification comes from the official `slack.com` domain and describes a specific action in a specific channel."
+  },
+  {
+    "id": "phish_doc_091",
+    "type": "Spear Phishing / Vendor Spoof",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Salesforce Updates",
+    "sender_email": "reports@salesforce-crm-cloud.com",
+    "initials": "SF",
+    "subject": "Export Ready: Q4 Leads List",
+    "preview": "Your data export is ready for download...",
+    "body": "Data Export Notification\n\nThe report Q4_Leads_NorthAmerica.csv is ready.\n\nThis link is valid for 24 hours.\n\n[ Download CSV ]\n\nSalesforce, Inc.",
+    "custom_links": [
+      {
+        "text": "[ Download CSV ]",
+        "url": "http://salesforce-crm-cloud.com/download"
+      }
+    ],
+    "redFlags": [
+      "Sophisticated domain spoof (salesforce-crm-cloud.com)",
+      "Contextually relevant (Sales/Leads)",
+      "Direct download link"
+    ],
+    "hint": "Salesforce uses 'salesforce.com'. Do they own 'salesforce-crm-cloud.com'?",
+    "educationalMessage": "This targets sales staff who are used to exporting reports. The domain looks very professional, but it is not the official Salesforce domain."
+  },
+  {
+    "id": "phish_doc_092",
+    "type": "OneDrive Business Spoof",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "OneDrive for Business",
+    "sender_email": "no-reply@sharepoint-cloud-access.net",
+    "initials": "OD",
+    "subject": "Shared: 'Employee_Bonus_Plan'",
+    "preview": "HR Director has shared a folder with you...",
+    "body": "HR Director shared a private folder\n\n/Confidential/Compensation/2026\n\nThis link is accessible only to you.\n\n[ Open Folder ]\n\nMicrosoft OneDrive",
+    "custom_links": [
+      {
+        "text": "[ Open Folder ]",
+        "url": "http://sharepoint-cloud-access.net/open"
+      }
+    ],
+    "redFlags": [
+      "Appeal to greed/curiosity (Bonus Plan)",
+      "Spoofed domain (@sharepoint-cloud-access.net)",
+      "Vague sender title ('HR Director' instead of name)"
+    ],
+    "hint": "Check the sender email domain. Is it your company's domain or Microsoft's?",
+    "educationalMessage": "This is a dangerous spear phish. It appeals to your curiosity about bonuses. The domain `sharepoint-cloud-access.net` sounds technical and safe, but it is a fake site set up to steal your login."
+  },
+  {
+    "id": "safe_doc_093",
+    "type": "Jira Notification",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Jira",
+    "sender_email": "jira@phishguard.atlassian.net",
+    "initials": "JI",
+    "subject": "[JIRA] (DEV-102) Attachment Added",
+    "preview": "Mike added an attachment to DEV-102: Backend logs...",
+    "body": "Mike Jones updated DEV-102\n\nAttachment added: server_logs_error.txt\n\n\"Here are the logs from the crash last night.\"\n\n[ View Issue ]\n\nAtlassian Jira",
+    "custom_links": [
+      {
+        "text": "[ View Issue ]",
+        "url": "https://phishguard.atlassian.net/browse/DEV-102"
+      }
+    ],
+    "redFlags": [],
+    "hint": "Check the sender. 'atlassian.net' is the official domain for Jira Cloud.",
+    "educationalMessage": "Safe. The sender `phishguard.atlassian.net` is the correct subdomain format for Jira Cloud instances, and the email references a specific ticket number and action."
+  },
+  {
+    "id": "phish_doc_094",
+    "type": "Internal Scanner Spoof",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Canon Scanner 3rd Flr",
+    "sender_email": "copier@internal-office-devices.net",
+    "initials": "CS",
+    "subject": "Attached Image",
+    "preview": "Scanned document from Canon_C5550...",
+    "body": "Scan to Email\n\nDevice: Canon_C5550\nLocation: 3rd Floor East\n\nFile Type: PDF\n\n[ View Scanned Document ]\n\nSent automatically.",
+    "custom_links": [
+      {
+        "text": "[ View Scanned Document ]",
+        "url": "http://internal-office-devices.net/view"
+      }
+    ],
+    "redFlags": [
+      "Fake internal domain (@internal-office-devices.net)",
+      "Button instead of attachment",
+      "Generic template"
+    ],
+    "hint": "Would an internal scanner send emails from a '.net' domain or your company domain?",
+    "educationalMessage": "Internal devices (printers, scanners) are configured to send emails from your own company domain (e.g., `printers@phishguard.com`), not generic external domains like `internal-office-devices.net`."
+  },
+  {
+    "id": "safe_doc_095",
+    "type": "Teams Notification",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Microsoft Teams",
+    "sender_email": "noreply@email.teams.microsoft.com",
+    "initials": "MT",
+    "subject": "You have been mentioned in Marketing",
+    "preview": "Sarah mentioned you: 'Hey, can you review this...' ",
+    "body": "Microsoft Teams\n\nSarah Jenkins mentioned you in Marketing > General\n\n\"Hey, can you review this Project_Brief.docx? I linked it in the files tab.\"\n\n[ Reply in Teams ]",
+    "custom_links": [
+      {
+        "text": "[ Reply in Teams ]",
+        "url": "https://teams.microsoft.com/l/message/19:..."
+      }
+    ],
+    "redFlags": [],
+    "hint": "Check the sender. 'email.teams.microsoft.com' is valid.",
+    "educationalMessage": "Safe. The sender domain `email.teams.microsoft.com` is the official Microsoft Teams notification address. It provides context (who mentioned you and where) and directs you to the app."
+  },
+  {
+    "id": "phish_sub_096",
+    "type": "Payment Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Netf1ix",
+    "sender_email": "billing@gmail.com",
+    "initials": "NF",
+    "subject": "Payment Declined: Membership Paused",
+    "preview": "We could not resolve your payment for this month...",
+    "body": "Hi Friend,\n\nWe tried to charge your card for your monthly subscription but it failed.\n\nPlease update your credit card immediately to keep watching.\n\n[ RESTART MEMBERSHIP ]\n\nThe Netf1ix Team",
+    "custom_links": [
+      {
+        "text": "update your credit card",
+        "url": "http://netfl1x-billing.com/update"
+      },
+      {
+        "text": "[ RESTART MEMBERSHIP ]",
+        "url": "http://netfl1x-billing.com/update"
+      }
+    ],
+    "redFlags": [
+      "Typosquatting (Netf1ix with a one)",
+      "Public Sender Domain (@gmail.com)",
+      "Generic Greeting"
+    ],
+    "hint": "Check the spelling of the sender name and the email address.",
+    "educationalMessage": "Major streaming services will never email you from a Gmail account. Also, look closely at the name 'Netf1ix'—it swaps the 'l' for a '1'."
+  },
+  {
+    "id": "phish_sub_097",
+    "type": "Payment Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "McAfee AntiVirus",
+    "sender_email": "renewals@virus-protection-alert.net",
+    "initials": "MA",
+    "subject": "YOUR PC IS UNPROTECTED!",
+    "preview": "Your subscription expired yesterday. Viruses may be...",
+    "body": "WARNING: SYSTEM AT RISK\n\nYour antivirus subscription has expired.\n\nYou are currently exposed to 14 viruses.\n\nRenew Protection Now ($29.99)\n\nIf you don't pay, your data will be corrupted.\n\nSecurity Center",
+    "custom_links": [
+      {
+        "text": "Renew Protection Now ($29.99)",
+        "url": "http://virus-protection-alert.net/renew"
+      }
+    ],
+    "redFlags": [
+      "Fear mongering (Threat of data corruption)",
+      "Generic sender domain",
+      "All caps subject line"
+    ],
+    "hint": "Does legitimate software scream at you in all caps about data corruption?",
+    "educationalMessage": "Fear is the attacker's best tool. Claims that your computer is 'currently exposed' or that data will be 'corrupted' are designed to make you pay without thinking."
+  },
+  {
+    "id": "safe_sub_098",
+    "type": "Subscription Receipt",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Spotify",
+    "sender_email": "no-reply@spotify.com",
+    "initials": "SP",
+    "subject": "Your receipt for January",
+    "preview": "Thanks for sticking with Premium. Here is your receipt...",
+    "body": "Spotify Premium Receipt\n\nYou have successfully paid $11.99 for January 2026.\n\nPayment Method: PayPal\n\nYou can view your account details anytime at spotify.com/account.\n\nSpotify USA, Inc.",
+    "custom_links": [
+      {
+        "text": "spotify.com/account",
+        "url": "https://www.spotify.com/account"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. This is a standard receipt. It provides transaction details and directs you to the main website, not a suspicious link."
+  },
+  {
+    "id": "phish_sub_099",
+    "type": "Payment Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Prime Support",
+    "sender_email": "prime-membership@hotmail.com",
+    "initials": "PS",
+    "subject": "Card Declined: Order #112-392",
+    "preview": "We could not ship your order because your card...",
+    "body": "Hello Customer,\n\nWe tried to process your Prime membership fee but your card was declined.\n\nYour benefits are suspended.\n\n[ Verify Payment Info ]\n\nThank you,\nAmazon Support",
+    "custom_links": [
+      {
+        "text": "[ Verify Payment Info ]",
+        "url": "http://prime-membership-support.com/verify"
+      }
+    ],
+    "redFlags": [
+      "Public Domain (@hotmail.com)",
+      "Generic Greeting",
+      "Suspended benefits threat"
+    ],
+    "hint": "Amazon will not email you from Hotmail.",
+    "educationalMessage": "This is a low-effort phish. The sender is using a free Hotmail address, which a trillion-dollar company like Amazon would never do."
+  },
+  {
+    "id": "safe_sub_100",
+    "type": "Internal Finance",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Finance Dept",
+    "sender_email": "accounts@phishguard.com",
+    "initials": "FD",
+    "subject": "Software License Renewals - FYI",
+    "preview": "We have automatically renewed the Adobe Creative Cloud...",
+    "body": "Hi Team,\n\nJust an FYI that we have automatically renewed the Adobe Creative Cloud enterprise licenses for the year.\n\nNo action is needed from you. Your access should continue uninterrupted.\n\nBest,\nAccounts Payable",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. It notifies you of a renewal but explicitly states 'No action is needed' and comes from the internal finance team."
+  },
+  {
+    "id": "phish_sub_101",
+    "type": "Payment Scam",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Apple ID",
+    "sender_email": "billing@apple-id-cloud-verify.com",
+    "initials": "AI",
+    "subject": "Your iCloud storage is full",
+    "preview": "Your payment failed and your data is at risk...",
+    "body": "iCloud Storage Alert\n\nWe were unable to renew your 2TB storage plan.\n\nIf you do not update your payment info within 24 hours, your photos and backups will be deleted to free up space.\n\nApple Support",
+    "custom_links": [
+      {
+        "text": "update your payment info",
+        "url": "http://apple-id-cloud-verify.com/update"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@apple-id-cloud-verify.com)",
+      "Threat of deletion",
+      "Urgency (24 hours)"
+    ],
+    "hint": "Check the sender domain. Is 'apple-id-cloud-verify.com' a real Apple site?",
+    "educationalMessage": "Apple emails come from `email.apple.com` or similar official domains. They do not use hyphenated look-alikes like `apple-id-cloud-verify.com`."
+  },
+  {
+    "id": "phish_sub_102",
+    "type": "Payment Scam",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Zoom Video",
+    "sender_email": "accounts@zoom-billing-secure.com",
+    "initials": "ZV",
+    "subject": "Action Required: Pro Account Suspended",
+    "preview": "Your recurring payment for Zoom Pro was declined...",
+    "body": "Hello,\n\nYour Zoom Pro subscription has been suspended due to a billing error.\n\nTo avoid losing your scheduled meetings, please reactivate your account immediately.\n\nZoom Video Communications",
+    "custom_links": [
+      {
+        "text": "reactivate your account",
+        "url": "http://zoom-billing-secure.com/reactivate"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@zoom-billing-secure.com)",
+      "Business impact threat (Losing meetings)",
+      "Link to fake login"
+    ],
+    "hint": null,
+    "educationalMessage": "Attacking business tools like Zoom is effective because employees fear work disruption. Always check the sender address before clicking links about 'suspended' accounts."
+  },
+  {
+    "id": "safe_sub_103",
+    "type": "Legitimate Invoice",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Amazon Web Services",
+    "sender_email": "no-reply-aws@amazon.com",
+    "initials": "AW",
+    "subject": "AWS Invoice Available [Account: 11299382]",
+    "preview": "Your invoice for the billing period January 1 - January 31...",
+    "body": "Hello,\n\nYour AWS invoice for the period of January 1 - January 31 is now available.\n\nTotal: $142.50\n\nYou can view your invoice in the AWS Billing Console.\n\nAmazon Web Services, Inc.",
+    "custom_links": [
+      {
+        "text": "AWS Billing Console",
+        "url": "https://console.aws.amazon.com/billing"
+      }
+    ],
+    "redFlags": [],
+    "hint": "Check the sender. 'amazon.com' is the correct root domain.",
+    "educationalMessage": "Safe. The email comes from the official `amazon.com` domain and directs you to the 'Billing Console' generally, rather than forcing a panic click."
+  },
+  {
+    "id": "phish_sub_104",
+    "type": "Payment Scam",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Dropbox Team",
+    "sender_email": "payments@dropbox-billing-dept.net",
+    "initials": "DB",
+    "subject": "We couldn't process your payment",
+    "preview": "Your Dropbox Plus subscription has been downgraded...",
+    "body": "Hi User,\n\nWe attempted to charge your card ending in 4021 but it was declined.\n\nYour account has been temporarily downgraded to Basic.\n\n[ Update Billing ]\n\nThanks,\nThe Dropbox Team",
+    "custom_links": [
+      {
+        "text": "[ Update Billing ]",
+        "url": "http://dropbox-billing-dept.net/update"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@dropbox-billing-dept.net)",
+      "Downgrade threat",
+      "Generic 'Hi User'"
+    ],
+    "hint": "Dropbox uses 'dropbox.com'. Be wary of 'billing-dept' subdomains or extra words.",
+    "educationalMessage": "Companies rarely use domains like `dropbox-billing-dept.net`. They use subdomains like `billing.dropbox.com` or just `dropbox.com`. The extra words in the domain are a sign of a scam."
+  },
+  {
+    "id": "safe_sub_105",
+    "type": "Legitimate Renewal",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Slack Billing",
+    "sender_email": "billing@slack.com",
+    "initials": "SL",
+    "subject": "Your Slack invoice is ready",
+    "preview": "Here is your invoice for the PhishGuard workspace...",
+    "body": "Slack Invoice\n\nHere is your invoice for PhishGuard Workspace.\n\nAmount: $0.00 (Credits applied)\n\nReference #: INV-2026-001\n\n[ View Invoice ]\n\nSent by Slack",
+    "custom_links": [
+      {
+        "text": "[ View Invoice ]",
+        "url": "https://slack.com/billing/history"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The sender is `slack.com`, and the context (workspace name) is correct. Credits applied ($0.00) is also a common legitimate state that phishers rarely mimic."
+  },
+  {
+    "id": "phish_sub_106",
+    "type": "B2B / Domain Scam",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Domain Registry",
+    "sender_email": "support@domain-registry-services.net",
+    "initials": "DR",
+    "subject": "FINAL NOTICE: Domain Expiration",
+    "preview": "Your domain phishguard.com expires in 24 hours...",
+    "body": "URGENT NOTICE\n\nThe domain phishguard.com is set to expire on Jan 15, 2026.\n\nFailure to renew will result in loss of website and email services.\n\n[ Renew Domain Now ]\n\nGlobal Domain Services",
+    "custom_links": [
+      {
+        "text": "[ Renew Domain Now ]",
+        "url": "http://domain-registry-services.net/renew"
+      }
+    ],
+    "redFlags": [
+      "Generic Sender Name (Which registrar?)",
+      "Panic inducing",
+      "Generic 'registry' domain"
+    ],
+    "hint": "Who is your actual domain registrar? GoDaddy? Namecheap? This email doesn't say.",
+    "educationalMessage": "This is a very common B2B scam. The sender name is generic ('Domain Registry') because they don't know who your actual registrar is. They hope you panic and pay them instead."
+  },
+  {
+    "id": "phish_sub_107",
+    "type": "Payment Scam",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Microsoft 365",
+    "sender_email": "billing@microsoft-online-secure.com",
+    "initials": "MS",
+    "subject": "Subscription Expiring: Business Standard",
+    "preview": "Your subscription for Microsoft 365 Business Standard...",
+    "body": "Microsoft 365\n\nYour subscription for Business Standard expires tomorrow.\n\nTo ensure uninterrupted service for your organization, please enable auto-renew.\n\nOrganization: PhishGuard Inc.\n\nMicrosoft Corporation",
+    "custom_links": [
+      {
+        "text": "enable auto-renew",
+        "url": "http://microsoft-online-secure.com/renew"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@microsoft-online-secure.com)",
+      "Correct Company Name (Spear Phishing)",
+      "Link to fake login"
+    ],
+    "hint": "Microsoft owns 'microsoft.com'. Do they own 'microsoft-online-secure.com'?",
+    "educationalMessage": "This is a targeted attack (Spear Phishing). They used your company name to look legitimate, but the sender domain is a fake look-alike."
+  },
+  {
+    "id": "safe_sub_108",
+    "type": "Legitimate Receipt",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Atlassian",
+    "sender_email": "billing@atlassian.com",
+    "initials": "AT",
+    "subject": "Payment receipt: Jira Software",
+    "preview": "We received your payment for Jira Software...",
+    "body": "Payment Received\n\nWe received your payment of $150.00 for Jira Software (Standard).\n\nInvoice: AT-99281\n\nYou can manage your billing details in the Atlassian Administration portal.\n\nAtlassian Pty Ltd",
+    "custom_links": [
+      {
+        "text": "Atlassian Administration",
+        "url": "https://admin.atlassian.com"
+      }
+    ],
+    "redFlags": [],
+    "hint": "The domain is correct (@atlassian.com) and the link text implies a portal, not a panic button.",
+    "educationalMessage": "Safe. The email comes from the correct vendor domain and confirms a payment that likely happened automatically."
+  },
+  {
+    "id": "phish_sub_109",
+    "type": "Subdomain Chain Scam",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "LinkedIn Premium",
+    "sender_email": "messages@linkedin.com.mail-service.io",
+    "initials": "LI",
+    "subject": "Payment Failed: Sales Navigator",
+    "preview": "We couldn't process your payment for Sales Navigator...",
+    "body": "LinkedIn Payment Alert\n\nWe were unable to process the recurring payment for Sales Navigator Core.\n\nYour premium features have been paused.\n\n[ Update Payment Method ]\n\nLinkedIn Corporation",
+    "custom_links": [
+      {
+        "text": "[ Update Payment Method ]",
+        "url": "http://linkedin.com.mail-service.io/update"
+      }
+    ],
+    "redFlags": [
+      "Subdomain Chaining (@linkedin.com.mail-service.io)",
+      "High-value target (Sales Navigator)",
+      "Paused service threat"
+    ],
+    "hint": "Look at the very end of the sender domain. Is it linkedin.com?",
+    "educationalMessage": "This uses Subdomain Chaining. The domain starts with `linkedin.com` to fool you, but the actual TLD is `.io`. Always read the URL from right to left."
+  },
+  {
+    "id": "safe_sub_110",
+    "type": "Internal IT",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "IT Asset Management",
+    "sender_email": "assets@phishguard.com",
+    "initials": "IT",
+    "subject": "License Assigned: IntelliJ IDEA",
+    "preview": "A license for IntelliJ IDEA has been assigned to you...",
+    "body": "Hi,\n\nA license for IntelliJ IDEA Ultimate has been assigned to your account.\n\nYou can activate it by logging into the JetBrains software using your corporate credentials.\n\nIf you have issues, file a ticket.\n\nIT Team",
+    "redFlags": [],
+    "hint": "Does this email ask you to click a link to pay, or just inform you of a license?",
+    "educationalMessage": "Safe. It informs you of a license assignment and instructs you to use the software itself to log in, rather than providing a phishy link."
+  },
+  {
+    "id": "phish_bec_111",
+    "type": "Business Email Compromise",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "The Boss",
+    "sender_email": "ceo-direct-mail@gmail.com",
+    "initials": "TB",
+    "subject": "Are you at your desk?",
+    "preview": "I need a favor. Are you available to text?",
+    "body": "Hi,\n\nI am stuck in a meeting and can't talk.\n\nCan you send me your cell number? I need to ask you to do something discreetly.\n\nThanks,\nDirector",
+    "custom_links": [
+      {
+        "text": "send me your cell number",
+        "url": "mailto:ceo-direct-mail@gmail.com?subject=Re: Are you at your desk?"
+      }
+    ],
+    "redFlags": [
+      "Public Gmail address",
+      "Vague 'Director' signature",
+      "Request for personal info (cell number)"
+    ],
+    "hint": "Why would your boss email you from a Gmail account asking for your number?",
+    "educationalMessage": "This is a classic 'pre-texting' attack. They want to move the conversation to SMS (Smishing) where security filters can't block them."
+  },
+  {
+    "id": "phish_bec_112",
+    "type": "Business Email Compromise",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "IT Admin",
+    "sender_email": "admin-support@yahoo.co.uk",
+    "initials": "IT",
+    "subject": "Password Reset",
+    "preview": "We are resetting all passwords. Reply with...",
+    "body": "System Notice:\n\nWe are migrating servers. Please reply to this email with your current password so we can migrate your profile.\n\nIT Support",
+    "custom_links": [
+      {
+        "text": "current password",
+        "url": "mailto:admin-support@yahoo.co.uk"
+      }
+    ],
+    "redFlags": [
+      "Asking for password via email (NEVER happens)",
+      "Public foreign domain",
+      "Ridiculous request"
+    ],
+    "hint": "IT will NEVER ask for your password via email. Ever.",
+    "educationalMessage": "No legitimate IT department will ever ask you to email your password. This is the golden rule of cybersecurity."
+  },
+  {
+    "id": "safe_bec_113",
+    "type": "Internal Chat",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Sarah Jenkins",
+    "sender_email": "s.jenkins@phishguard.com",
+    "initials": "SJ",
+    "subject": "Lunch?",
+    "preview": "Hey, are you free to grab lunch around 12?",
+    "body": "Hey!\n\nAre you free to grab lunch around 12? I want to hear about your weekend.\n\nLet me know!\n\nSarah",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. Standard casual email between colleagues from a verified internal address."
+  },
+  {
+    "id": "phish_bec_114",
+    "type": "Gift Card Scam",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Company President",
+    "sender_email": "president.office.mail@aol.com",
+    "initials": "CP",
+    "subject": "URGENT TASK",
+    "preview": "I need you to buy some gift cards for a client...",
+    "body": "Hello,\n\nI need you to run to the store and buy 5x $100 Apple Gift Cards for a client gift.\n\nScratch the backs and email me the codes immediately.\n\nI will reimburse you.\n\nSent from my iPad",
+    "custom_links": [
+      {
+        "text": "buy 5x $100 Apple Gift Cards",
+        "url": "mailto:president.office.mail@aol.com?subject=Re: URGENT TASK"
+      },
+      {
+        "text": "email me the codes",
+        "url": "mailto:president.office.mail@aol.com?subject=Re: URGENT TASK"
+      }
+    ],
+    "redFlags": [
+      "AOL address for a President",
+      "Gift Card request",
+      "Urgency"
+    ],
+    "hint": "Gift cards + Urgency = Scam. Always.",
+    "educationalMessage": "Any request to buy gift cards and email the codes is 100% a scam. Executives do not pay clients with Apple Gift Cards."
+  },
+  {
+    "id": "safe_bec_115",
+    "type": "Internal Request",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Michael Scott (Manager)",
+    "sender_email": "m.scott@phishguard.com",
+    "initials": "MS",
+    "subject": "Approve my expense report?",
+    "preview": "I just submitted my expense report for the travel...",
+    "body": "Hi,\n\nI just submitted my expense report for the travel last week. Can you approve it in Workday when you get a chance?\n\nThanks,\nMichael",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The sender is correct, and they are asking you to perform an action in a known internal system (Workday), not sending a link."
+  },
+  {
+    "id": "phish_bec_116",
+    "type": "Business Email Compromise",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "John Doe (CEO)",
+    "sender_email": "john.doe@company-exec-comms.net",
+    "initials": "JD",
+    "subject": "Quick Request",
+    "preview": "Are you available to handle a wire transfer?",
+    "body": "Hi,\n\nI'm on a conference call and can't speak.\n\nCan you process a wire transfer for a new vendor today?\n\nReply strictly to this email so I can send the invoice details.\n\nJohn",
+    "custom_links": [
+      {
+        "text": "process a wire transfer",
+        "url": "mailto:john.doe@company-exec-comms.net"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@company-exec-comms.net)",
+      "Bypassing procedure ('Reply strictly to this email')",
+      "Financial request"
+    ],
+    "hint": "Check the sender domain. Does the CEO usually email from 'company-exec-comms.net'?",
+    "educationalMessage": "This is a targeted BEC attack. The attacker creates a fake domain that sounds important to trick you into bypassing standard financial procedures."
+  },
+  {
+    "id": "phish_bec_117",
+    "type": "Business Email Compromise",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Human Resources",
+    "sender_email": "hr@internal-staff-portal.org",
+    "initials": "HR",
+    "subject": "Direct Deposit Change",
+    "preview": "Please process the attached change for my account...",
+    "body": "Hello Payroll,\n\nPlease update the direct deposit information for Employee #9921 effective immediately.\n\n[ View Voided Check ]\n\nThank you,\nHR Admin",
+    "custom_links": [
+      {
+        "text": "[ View Voided Check ]",
+        "url": "http://internal-staff-portal.org/voided-check"
+      }
+    ],
+    "redFlags": [
+      ".org domain for internal HR",
+      "Generic HR signature",
+      "Link instead of attachment"
+    ],
+    "hint": "Payroll changes should come from the official HR system or email, not an external .org address.",
+    "educationalMessage": "Attackers target Payroll staff to divert employee salaries to their own accounts. They spoof the sender to look like an internal HR admin."
+  },
+  {
+    "id": "safe_bec_118",
+    "type": "Legitimate Request",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "David Wallace (CFO)",
+    "sender_email": "d.wallace@phishguard.com",
+    "initials": "DW",
+    "subject": "Budget meeting moved",
+    "preview": "I have to move our 1:1 to Thursday...",
+    "body": "Hi,\n\nI have to move our 1:1 to Thursday at 2pm. Let me know if that works for you.\n\nAlso, please send me the updated Q1 projections before then.\n\n- David",
+    "redFlags": [],
+    "hint": "This is a normal request from a verifiable internal address.",
+    "educationalMessage": "Safe. The email comes from the correct internal domain and asks for a standard work task (rescheduling and sending a file)."
+  },
+  {
+    "id": "phish_bec_119",
+    "type": "Business Email Compromise",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "IT Helpdesk",
+    "sender_email": "support@tech-support-247.com",
+    "initials": "IT",
+    "subject": "MFA Reset Code",
+    "preview": "Your MFA code is 992-112. If you did not...",
+    "body": "Security Alert\n\nSomeone requested a 2FA reset for your account.\n\nIf this was not you, please reply with the code sent to your phone to cancel the request.\n\nIT Security",
+    "custom_links": [
+      {
+        "text": "reply with the code sent to your phone",
+        "url": "mailto:support@tech-support-247.com"
+      }
+    ],
+    "redFlags": [
+      "Asking you to reply with a 2FA code",
+      "Generic 'tech-support' domain",
+      "Backwards logic (Codes verify login, they don't cancel it)"
+    ],
+    "hint": "Never share a 2FA code. Especially not via email reply.",
+    "educationalMessage": "This is a trick to bypass Multi-Factor Authentication. The attacker has your password and is trying to log in. They need the code on your phone, so they trick you into emailing it to them."
+  },
+  {
+    "id": "safe_bec_120",
+    "type": "Legitimate Inquiry",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Vendor: Acme Corp",
+    "sender_email": "billing@acmecorp.com",
+    "initials": "AC",
+    "subject": "Invoice status?",
+    "preview": "Hi, just checking on the status of Inv #4002...",
+    "body": "Hi there,\n\nJust checking on the status of Invoice #4002 sent last week. Has it been processed yet?\n\nThanks,\nAcme Billing Team",
+    "redFlags": [],
+    "hint": "Check the sender domain. Does it match the vendor name?",
+    "educationalMessage": "Safe. A standard follow-up from a known vendor domain."
+  },
+  {
+    "id": "phish_bec_121",
+    "type": "Spear Phishing / Whaling",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Legal Counsel",
+    "sender_email": "legal@law-firm-partners.com",
+    "initials": "LC",
+    "subject": "Confidential: Acquisition Inquiry",
+    "preview": "Attorney Client Privilege. Please read...",
+    "body": "Privileged & Confidential\n\nI am contacting you on behalf of the Board.\n\nWe need you to provide the employee salary data for the M&A due diligence.\n\nUpload the file to this Secure Data Room.\n\nExternal Counsel",
+    "custom_links": [
+      {
+        "text": "provide the employee salary data",
+        "url": "http://law-firm-partners.com/data-room"
+      },
+      {
+        "text": "Secure Data Room",
+        "url": "http://law-firm-partners.com/data-room"
+      }
+    ],
+    "redFlags": [
+      "High-pressure context (M&A)",
+      "Generic legal domain",
+      "Request for sensitive data (Salaries)"
+    ],
+    "hint": "Verify any request for sensitive data (like salaries) by calling the requester on a known number.",
+    "educationalMessage": "This attack targets HR or Finance. It creates a secret/legal context to stop you from asking questions. Always verify external legal requests via phone."
+  },
+  {
+    "id": "phish_bec_122",
+    "type": "Supply Chain Compromise",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Trusted Vendor: TechSoft",
+    "sender_email": "accounts@techsoft-updates.com",
+    "initials": "TS",
+    "subject": "Update: New Bank Account Details",
+    "preview": "Please note our banking details have changed...",
+    "body": "Dear Partner,\n\nDue to an internal audit, we have changed our banking provider.\n\nPlease update our payment details to the attached account information for all future invoices.\n\nThank you,\nTechSoft Accounts Receivable",
+    "custom_links": [
+      {
+        "text": "update our payment details",
+        "url": "mailto:accounts@techsoft-updates.com"
+      }
+    ],
+    "redFlags": [
+      "Request to change bank details (Major Red Flag)",
+      "Spoofed domain (@techsoft-updates.com)",
+      "Generic signature"
+    ],
+    "hint": "Requests to change bank accounts are the #1 sign of invoice fraud. Call the vendor to verify.",
+    "educationalMessage": "This is 'Invoice Redirection Fraud'. The attacker pretends to be a known vendor and asks you to change the bank account number to their own. Always verify banking changes via phone."
+  },
+  {
+    "id": "safe_bec_123",
+    "type": "Internal Urgent",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Network Ops",
+    "sender_email": "noc@phishguard.com",
+    "initials": "NO",
+    "subject": "CRITICAL: Server Outage",
+    "preview": "The main web server is down. We need...",
+    "body": "Team,\n\nThe main web server is down. We are investigating.\n\nPlease join the War Room Zoom Bridge immediately.\n\nLink: zoom.us/j/99283821\n\nNOC Team",
+    "custom_links": [
+      {
+        "text": "zoom.us/j/99283821",
+        "url": "https://zoom.us/j/99283821"
+      }
+    ],
+    "redFlags": [],
+    "hint": "Check the Zoom link domain. 'zoom.us' is valid.",
+    "educationalMessage": "Safe. While urgent, the email comes from internal Ops, describes a specific outage, and provides a valid Zoom link (`zoom.us`) for a meeting."
+  },
+  {
+    "id": "phish_bec_124",
+    "type": "Deepfake / AI Phishing",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Sarah Jenkins (CFO)",
+    "sender_email": "s.jenkins@phishguard-finance.com",
+    "initials": "SJ",
+    "subject": "Voice Note: Instructions",
+    "preview": "I left you a voice note regarding the transfer...",
+    "body": "Hi,\n\nI'm driving so I can't type. Listen to the voice note for instructions on the wire transfer.\n\n[ Play Audio Message ]\n\nHandle this ASAP.\n\nSent from my Apple Watch",
+    "custom_links": [
+      {
+        "text": "[ Play Audio Message ]",
+        "url": "http://phishguard-finance.com/play"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@phishguard-finance.com)",
+      "Audio lure (AI Voice Cloning risk)",
+      "Urgency"
+    ],
+    "hint": "Is 'phishguard-finance.com' a real domain? Also, be careful of 'audio' messages.",
+    "educationalMessage": "Attackers now use AI to clone executives' voices. They send 'voice notes' from spoofed domains to convince you to send money. Always check the sender domain first."
+  },
+  {
+    "id": "safe_bec_125",
+    "type": "Legitimate External",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Recruiter: LinkedIn",
+    "sender_email": "messages-noreply@linkedin.com",
+    "initials": "LI",
+    "subject": "Mark viewed your profile",
+    "preview": "Mark from Google viewed your profile...",
+    "body": "LinkedIn\n\nMark S. viewed your profile.\n\nSee who's looking for you.\n\n[ View Profile ]\n\nUnsubscribe from these emails.",
+    "custom_links": [
+      {
+        "text": "[ View Profile ]",
+        "url": "https://www.linkedin.com/me/profile-views"
+      }
+    ],
+    "redFlags": [],
+    "hint": "The sender is the official 'messages-noreply@linkedin.com'.",
+    "educationalMessage": "Safe. Standard notification from the official LinkedIn domain."
+  },
+  {
+    "id": "phish_sec_126",
+    "type": "Security Follow-Up",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Security Admin",
+    "sender_email": "security-alert-desk-01@gmail.com",
+    "initials": "SA",
+    "subject": "RE: Your account alert from this morning",
+    "preview": "We sent you a warning earlier. You have not responded...",
+    "body": "User,\n\nWe emailed you earlier about a virus on your computer. You have not replied.\n\nPlease click here to scan your PC immediately or we will lock you out.\n\nThis is your last warning.\n\nThe Security Department",
+    "custom_links": [
+      {
+        "text": "click here to scan your PC",
+        "url": "http://security-alert-desk-01.com/scan"
+      }
+    ],
+    "redFlags": [
+      "Public Gmail address",
+      "Vague 'Virus' threat",
+      "Unprofessional tone"
+    ],
+    "hint": "IT teams don't use Gmail, and they don't threaten to 'lock you out' via email for a virus.",
+    "educationalMessage": "This is a low-effort follow-up. Attackers pretend there was a 'previous' email to make you think you missed something important, creating a sense of guilt and urgency."
+  },
+  {
+    "id": "phish_sec_127",
+    "type": "Security Follow-Up",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Microsoft Team",
+    "sender_email": "ms-support@outlook.fr",
+    "initials": "MS",
+    "subject": "Ticket #9921: Pending Action",
+    "preview": "We are waiting for your confirmation to close the...",
+    "body": "Hello,\n\nWe are closing your support ticket #9921.\n\nIf you still need access to your files, please cancel the closure request here.\n\nFailure to act will result in data deletion.\n\nMicrosoft Outlook Team",
+    "custom_links": [
+      {
+        "text": "cancel the closure request here",
+        "url": "http://outlook-support-ticket.fr/cancel"
+      }
+    ],
+    "redFlags": [
+      "Foreign public domain (@outlook.fr)",
+      "Threat of data deletion",
+      "Fake ticket context"
+    ],
+    "hint": "Check the sender email. Why is 'Microsoft Team' emailing from a French Outlook address?",
+    "educationalMessage": "Attackers often use free email domains from other countries (like .fr or .ru) hoping you won't notice the extension."
+  },
+  {
+    "id": "safe_sec_128",
+    "type": "Legitimate Ticket Closure",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "IT Service Desk",
+    "sender_email": "support@phishguard.com",
+    "initials": "IT",
+    "subject": "[Resolved] Ticket #5521: Monitor Issue",
+    "preview": "Your ticket regarding 'Second monitor not working' has...",
+    "body": "Ticket Resolved\n\nYour ticket #5521: Monitor Issue has been marked as resolved.\n\nIf you are still experiencing issues, please reply to this email to reopen the ticket.\n\nHow did we do? [ Rate Support ]\n\nInternal IT Desk",
+    "custom_links": [
+      {
+        "text": "[ Rate Support ]",
+        "url": "https://phishguard.servicenow.com/survey"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. This references a specific, real-world issue (Monitor Issue) and asks for a reply or a rating, common in standard ticketing systems like Jira or ServiceNow."
+  },
+  {
+    "id": "phish_sec_129",
+    "type": "Spear Phishing",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Global Protect VPN",
+    "sender_email": "vpn-access@free-internet-services.net",
+    "initials": "GP",
+    "subject": "VPN Disconnected: Re-authenticate",
+    "preview": "Your VPN session was terminated due to a timeout...",
+    "body": "Connection Lost\n\nYour secure session has timed out.\n\nPlease re-connect your VPN client to resume working.\n\nNetwork Ops",
+    "custom_links": [
+      {
+        "text": "re-connect your VPN client",
+        "url": "http://free-internet-services.net/vpn-login"
+      }
+    ],
+    "redFlags": [
+      "Generic 'Free Internet' domain",
+      "Link to reconnect (Real VPNs use a desktop app)",
+      "Generic signature"
+    ],
+    "hint": "You connect to the VPN using the app on your computer, not a link in an email.",
+    "educationalMessage": "VPN credentials are highly valuable. Attackers try to get you to enter them into a fake web portal instead of your actual desktop application."
+  },
+  {
+    "id": "safe_sec_130",
+    "type": "Security Notification",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Okta",
+    "sender_email": "noreply@okta.com",
+    "initials": "OK",
+    "subject": "New sign-on detected",
+    "preview": "We detected a new sign-on to your Okta account...",
+    "body": "New Sign-On Detected\n\nDevice: Chrome on Windows\nLocation: Chicago, IL (Your usual location)\n\nIf this was you, no action is needed.\n\nIf you do not recognize this, contact your administrator.\n\nOkta Identity Cloud",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. It explicitly states 'No action is needed' if it was you. It provides accurate location data and comes from the official vendor."
+  },
+  {
+    "id": "phish_sec_131",
+    "type": "Security Follow-Up",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Incident Response",
+    "sender_email": "alerts@security-response-team.com",
+    "initials": "IR",
+    "subject": "Follow up: Suspicious login attempt",
+    "preview": "Regarding the alert we sent this morning about the login...",
+    "body": "Hi User,\n\nWe haven't received your verification regarding the suspicious login from China earlier today.\n\nWe need to close this case file.\n\nPlease confirm this was NOT you so we can ban the IP address.\n\nCase: #INC-9921\n\nSOC Team",
+    "custom_links": [
+      {
+        "text": "confirm this was NOT you",
+        "url": "http://security-response-team.com/verify"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@security-response-team.com)",
+      "False urgency to 'close file'",
+      "Negative confirmation trap"
+    ],
+    "hint": "Look at the sender domain. Is 'security-response-team.com' your company?",
+    "educationalMessage": "This phishing email tries to be helpful ('so we can ban the IP'). It uses a generic but professional-sounding domain that doesn't actually belong to your organization."
+  },
+  {
+    "id": "phish_sec_132",
+    "type": "MFA Phishing",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Authenticator Support",
+    "sender_email": "2fa@auth-sync-service.net",
+    "initials": "AS",
+    "subject": "Sync Error: Authenticator App",
+    "preview": "Your 2FA codes may be out of sync...",
+    "body": "Action Required\n\nWe noticed a failed login attempt due to an invalid token.\n\nYou may need to re-sync your Authenticator App to ensure you can access email tomorrow.\n\nIT Security",
+    "custom_links": [
+      {
+        "text": "re-sync your Authenticator App",
+        "url": "http://auth-sync-service.net/resync"
+      }
+    ],
+    "redFlags": [
+      "Tech jargon (Sync error)",
+      "Spoofed domain",
+      "Threat of access loss"
+    ],
+    "hint": "Authenticator apps don't 'desync' in a way that requires clicking a link.",
+    "educationalMessage": "Attackers know 2FA is common now. They claim 'sync errors' to trick you into scanning a new QR code that actually links your account to *their* device."
+  },
+  {
+    "id": "safe_sec_133",
+    "type": "Internal Follow-Up",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "David Kim (SysAdmin)",
+    "sender_email": "d.kim@phishguard.com",
+    "initials": "DK",
+    "subject": "Re: Access to the marketing folder",
+    "preview": "Hey, I just fixed those permissions for you...",
+    "body": "Hi,\n\nI just fixed those permissions for you. You should be able to access the Marketing Drive (M:) now.\n\nYou might need to restart your computer for it to show up.\n\nLet me know if it works.\n\n- David",
+    "redFlags": [],
+    "hint": "This is a direct, personal follow-up from a real colleague.",
+    "educationalMessage": "Safe. David is a known SysAdmin using his internal email. He suggests a safe action (restart computer) rather than clicking a link."
+  },
+  {
+    "id": "phish_sec_134",
+    "type": "Security Follow-Up",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Compliance Office",
+    "sender_email": "audit@admin-portal-login.net",
+    "initials": "CO",
+    "subject": "Missing Info: Security Audit",
+    "preview": "We are still missing your quarterly attestation...",
+    "body": "Final Reminder\n\nWe are wrapping up the Q1 Security Audit. You are listed as 'Non-Compliant'.\n\nPlease complete the short questionnaire to avoid being flagged in the final report to the CISO.\n\nCompliance Team",
+    "custom_links": [
+      {
+        "text": "complete the short questionnaire",
+        "url": "http://admin-portal-login.net/questionnaire"
+      }
+    ],
+    "redFlags": [
+      "Fear of authority (Report to CISO)",
+      "Generic 'admin-portal' domain",
+      "Urgency"
+    ],
+    "hint": "Check the domain. Compliance audits run on internal systems, not external '.net' portals.",
+    "educationalMessage": "Threatening to report you to the CISO (Chief Information Security Officer) is a common intimidation tactic to make you click without checking the URL."
+  },
+  {
+    "id": "safe_sec_135",
+    "type": "Automated Alert",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Have I Been Pwned",
+    "sender_email": "noreply@haveibeenpwned.com",
+    "initials": "HP",
+    "subject": "PhishGuard data breach found",
+    "preview": "You signed up for notifications. A new breach was found...",
+    "body": "Breach Alert\n\nYou signed up to be notified if your email appeared in a data breach.\n\nNew Breach: Trello (Jan 2024)\n\nWe recommend you change your password on that service.\n\nTroy Hunt",
+    "redFlags": [],
+    "hint": "This is a legitimate service many people subscribe to. It gives info, not a link to login.",
+    "educationalMessage": "Safe. 'Have I Been Pwned' is a legitimate service. Crucially, legitimate breach alerts tell you to go change your password on the *affected site*, they don't give you a link to 'fix it' instantly."
+  },
+  {
+    "id": "phish_sec_136",
+    "type": "Spear Phishing",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Information Security",
+    "sender_email": "alerts@phishguard-security.com",
+    "initials": "IS",
+    "subject": "Re: Incident #INC-2024-001 status",
+    "preview": "Following up on the ticket opened on your behalf...",
+    "body": "Hello,\n\nThis is a follow-up regarding Incident #INC-2024-001 (Potential Malware).\n\nOur automated systems scanned your machine and the result was: Inconclusive.\n\nPlease run the manual removal tool to ensure the file is quarantined.\n\nPhishGuard InfoSec",
+    "custom_links": [
+      {
+        "text": "run the manual removal tool",
+        "url": "http://phishguard-security.com/tool"
+      }
+    ],
+    "redFlags": [
+      "Sophisticated spoof (phishguard-security.com)",
+      "Technical context",
+      "Download execution"
+    ],
+    "hint": "We own 'phishguard.com'. Do we own 'phishguard-security.com'?",
+    "educationalMessage": "This is a high-difficulty spear phish. The attacker registered a domain that includes your company name (`phishguard-security.com`). You must be vigilant about the exact domain spelling."
+  },
+  {
+    "id": "phish_sec_137",
+    "type": "MFA Phishing / Subdomain",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Okta Verify",
+    "sender_email": "support@okta.support-verify.com",
+    "initials": "OV",
+    "subject": "Action: MFA De-sync Detected",
+    "preview": "We detected an issue with your push notifications...",
+    "body": "System Alert\n\nWe detected that your Okta Push Notifications are failing to deliver.\n\nTo fix this, please validate your token here.\n\nIf you ignore this, you may be unable to log in tomorrow morning.\n\nIdentity Access Management",
+    "custom_links": [
+      {
+        "text": "validate your token here",
+        "url": "http://okta.support-verify.com/validate"
+      }
+    ],
+    "redFlags": [
+      "Subdomain Chaining (@okta.support-verify.com)",
+      "Technical excuse (De-sync)",
+      "Operational threat"
+    ],
+    "hint": "Read the URL backwards. The actual domain is 'support-verify.com'.",
+    "educationalMessage": "Subdomain chaining again. It looks like Okta, but the root domain is `support-verify.com`. Legitimate MFA apps handle sync issues within the app settings, not via email links."
+  },
+  {
+    "id": "safe_sec_138",
+    "type": "Legitimate Follow-Up",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Elena Fisher (IT Director)",
+    "sender_email": "e.fisher@phishguard.com",
+    "initials": "EF",
+    "subject": "Update on the phishing test",
+    "preview": "Hi everyone, I wanted to share the results...",
+    "body": "Team,\n\nI wanted to follow up on the phishing simulation we ran yesterday.\n\nOverall, the click rate dropped by 10%! Great job.\n\nYou can see the full breakdown on the Intranet News Page.\n\nStay vigilant,\nElena",
+    "custom_links": [
+      {
+        "text": "Intranet News Page",
+        "url": "https://intranet.phishguard.com/news"
+      }
+    ],
+    "redFlags": [],
+    "hint": "This is a real update. It directs you to the Intranet, not a random link.",
+    "educationalMessage": "Safe. Elena is using her correct internal email. She directs users to the Intranet (a known safe location) rather than providing a direct link to a file or external site."
+  },
+  {
+    "id": "phish_sec_139",
+    "type": "Spear Phishing / CEO Fraud",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Mike Ross (Legal)",
+    "sender_email": "m.ross@phishguard-legal-dept.com",
+    "initials": "MR",
+    "subject": "Affidavit Required: Incident #8821",
+    "preview": "Please review the attached legal affidavit regarding...",
+    "body": "Confidential\n\nRegarding the security incident on Jan 12: We need you to sign an affidavit confirming you did not access the specific files in question.\n\nPlease review and sign via DocuSign.\n\nThis is time-sensitive.\n\nMike Ross\nGeneral Counsel",
+    "custom_links": [
+      {
+        "text": "review and sign via DocuSign",
+        "url": "http://phishguard-legal-dept.com/sign"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (phishguard-legal-dept.com)",
+      "Legal intimidation",
+      "Credential harvesting link"
+    ],
+    "hint": "Legal didn't just create a new website called 'phishguard-legal-dept.com' to email you.",
+    "educationalMessage": "Legal threats make people panic. The attacker spoofed the domain to look like a specific legal department, but it is not the official company domain."
+  },
+  {
+    "id": "phish_sec_140",
+    "type": "Security Follow-Up",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Help Desk",
+    "sender_email": "support@internal-ticket-update.net",
+    "initials": "HD",
+    "subject": "Ticket Resolved: Password Reset",
+    "preview": "Your request to reset your password was successful...",
+    "body": "Ticket Update\n\nYour request to reset your password was successful.\n\nIf you did NOT request this change: Click here immediately to revert.\n\nTicket ID: 44291\n\nService Desk",
+    "custom_links": [
+      {
+        "text": "Click here immediately to revert",
+        "url": "http://internal-ticket-update.net/revert"
+      }
+    ],
+    "redFlags": [
+      "The 'Reverse Action' trap",
+      "Spoofed domain",
+      "Generic sender"
+    ],
+    "hint": "Did you ask to reset your password? If not, do not click the link—call the helpdesk.",
+    "educationalMessage": "The 'Reverse Action' trap is deadly. The email claims a change *already happened* (panic!) and offers a button to 'undo' it. That button is the trap."
+  },
+  {
+    "id": "phish_act_141",
+    "type": "Account Activity",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Google Security",
+    "sender_email": "security-alert-team-99@hotmail.com",
+    "initials": "GS",
+    "subject": "MAJOR SECURITY ALERT: HACKER DETECTED",
+    "preview": "We detected a hacker in your account from Russia...",
+    "body": "Warning User,\n\nA hacker from Russia (IP: 102.99.1.2) has full access to your account.\n\nYou must click here immediately to kick them out.\n\nIf you wait 10 minutes, your account is gone.\n\nGoogle Team",
+    "custom_links": [
+      {
+        "text": "click here immediately",
+        "url": "http://security-alert-team-99.com/kick"
+      }
+    ],
+    "redFlags": [
+      "Public Domain (@hotmail.com)",
+      "Unprofessional/Panic language ('HACKER DETECTED')",
+      "Generic greeting"
+    ],
+    "hint": "Google does not send security alerts from Hotmail.",
+    "educationalMessage": "This is a low-effort panic attack. The sender is using a public Hotmail address, and the language is designed solely to make you click without thinking."
+  },
+  {
+    "id": "phish_act_142",
+    "type": "Account Activity",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Faceb00k",
+    "sender_email": "support@login-faceb00k-verify.com",
+    "initials": "FB",
+    "subject": "New login from iPhone 15",
+    "preview": "Was this you? A new device just logged in...",
+    "body": "Hi,\n\nWe noticed a login from a new device: iPhone 15 Pro.\n\nLocation: Vietnam\n\nIf this wasn't you, secure your account now.\n\nThe Faceb00k Team",
+    "custom_links": [
+      {
+        "text": "secure your account now",
+        "url": "http://login-faceb00k-verify.com/secure"
+      }
+    ],
+    "redFlags": [
+      "Typosquatting (Faceb00k with zeros)",
+      "Spoofed domain",
+      "Generic signature"
+    ],
+    "hint": "Look closely at the spelling of 'Facebook' in the sender name.",
+    "educationalMessage": "Typosquatting involves replacing letters with numbers (o vs 0). Real security emails come from `facebookmail.com` or `facebook.com`."
+  },
+  {
+    "id": "safe_act_143",
+    "type": "Legitimate Security Alert",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Instagram",
+    "sender_email": "security@mail.instagram.com",
+    "initials": "IG",
+    "subject": "New login to Instagram from Chrome on Windows",
+    "preview": "We noticed a new login, account center...",
+    "body": "New Login on Instagram\n\nWe noticed a login from a device you don't usually use.\n\nChrome on Windows\nNew York, NY\n\nIf this was you, you can ignore this email. If this wasn't you, you can secure your account here.\n\nfrom Meta",
+    "custom_links": [
+      {
+        "text": "secure your account here",
+        "url": "https://instagram.com/accounts/password/change/"
+      }
+    ],
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The sender domain `mail.instagram.com` is the official subdomain for Instagram notifications."
+  },
+  {
+    "id": "phish_act_144",
+    "type": "Account Activity",
+    "isPhishing": true,
+    "difficulty": 1,
+    "sender": "Apple Support",
+    "sender_email": "alerts@verify-apple-id-now.net",
+    "initials": "AS",
+    "subject": "Your Apple ID was used to buy 'Logic Pro'",
+    "preview": "Receipt for your purchase of $199.99...",
+    "body": "Receipt\n\nYour Apple ID was used to purchase Logic Pro ($199.99).\n\nIf you did not make this purchase, click here to cancel within 24 hours.\n\nApple Inc.",
+    "custom_links": [
+      {
+        "text": "click here to cancel",
+        "url": "http://verify-apple-id-now.net/cancel"
+      }
+    ],
+    "redFlags": [
+      "Fake Purchase (Logic Pro is a common lure)",
+      "Spoofed domain",
+      "Cancel link trap"
+    ],
+    "hint": "Did you actually buy Logic Pro? Don't click 'Cancel'—check your bank app.",
+    "educationalMessage": "The 'Fake Receipt' scam is designed to make you click 'Cancel'. The attacker wants you to panic about the money so you'll enter your password on their fake site."
+  },
+  {
+    "id": "safe_act_145",
+    "type": "Legitimate Login",
+    "isPhishing": false,
+    "difficulty": 1,
+    "sender": "Steam Support",
+    "sender_email": "noreply@steampowered.com",
+    "initials": "SS",
+    "subject": "Your Steam account: Access from new computer",
+    "preview": "Here is the Steam Guard code you need to login...",
+    "body": "Dear User,\n\nHere is the Steam Guard code you need to login to account gamer123:\n\nK9921\n\nThis email was generated because of a login attempt from a new computer.\n\nValve Corp",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. `steampowered.com` is the official domain. The email provides a code for you to use on the login screen you just triggered; it does not ask you to click a link."
+  },
+  {
+    "id": "phish_act_146",
+    "type": "Account Activity",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Microsoft Account Team",
+    "sender_email": "account-protection@microsoft-security-alerts.com",
+    "initials": "MS",
+    "subject": "Unusual sign-in activity",
+    "preview": "We detected something unusual about a recent sign-in...",
+    "body": "Microsoft Account Alert\n\nWe detected a successful sign-in from Moscow, Russia.\n\nTo keep you safe, we have blocked access to your inbox.\n\nTo restore access, review your recent activity.\n\nMicrosoft Corporation",
+    "custom_links": [
+      {
+        "text": "review your recent activity",
+        "url": "http://microsoft-security-alerts.com/activity"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@microsoft-security-alerts.com)",
+      "Threat of blocked access",
+      "Panic button"
+    ],
+    "hint": "Microsoft owns 'microsoft.com'. They do not use 'microsoft-security-alerts.com'.",
+    "educationalMessage": "This looks professional, but the domain is a spoof. Real Microsoft security alerts come from `accountprotection.microsoft.com`."
+  },
+  {
+    "id": "phish_act_147",
+    "type": "Account Activity",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Dropbox Watchdog",
+    "sender_email": "alerts@dropbox-device-check.io",
+    "initials": "DW",
+    "subject": "New computer linked to your Dropbox",
+    "preview": "A new computer 'Admin-PC' has been linked...",
+    "body": "New Device Linked\n\nA new computer (Admin-PC) is now syncing your files.\n\nIf this was not you, please unlink this device immediately to prevent data theft.\n\nThe Dropbox Team",
+    "custom_links": [
+      {
+        "text": "unlink this device",
+        "url": "http://dropbox-device-check.io/unlink"
+      }
+    ],
+    "redFlags": [
+      "The 'Reverse Action' trap (Unlink Device)",
+      "Spoofed domain (.io)",
+      "Urgency"
+    ],
+    "hint": "Don't click links to 'unlink' or 'cancel'. Log in to Dropbox manually.",
+    "educationalMessage": "The 'Reverse Action' trap is very effective. The email claims a device is *already* connected (panic!) and offers a button to remove it. That button is the phishing link."
+  },
+  {
+    "id": "safe_act_148",
+    "type": "Legitimate Alert",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Duo Security",
+    "sender_email": "no-reply@duosecurity.com",
+    "initials": "DS",
+    "subject": "Duo Mobile Activation",
+    "preview": "A new device was activated for Duo Mobile...",
+    "body": "Duo Mobile Activated\n\nA new device (iPhone 15) was activated for Duo Mobile on your account.\n\nIf you did not do this, please contact your Help Desk immediately.\n\nPowered by Duo",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. This is a standard notification from Duo. Crucially, it tells you to contact your Help Desk if there is an issue, rather than providing a suspicious link to click."
+  },
+  {
+    "id": "phish_act_149",
+    "type": "Account Activity",
+    "isPhishing": true,
+    "difficulty": 2,
+    "sender": "Chase Online",
+    "sender_email": "fraud@chase-bank-alerts.net",
+    "initials": "CH",
+    "subject": "New Device Verified for Zelle",
+    "preview": "You successfully added a new device for Zelle payments...",
+    "body": "Zelle Device Added\n\nYou successfully authorized a Samsung Galaxy S22 for Zelle quick payments.\n\nIf you did not authorize this, click here to block this device.\n\nChase Fraud Dept",
+    "custom_links": [
+      {
+        "text": "click here to block this device",
+        "url": "http://chase-bank-alerts.net/block"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@chase-bank-alerts.net)",
+      "Reverse Action Trap (Block Device)",
+      "High-risk context (Zelle)"
+    ],
+    "hint": "Chase emails come from chase.com. Any other variation is likely a scam.",
+    "educationalMessage": "This targets the fear of instant money loss via Zelle. The 'Block Device' link leads to a fake login page where attackers harvest your banking credentials."
+  },
+  {
+    "id": "safe_act_150",
+    "type": "Legitimate Login",
+    "isPhishing": false,
+    "difficulty": 2,
+    "sender": "Salesforce",
+    "sender_email": "noreply@salesforce.com",
+    "initials": "SF",
+    "subject": "Verification Code: 99283",
+    "preview": "To verify your identity, please use the following code...",
+    "body": "Verify your identity in Salesforce\n\nWe received a login attempt from a new browser.\n\nVerification Code: 99283\n\nEnter this code in your browser to complete login.\n\nsalesforce.com",
+    "redFlags": [],
+    "hint": null,
+    "educationalMessage": "Safe. The sender is correct, and it provides a code to enter into the browser window you presumably just opened."
+  },
+  {
+    "id": "phish_act_151",
+    "type": "Subdomain Chain",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "Okta Identity",
+    "sender_email": "noreply@okta.com.access-verify.net",
+    "initials": "OK",
+    "subject": "New push notification device registered",
+    "preview": "A new device 'iPhone 13' was registered for MFA...",
+    "body": "Okta MFA Alert\n\nA new device was registered for Push Notifications.\n\nDevice: iPhone 13 (China)\n\nIf this was not you, reject the request here immediately.\n\nOkta Identity Cloud",
+    "custom_links": [
+      {
+        "text": "reject the request here",
+        "url": "http://okta.com.access-verify.net/reject"
+      }
+    ],
+    "redFlags": [
+      "Subdomain Chaining (okta.com is just a subdomain here)",
+      "Reverse Action Trap",
+      "Urgency"
+    ],
+    "hint": "Read the sender URL from right to left. What is the actual domain ending?",
+    "educationalMessage": "This uses Subdomain Chaining. The URL starts with `okta.com` to look safe, but the actual domain is `access-verify.net`. This is a very common technique to fool smart users."
+  },
+  {
+    "id": "phish_act_152",
+    "type": "Account Activity",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "ServiceNow",
+    "sender_email": "incident@servicenow-internal-ticket.com",
+    "initials": "SN",
+    "subject": "Admin access granted to User: guest_01",
+    "preview": "Administrator privileges were granted to user...",
+    "body": "Privilege Escalation Alert\n\nUser guest_01 was granted Administrator privileges on your instance.\n\nIf you did not authorize this elevation, revoke access now.\n\nIT Service Management",
+    "custom_links": [
+      {
+        "text": "revoke access now",
+        "url": "http://servicenow-internal-ticket.com/revoke"
+      }
+    ],
+    "redFlags": [
+      "Technical Fear (Admin access)",
+      "Spoofed domain",
+      "Revoke link trap"
+    ],
+    "hint": "ServiceNow notifications come from your company's subdomain (company.service-now.com).",
+    "educationalMessage": "This attacks IT staff or managers. It claims a security violation (Admin access granted) to panic you into clicking 'Revoke', which steals your admin credentials."
+  },
+  {
+    "id": "safe_act_153",
+    "type": "Legitimate Microsoft Alert",
+    "isPhishing": false,
+    "difficulty": 3,
+    "sender": "Microsoft account team",
+    "sender_email": "account-security-noreply@accountprotection.microsoft.com",
+    "initials": "MS",
+    "subject": "Microsoft account unusual sign-in activity",
+    "preview": "We detected something unusual about a recent sign-in...",
+    "body": "Unusual sign-in activity\n\nWe detected a sign-in from a new location.\n\nTo verify that this is you, go to the Security basics page on your Microsoft Account.\n\nNote: We will never ask for your password in an email.\n\nMicrosoft",
+    "custom_links": [
+      {
+        "text": "Security basics",
+        "url": "https://account.microsoft.com/security"
+      }
+    ],
+    "redFlags": [],
+    "hint": "'accountprotection.microsoft.com' looks weird, but it IS the official domain.",
+    "educationalMessage": "Safe. This is tricky because `accountprotection.microsoft.com` is a very long, suspicious-looking domain, but it is actually the official domain Microsoft uses for security alerts. The email also directs you to a settings page rather than a panic button."
+  },
+  {
+    "id": "phish_act_154",
+    "type": "AWS Spoof",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "AWS IAM",
+    "sender_email": "admin@aws-console-login.com",
+    "initials": "AW",
+    "subject": "Root user login detected",
+    "preview": "The Root User for account 11299382 logged in...",
+    "body": "AWS Security Alert\n\nThe Root User logged in from IP 192.168.0.1 (Russia).\n\nRoot access allows full deletion of resources.\n\nTo freeze this account, click here immediately.\n\nAmazon Web Services",
+    "custom_links": [
+      {
+        "text": "click here immediately",
+        "url": "http://aws-console-login.com/freeze"
+      }
+    ],
+    "redFlags": [
+      "Spoofed Domain (@aws-console-login.com)",
+      "High-stakes threat (Root User)",
+      "Freeze account trap"
+    ],
+    "hint": "Amazon uses 'amazon.com' or 'aws.amazon.com'.",
+    "educationalMessage": "The 'Root User' is the most powerful account in AWS. Attackers use this to terrify engineers. The domain `aws-console-login.com` is a classic spoof."
+  },
+  {
+    "id": "phish_act_155",
+    "type": "HR Portal Spoof",
+    "isPhishing": true,
+    "difficulty": 3,
+    "sender": "HR Portal",
+    "sender_email": "benefits@workday-updates.org",
+    "initials": "HR",
+    "subject": "Direct deposit changed from new IP",
+    "preview": "Your banking details were updated from a new location...",
+    "body": "Workday Notification\n\nYour Direct Deposit account was updated to Chase Bank (...8821).\n\nLocation: Lagos, Nigeria\n\nIf you did not authorize this change, revert changes immediately.\n\nPeople Operations",
+    "custom_links": [
+      {
+        "text": "revert changes immediately",
+        "url": "http://workday-updates.org/revert"
+      }
+    ],
+    "redFlags": [
+      "Salary theft threat",
+      ".org domain for Workday",
+      "Reverse Action Trap"
+    ],
+    "hint": "Check the sender domain. Workday emails come from 'workday.com'.",
+    "educationalMessage": "Payroll fraud is rampant. The email claims your salary is being stolen (Direct deposit changed) to make you click the 'Revert' link, which steals your actual login."
+  }
 ]
