@@ -15,15 +15,10 @@ const handleLogin = () => {
 </script>
 
 <template>
-  
+
   <div class="w-4 h-4 justify-center items-center absolute top-4 left-4 text-white font-bold text-lg">
     <h1 style="color: #C1FDFE; font: 600;">PhishGuard</h1>
   </div>
-  <NuxtLink href="./game_screen.vue">
-            <button class="mt-5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                Start PhishGuard Game
-            </button>
-        </NuxtLink>
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="mx-auto h-10 w-auto" />
