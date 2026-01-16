@@ -1,11 +1,7 @@
 <script setup>
 import { ref, computed, onUnmounted } from 'vue';
 // Import Heroicons
-<<<<<<< HEAD
 import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, FireIcon, ClockIcon, XMarkIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
-=======
-import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, FireIcon, ClockIcon, XMarkIcon} from '@heroicons/vue/24/solid';
->>>>>>> e74de45 (rebasing)
 
 // We use a 'ref' to track if the game has started. 
 // true = show game, false = show welcome screen.
@@ -242,15 +238,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-<<<<<<< HEAD
-  <div class="page-container">
-
-    <!-- === WELCOME SCREEN (Overlay) === -->
-    <Transition name="fade" appear>
-      <div v-if="!gameStarted" class="welcome-wrapper">
-        <div class="welcome-card">
-
-=======
   <div class="page-container">  
 
     <Transition name="fade" appear>
@@ -258,7 +245,6 @@ onUnmounted(() => {
         <div class="welcome-card">
 
           <!-- 1. Header: Logo Top Left (Centered in row) -->
->>>>>>> e74de45 (rebasing)
           <div class="welcome-header-row">
             <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="welcome-logo-small" />
             <div class="welcome-title-small">Welcome to phishguard</div>
@@ -297,10 +283,7 @@ onUnmounted(() => {
           </div>
 
           <div class="welcome-footer">
-<<<<<<< HEAD
-=======
             <!-- "Don't show again" as a toggle button -->
->>>>>>> e74de45 (rebasing)
             <button @click="toggleDontShow" class="secondary-btn toggle-btn" :class="{ 'active': dontShowAgain }">
               <span v-if="dontShowAgain">☑ Don't show again</span>
               <span v-else>☐ Don't show again</span>
@@ -315,7 +298,6 @@ onUnmounted(() => {
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </Transition>
@@ -649,10 +631,7 @@ onUnmounted(() => {
   text-align: center;
 }
 
-<<<<<<< HEAD
-=======
 /* 1. Header (Centered) */
->>>>>>> e74de45 (rebasing)
 .welcome-header-row {
   display: flex;
   align-items: center;
@@ -693,10 +672,7 @@ onUnmounted(() => {
   margin: 0;
 }
 
-<<<<<<< HEAD
-=======
 /* 3. Features Grid (Stacked One Under Another - Single Line) */
->>>>>>> e74de45 (rebasing)
 .features-grid {
   display: flex;
   flex-direction: column;
@@ -813,35 +789,6 @@ onUnmounted(() => {
 .toggle-btn {
   font-size: 0.9rem;
   padding: 10px 15px;
-<<<<<<< HEAD
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.toggle-btn.active {
-  background: rgba(0, 229, 255, 0.2);
-  border-color: #00e5ff;
-  color: #fff;
-}
-
-.mt-3 {
-  margin-top: 1rem;
-}
-
-.small-btn {
-  width: 100%;
-  padding: 8px 0;
-  font-size: 1.1rem;
-}
-
-/* BOTTOM LEFT GUIDE BUTTON */
-.bottom-left-btn {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-=======
->>>>>>> e74de45 (rebasing)
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1091,14 +1038,6 @@ onUnmounted(() => {
   text-overflow: ellipsis;
 }
 
-<<<<<<< HEAD
-.message-preview {
-  width: 65%;
-  display: flex;
-  flex-direction: column;
-  background: #f8fafc;
-}
-=======
 /* Message Preview */
 .message-preview { width: 65%; display: flex; flex-direction: column; background: #f8fafc; }
 .email-content-wrapper { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
@@ -1130,7 +1069,6 @@ onUnmounted(() => {
 .correct-color { color: #22c55e; }
 .incorrect-color { color: #ef4444; }
 .score-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.5rem; font-weight: 700; color: #334155; }
->>>>>>> e74de45 (rebasing)
 
 .menu-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; color: #4a5568; }
 .menu-item:hover { background: rgb(43, 84, 192); color: white; }
@@ -1191,184 +1129,7 @@ onUnmounted(() => {
 .modal-incorrect .modal-icon { color: #ef4444; }
 .modal-btn { margin-top: 20px; width: 100%; font-size: 1.2rem; }
 
-<<<<<<< HEAD
-.found-counter .count {
-  font-family: 'Gemunu Libre';
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #cbd5e1;
-}
-
-.found-counter .count.all-found {
-  color: #4ade80;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.safe-btn {
-  background: #ecfdf5;
-  color: #059669;
-  border: 1px solid #10b981;
-}
-
-.phish-btn {
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #ef4444;
-}
-
-.timer-display {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #334155;
-  background: #f1f5f9;
-  padding: 5px 15px;
-  border-radius: 8px;
-  margin-bottom: 5px;
-}
-
-.timer-display.low-time {
-  color: #ef4444;
-  animation: pulse 1s infinite;
-}
-
-.timer-icon {
-  width: 28px;
-  height: 28px;
-}
-
-.streak-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #f59e0b;
-  font-weight: 700;
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.4rem;
-  margin-bottom: 5px;
-}
-
-.streak-icon {
-  width: 24px;
-  height: 24px;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.feedback-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.feedback-modal {
-  background: white;
-  padding: 40px;
-  border-radius: 16px;
-  text-align: center;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  border: 4px solid transparent;
-}
-
-.modal-correct {
-  border-color: #22c55e;
-}
-
-.modal-incorrect {
-  border-color: #ef4444;
-}
-
-.modal-icon-wrapper {
-  margin-bottom: 10px;
-}
-
-.modal-icon {
-  width: 80px;
-  height: 80px;
-}
-
-.modal-correct .modal-icon {
-  color: #22c55e;
-}
-
-.modal-incorrect .modal-icon {
-  color: #ef4444;
-}
-
-.modal-btn {
-  margin-top: 20px;
-  width: 100%;
-  font-size: 1.2rem;
-}
-
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #f3f4f6;
-  border-top-color: #00e5ff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.error-icon {
-  color: #ef4444 !important;
-}
-=======
 .loading-spinner { width: 50px; height: 50px; border: 5px solid #f3f4f6; border-top-color: #00e5ff; border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .error-icon { color: #ef4444 !important; }
->>>>>>> e74de45 (rebasing)
 </style>
