@@ -34,7 +34,7 @@ function openModal(item = null) {
         // Edit mode
         formData.value = {
             id: item.id,
-            phishingscenarioid: item.phishingscenarioid, // Ensure correct case match from API if needed
+            phishingscenarioid: item.phishingscenarioid,
             warningsign: item.warningsign,
             timestamp: item.timestamp ? new Date(item.timestamp).toISOString().slice(0, 16) : ''
         }
