@@ -7,9 +7,7 @@ const route = useRoute()
 const navigation = computed(() => [
   { name: 'Overview', href: './dashboard', current: route.path === '/dashboard', icon: ChartBarIcon },
   { name: 'New Attack Type', href: './attack_type', current: route.path === '/attack_type', icon: QueueListIcon },
-  { name: 'New game', href: '#', current: false, icon: PlusCircleIcon },
-  { name: 'Ranks', href: '#', current: false, icon: TrophyIcon },
-  { name: 'Score system', href: '#', current: false, icon: ClipboardDocumentListIcon },
+  { name: 'New game', href: './games', current: route.path === '/games', icon: PlusCircleIcon },
   { name: 'Game Rules', href: './game_rule', current: route.path === '/game_rule', icon: ClipboardDocumentCheckIcon },
   { name: 'Hints', href: './hints', current: route.path === '/hints', icon: EyeSlashIcon },
 ])

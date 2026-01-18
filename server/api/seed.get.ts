@@ -30,6 +30,19 @@ export default defineEventHandler(async (event) => {
             );
         `);
 
+        // Create User Attempts Table for Stats
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS ${schema}."user_attempts" (
+                "id" SERIAL PRIMARY KEY,
+                "user_email" varchar(255) NOT NULL,
+                "scenario_id" INT, 
+                "attack_type_id" INT,
+                "is_correct" BOOLEAN DEFAULT false,
+                "timestamp" TIMESTAMP DEFAULT NOW()
+            );
+        `);
+
+
         await client.query(`
             ALTER TABLE ${schema}.${psTable}
             ADD COLUMN IF NOT EXISTS "sender" varchar(255),
@@ -138,23 +151,23 @@ export default defineEventHandler(async (event) => {
                 RETURNING "id"`;
 
             const scenarioResult = await client.query(queryText, [
-                    attackTypeId,
-                    scenario.body,
-                    scenario.difficulty.toString(),
-                    scenario.sender,
-                    scenario.sender_email,
-                    scenario.initials,
-                    scenario.subject,
-                    scenario.preview,
-                    scenario.educationalMessage,
-                    scenario.hint || null,
-                    scenario.isPhishing,
-                    scenario.id,
-                    `Email from ${scenario.sender}`, 
-                    scenario.subject,                
-                    scenario.isPhishing ? 'Phishing' : 'Safe',
-                    scenario.custom_links  // Remove JSON.stringify to pass the array directly
-                ]
+                attackTypeId,
+                scenario.body,
+                scenario.difficulty.toString(),
+                scenario.sender,
+                scenario.sender_email,
+                scenario.initials,
+                scenario.subject,
+                scenario.preview,
+                scenario.educationalMessage,
+                scenario.hint || null,
+                scenario.isPhishing,
+                scenario.id,
+                `Email from ${scenario.sender}`,
+                scenario.subject,
+                scenario.isPhishing ? 'Phishing' : 'Safe',
+                scenario.custom_links  
+            ]
             );
 
             // Update Red Flags (Delete existing and re-insert)

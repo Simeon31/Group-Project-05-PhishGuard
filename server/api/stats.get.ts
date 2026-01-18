@@ -37,12 +37,46 @@ export default defineEventHandler(async (event) => {
             console.warn('Could not count users:', e);
         }
 
+        // Pareto Analysis: User Struggle by Attack Type
+        let paretoData = [];
+        try {
+            const paretoSql = `
+                SELECT 
+                    at.attacktype, 
+                    COUNT(*) as frequency
+                FROM ${schema}."user_attempts" ua
+                JOIN ${schema}."attacktype" at ON ua.attack_type_id = at.id
+                WHERE ua.is_correct = false
+                GROUP BY at.attacktype
+                ORDER BY frequency DESC
+            `;
+
+            const paretoResult = await client.query(paretoSql);
+            const rawData = paretoResult.rows;
+
+            const totalFailures = rawData.reduce((sum, row) => sum + parseInt(row.frequency), 0);
+            let runningTotal = 0;
+
+            paretoData = rawData.map(row => {
+                const freq = parseInt(row.frequency);
+                runningTotal += freq;
+                return {
+                    type: row.attacktype,
+                    frequency: freq,
+                    cumulativePercentage: totalFailures > 0 ? parseFloat(((runningTotal / totalFailures) * 100).toFixed(1)) : 0
+                };
+            });
+        } catch (e) {
+            console.warn('Could not fetch pareto stats:', e);
+        }
+
         return {
             success: true,
             counts: {
                 users: usersCount,
                 scenarios: scenariosCount
-            }
+            },
+            pareto: paretoData
         };
 
     } catch (error) {
