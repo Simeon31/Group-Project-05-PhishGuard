@@ -1,11 +1,7 @@
 <script setup>
 import { ref, computed, onUnmounted } from 'vue';
 // Import Heroicons
-<<<<<<< HEAD
 import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, FireIcon, ClockIcon, XMarkIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/solid';
-=======
-import { InboxIcon, PresentationChartBarIcon, Cog6ToothIcon, HeartIcon, CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, FireIcon, ClockIcon, XMarkIcon} from '@heroicons/vue/24/solid';
->>>>>>> e74de45 (rebasing)
 
 // We use a 'ref' to track if the game has started. 
 // true = show game, false = show welcome screen.
@@ -242,7 +238,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-<<<<<<< HEAD
   <div class="page-container">
 
     <!-- === WELCOME SCREEN (Overlay) === -->
@@ -250,15 +245,6 @@ onUnmounted(() => {
       <div v-if="!gameStarted" class="welcome-wrapper">
         <div class="welcome-card">
 
-=======
-  <div class="page-container">  
-
-    <Transition name="fade" appear>
-      <div v-if="!gameStarted" class="welcome-wrapper">
-        <div class="welcome-card">
-
-          <!-- 1. Header: Logo Top Left (Centered in row) -->
->>>>>>> e74de45 (rebasing)
           <div class="welcome-header-row">
             <img src="/Images/PhishGuard_Logo.png" alt="Logo" class="welcome-logo-small" />
             <div class="welcome-title-small">Welcome to phishguard</div>
@@ -297,10 +283,6 @@ onUnmounted(() => {
           </div>
 
           <div class="welcome-footer">
-<<<<<<< HEAD
-=======
-            <!-- "Don't show again" as a toggle button -->
->>>>>>> e74de45 (rebasing)
             <button @click="toggleDontShow" class="secondary-btn toggle-btn" :class="{ 'active': dontShowAgain }">
               <span v-if="dontShowAgain">☑ Don't show again</span>
               <span v-else>☐ Don't show again</span>
@@ -649,10 +631,6 @@ onUnmounted(() => {
   text-align: center;
 }
 
-<<<<<<< HEAD
-=======
-/* 1. Header (Centered) */
->>>>>>> e74de45 (rebasing)
 .welcome-header-row {
   display: flex;
   align-items: center;
@@ -693,10 +671,6 @@ onUnmounted(() => {
   margin: 0;
 }
 
-<<<<<<< HEAD
-=======
-/* 3. Features Grid (Stacked One Under Another - Single Line) */
->>>>>>> e74de45 (rebasing)
 .features-grid {
   display: flex;
   flex-direction: column;
@@ -813,7 +787,6 @@ onUnmounted(() => {
 .toggle-btn {
   font-size: 0.9rem;
   padding: 10px 15px;
-<<<<<<< HEAD
   display: flex;
   align-items: center;
   justify-content: center;
@@ -840,8 +813,6 @@ onUnmounted(() => {
   position: absolute;
   bottom: 30px;
   left: 30px;
-=======
->>>>>>> e74de45 (rebasing)
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1091,46 +1062,12 @@ onUnmounted(() => {
   text-overflow: ellipsis;
 }
 
-<<<<<<< HEAD
 .message-preview {
   width: 65%;
   display: flex;
   flex-direction: column;
   background: #f8fafc;
 }
-=======
-/* Message Preview */
-.message-preview { width: 65%; display: flex; flex-direction: column; background: #f8fafc; }
-.email-content-wrapper { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-.email-header-area { padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1); background: white; text-align: left; flex-shrink: 0; }
-.email-subject-large { font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-bottom: 15px; font-family: 'Segoe UI', sans-serif; text-align: left; }
-.email-meta-row { display: flex; align-items: center; gap: 12px; }
-.email-avatar.large { width: 50px; height: 50px; font-size: 1.2rem; }
-.sender-info { display: flex; flex-direction: column; flex-grow: 1; }
-.sender-name { font-weight: 700; color: #0f172a; font-size: 1rem; }
-.sender-email { font-size: 0.85rem; color: #64748b; }
-.email-timestamp { font-size: 0.85rem; color: #94a3b8; }
-.email-body-area { flex: 1; padding: 30px; background: #1e293b; color: #e2e8f0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 1rem; line-height: 1.6; overflow-y: auto; position: relative; }
-.email-body-content.blur-content { filter: blur(4px); pointer-events: none; }
-.investigate-warning-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px; display: flex; justify-content: center; align-items: center; z-index: 10; background: rgba(0, 0, 0, 0.5); }
-.warning-box { background: #1e293b; border: 1px solid #f59e0b; padding: 20px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
-.warning-icon-lg { width: 48px; height: 48px; color: #f59e0b; }
-.warning-sub { color: #94a3b8; font-size: 0.9rem; }
-.email-body-content p { margin-bottom: 15px; }
-.empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: #94a3b8; }
-.empty-icon { width: 60px; height: 60px; margin-bottom: 10px; color: #cbd5e1; }
-
-.round-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.8rem; font-weight: 700; color: black; letter-spacing: 1px; }
-.lives-wrapper { display: flex; gap: 8px; margin-bottom: 5px; }
-.heart-icon { width: 37px; height: 37px; color: #ef4444; filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3)); transition: all 0.3s ease; }
-.heart-icon.lost { color: #cbd5e1; filter: none; }
-.score-wrapper { display: flex; justify-content: space-around; width: 100%; padding-top: 10px; border-top: 1px solid rgba(0, 0, 0, 0.1); }
-.score-item { display: flex; align-items: center; gap: 8px; }
-.score-icon { width: 28px; height: 28px; }
-.correct-color { color: #22c55e; }
-.incorrect-color { color: #ef4444; }
-.score-text { font-family: 'Gemunu Libre', sans-serif; font-size: 1.5rem; font-weight: 700; color: #334155; }
->>>>>>> e74de45 (rebasing)
 
 .menu-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; color: #4a5568; }
 .menu-item:hover { background: rgb(43, 84, 192); color: white; }
@@ -1191,7 +1128,6 @@ onUnmounted(() => {
 .modal-incorrect .modal-icon { color: #ef4444; }
 .modal-btn { margin-top: 20px; width: 100%; font-size: 1.2rem; }
 
-<<<<<<< HEAD
 .found-counter .count {
   font-family: 'Gemunu Libre';
   font-size: 1.2rem;
@@ -1366,9 +1302,4 @@ onUnmounted(() => {
 .error-icon {
   color: #ef4444 !important;
 }
-=======
-.loading-spinner { width: 50px; height: 50px; border: 5px solid #f3f4f6; border-top-color: #00e5ff; border-radius: 50%; animation: spin 1s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.error-icon { color: #ef4444 !important; }
->>>>>>> e74de45 (rebasing)
 </style>
