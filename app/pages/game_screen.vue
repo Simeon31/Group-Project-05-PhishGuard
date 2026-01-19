@@ -237,12 +237,6 @@ onUnmounted(() => {
 });
 // In Nuxt, basic Vue composition API (ref, computed) is auto-imported.
 // We define our logic here.
-
-const startGame = () => {
-  console.log('Game started!');
-  // In Nuxt, you would typically navigate to the game loop here
-  // navigateTo('/play') 
-};
 </script>
 
 <template>
@@ -470,6 +464,7 @@ const startGame = () => {
 
         </div>
       </div>
+    </div>
 
       <!-- FEEDBACK MODAL -->
       <Transition name="fade">
