@@ -413,7 +413,7 @@
     "initials": "GS",
     "subject": "CRITICAL: Unauthorized access detected",
     "preview": "Someone in Russia just logged into your account...",
-    "body": "Security Warning\n\nWe detected a login from Moscow, Russia.\n\nIf this was not you, you must secure your account immediately to prevent data theft.\n\n[ CLICK TO BLOCK ACCESS ]\n\nRegards,\nGoogle Security Team",
+    "body": "Security Warning\n\nWe detected a login from Moscow, Russia.\nIf this was not you, you must secure your account immediately to prevent data theft.\n\n[ CLICK TO BLOCK ACCESS ]\n\nRegards,\nGoogle Security Team",
     "custom_links": [
       {
         "text": "secure your account immediately",
@@ -463,7 +463,7 @@
     "initials": "IT",
     "subject": "Action Required: Password Expiry Warning",
     "preview": "Your network password will expire in 24 hours...",
-    "body": "Hi User,\n\nYour Active Directory password is set to expire in 24 hours.\n\nTo keep your current password, please confirm your credentials here.\n\nIf you do not act, you will be locked out of Outlook and Teams.\n\nThanks,\nIT Department",
+    "body": "Hi User,\n\nYour Active Directory password is set to expire in 24 hours.\nTo keep your current password, please confirm your credentials here.\n\nIf you do not act, you will be locked out of Outlook and Teams.\n\nThanks,\nIT Department",
     "custom_links": [
       {
         "text": "confirm your credentials here",
@@ -593,7 +593,7 @@
     "initials": "CS",
     "subject": "Take a 30 second survey, get $50",
     "preview": "Tell us about your recent shopping trip and get paid...",
-    "body": "Valued Customer,\n\nWe want your feedback! Complete this short survey about your recent experience and we will send you a $50 Gift Card.\n\nStart Survey >\n\nNote: You must enter your credit card to verify your identity/age.\n\nMarket Research Team",
+    "body": "Valued Customer,\n\nWe want your feedback! Complete this short survey about your recent experience and we will send you a $50 Gift Card.\n\nStart Survey\n\nNote: You must enter your credit card to verify your identity/age.\n\nMarket Research Team",
     "custom_links": [
       {
         "text": "Start Survey >",
@@ -999,7 +999,7 @@
     "initials": "TF",
     "subject": "You received files",
     "preview": "Someone sent you files via TransferFile...",
-    "body": "Files Ready\n\nYou have 3 files waiting for download.\n\nClick here to download zip\n\nNote: This file contains an encrypted script.\n\nTransfer Services",
+    "body": "Files Ready \nYou have 3 files waiting for download. \nClick here to download zip \nNote: This file contains an encrypted script.\n\nTransfer Services",
     "custom_links": [
       {
         "text": "Click here to download zip",
