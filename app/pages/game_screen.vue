@@ -235,9 +235,18 @@ const toggleHelpModal = () => {
 onUnmounted(() => {
   stopTimer();
 });
+// In Nuxt, basic Vue composition API (ref, computed) is auto-imported.
+// We define our logic here.
+
+const startGame = () => {
+  console.log('Game started!');
+  // In Nuxt, you would typically navigate to the game loop here
+  // navigateTo('/play') 
+};
 </script>
 
 <template>
+  <!-- The root element of the page -->
   <div class="page-container">
 
     <!-- === WELCOME SCREEN (Overlay) === -->
@@ -477,112 +486,18 @@ onUnmounted(() => {
         </div>
       </Transition>
 
+    <div class="game-card">
+      <h1>Welcome to PhishGuard Game!</h1>
+      <p>Identify phishing attempts and protect your data.</p>
+      <button @click="startGame">Start Game</button>
     </div>
-
-    <!-- === HELP/EXAMPLES MODAL === -->
-    <Transition name="fade">
-      <div v-if="showHelpModal" class="modal-overlay" @click.self="toggleHelpModal">
-        <div class="modal-card">
-          <button class="close-btn" @click="toggleHelpModal">
-            <XMarkIcon class="close-icon" />
-          </button>
-
-          <h2 class="modal-title">Examples & Tips</h2>
-
-          <div class="modal-content">
-            <!-- 3 Pop-up Containers with Animation -->
-            <div class="guide-grid">
-              <div class="guide-box"></div>
-              <div class="guide-box"></div>
-              <div class="guide-box"></div>
-            </div>
-
-            <!-- Return Button -->
-            <div class="modal-footer">
-              <button @click="toggleHelpModal" class="primary-btn return-btn">
-                RETURN TO GAME
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </Transition>
-
   </div>
 </template>
 
-<style>
-/* Global styles for dynamic content */
-.investigate-area {
-  cursor: pointer;
-  padding: 2px 4px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  border: 1px dashed transparent;
-}
-
-.investigate-area:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(0, 229, 255, 0.3);
-}
-
-.investigate-area.found {
-  background-color: rgba(220, 38, 38, 0.2);
-  border: 1px solid #ef4444;
-  color: #fca5a5;
-  cursor: default;
-}
-
-.investigate-area.clicked-safe {
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 1px solid #ef4444;
-  animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
-}
-
-@keyframes shake {
-
-  10%,
-  90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  20%,
-  80% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  40%,
-  60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
-
-.email-header-area .investigate-area {
-  padding: 2px 4px;
-  border-radius: 4px;
-  border: 1px dashed transparent;
-  transition: all 0.2s;
-  display: inline-block;
-}
-
-.email-header-area .investigate-area:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(0, 229, 255, 0.3);
-  cursor: pointer;
-}
-</style>
-
 <style scoped>
-/* --- IMPORT GOOGLE FONT (Gemunu Libre) --- */
-@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;700&display=swap');
-
+/* .page-container acts as the full-screen wrapper.
+   We use 'scoped' styles so this doesn't affect other pages in your Nuxt app.
+*/
 .page-container {
   width: 100vw;
   height: 100vh;
@@ -594,712 +509,55 @@ onUnmounted(() => {
   overflow: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  /* Background setup */
-  background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), url('/Images/background.png');
+  /* --- BACKGROUND CONFIGURATION (NUXT) --- */
+  /* '~' refers to the root folder in Nuxt. 
+     Ensure your image is at: /assets/your-background-image.png 
+  */
+  background-image: url('Group-Project-05-PhishGuard\app\assets\css\background.png'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #0a0e14;
+  background-color: #0a0e14; /* Fallback color */
 }
 
-/* --- WELCOME SCREEN STYLES --- */
-.welcome-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(8px);
-  z-index: 50;
+.game-card {
   background: rgba(0, 0, 0, 0.7);
-}
-
-.welcome-card {
-  background: rgb(23, 28, 42);
-  padding: 30px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  width: 90%;
-  max-width: 700px;
-  display: flex;
-  flex-direction: column;
-  color: #e2e8f0;
-  text-align: center;
-}
-
-.welcome-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 5px;
-}
-
-.welcome-logo-small {
-  width: 80px;
-  height: auto;
-}
-
-.welcome-title-small {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 600;
-  color: white;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.welcome-hero {
-  margin-bottom: 20px;
-}
-
-.welcome-hero h2 {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #00e5ff;
-  margin: 0 0 5px 0;
-}
-
-.welcome-hero p {
-  font-size: 1rem;
-  color: #94a3b8;
-  margin: 0;
-}
-
-.features-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.feature-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-}
-
-.f-title {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: white;
-  white-space: nowrap;
-}
-
-.f-divider {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.3rem;
-  color: #00e5ff;
-  margin: 0 10px;
-  font-weight: 700;
-}
-
-.f-desc {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.2rem;
-  color: #cbd5e1;
-  white-space: nowrap;
-}
-
-.look-for-section {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  padding: 10px 15px;
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.look-for-title {
-  font-weight: 700;
-  color: #e2e8f0;
-  margin-bottom: 5px;
-}
-
-.look-for-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.look-for-list li {
-  font-size: 0.9rem;
-  color: #94a3b8;
-  margin-bottom: 3px;
-}
-
-.welcome-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 15px;
-}
-
-.footer-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.primary-btn {
-  background: #00e5ff;
-  color: #0f172a;
-  padding: 10px 24px;
-  border-radius: 6px;
-  font-weight: 700;
-  font-family: 'Gemunu Libre', sans-serif;
-  letter-spacing: 1px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.primary-btn:hover {
-  background: #00b8d4;
-}
-
-.secondary-btn {
-  background: transparent;
-  color: #00e5ff;
-  padding: 10px 20px;
-  border: 1px solid #00e5ff;
-  border-radius: 6px;
-  font-weight: 700;
-  font-family: 'Gemunu Libre', sans-serif;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.secondary-btn:hover {
-  background: rgba(0, 229, 255, 0.1);
-}
-
-.toggle-btn {
-  font-size: 0.9rem;
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.toggle-btn.active {
-  background: rgba(0, 229, 255, 0.2);
-  border-color: #00e5ff;
-  color: #fff;
-}
-
-.mt-3 {
-  margin-top: 1rem;
-}
-
-.small-btn {
-  width: 100%;
-  padding: 8px 0;
-  font-size: 1.1rem;
-}
-
-/* BOTTOM LEFT GUIDE BUTTON */
-.bottom-left-btn {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px 20px;
-  width: 260px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-  color: #0f172a;
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 8px;
-  font-family: 'Gemunu Libre', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-  z-index: 20;
-}
-
-.bottom-left-btn {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
-  width: 260px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-  color: #0f172a;
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 8px;
-  font-family: 'Gemunu Libre', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-  z-index: 20;
-}
-
-.bottom-left-btn:hover {
-  background: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  color: #00e5ff;
-}
-
-.btn-icon {
-  width: 24px;
-  height: 24px;
-}
-
-/* --- GAME UI STYLES --- */
-.game-ui {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* --- SIDEBAR ELEMENTS (LEFT) --- */
-.logo-container {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  z-index: 10;
-}
-
-.logo-icon {
-  width: 80px;
-  height: auto;
-  filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.3));
-}
-
-.logo-text {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: black;
-  text-shadow: none;
-  letter-spacing: 2px;
-  margin-top: 5px;
-}
-
-.sidebar-container {
-  position: absolute;
-  top: 130px;
-  left: 30px;
-  width: 260px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  z-index: 5;
-}
-
-.stats-container {
-  position: absolute;
-  top: 380px;
-  left: 30px;
-  width: 260px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  z-index: 5;
-}
-
-/* --- MAIL INTERFACE (RIGHT) --- */
-.mail-container {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  bottom: 30px;
-  left: 320px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-  display: flex;
-  overflow: hidden;
-}
-
-.inbox-list {
-  width: 35%;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-}
-
-.section-header {
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #334155;
-  padding: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  text-align: left;
-  flex-shrink: 0;
-}
-
-.email-items-wrapper {
-  overflow-y: auto;
-  flex-grow: 1;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.email-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-left: 3px solid transparent;
-  text-align: left;
-}
-
-.email-item:hover {
-  background: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.email-item.selected {
-  background: white;
-  border-left-color: rgb(43, 84, 192);
-  box-shadow: 0 4px 10px rgba(43, 84, 192, 0.15);
-}
-
-.email-item.unread .email-subject {
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.email-avatar {
-  width: 40px;
-  height: 40px;
-  background: rgb(43, 84, 192);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-}
-
-.email-details {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: hidden;
-}
-
-.email-top-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2px;
-}
-
-.email-sender {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.email-date {
-  font-size: 0.75rem;
-  color: #64748b;
-}
-
-.email-subject {
-  font-size: 0.9rem;
-  color: #334155;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.email-preview {
-  font-size: 0.8rem;
-  color: #64748b;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.message-preview {
-  width: 65%;
-  display: flex;
-  flex-direction: column;
-  background: #f8fafc;
-}
-
-.menu-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; color: #4a5568; }
-.menu-item:hover { background: rgb(43, 84, 192); color: white; }
-.menu-item.active { background: #00e5ff; color: #000; box-shadow: 0 4px 10px rgba(0, 229, 255, 0.3); }
-.menu-icon { width: 24px; height: 24px; }
-.menu-text { font-size: 1.1rem; font-weight: 600; font-family: 'Segoe UI', sans-serif; }
-
-/* MODAL STYLES */
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 100; }
-.modal-card { background: white; width: 90%; max-width: 1000px; border-radius: 12px; padding: 30px; position: relative; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); animation: slideIn 0.3s ease; color: #334155; text-align: left; overflow: hidden; }
-.close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; cursor: pointer; color: #64748b; padding: 5px; border-radius: 50%; transition: all 0.2s; }
-.close-btn:hover { background: #f1f5f9; color: #ef4444; }
-.close-icon { width: 24px; height: 24px; }
-.modal-title { font-family: 'Gemunu Libre', sans-serif; font-size: 2rem; color: #0f172a; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
-.guide-grid { display: flex; gap: 40px; margin-bottom: 20px; }
-.guide-box { flex: 1; height: 500px; background: #f1f5f9; background-color: white; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); border-radius: 8px; opacity: 0; animation: fadeInUpBig 1.5s ease forwards; }
-.guide-box:nth-child(1) { animation-delay: 0.1s; }
-.guide-box:nth-child(2) { animation-delay: 0.3s; }
-.guide-box:nth-child(3) { animation-delay: 0.5s; }
-.modal-footer { display: flex; justify-content: center; }
-.return-btn { width: auto; padding: 10px 40px; }
-
-@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeInUpBig { from { opacity: 0; transform: translate3d(0, 500px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
-
-/* --- ANIMATION CLASSES --- */
-.fade-enter-active, .fade-appear-active { animation: fadeInDown 0.8s ease forwards; }
-@keyframes fadeInDown { 0% { opacity: 0; transform: translate3d(0, -100px, 0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); } }
-.fade-leave-active { transition: opacity 0.8s ease, transform 0.8s ease; }
-.fade-leave-to { opacity: 0; transform: scale(0.9); }
-
-/* --- NEW GAME STYLES --- */
-.email-action-footer { padding: 20px 30px; background: #0f172a; border-top: 1px solid #334155; display: flex; justify-content: flex-end; gap: 15px; align-items: center; }
-.found-counter { margin-right: auto; display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); }
-.found-counter .label { font-family: 'Gemunu Libre'; font-weight: 700; color: #94a3b8; letter-spacing: 1px; }
-.found-counter .count { font-family: 'Gemunu Libre'; font-size: 1.2rem; font-weight: 700; color: #cbd5e1; }
-.found-counter .count.all-found { color: #4ade80; }
-.action-btn { display: flex; align-items: center; gap: 10px; padding: 12px 24px; border: none; border-radius: 8px; font-family: 'Gemunu Libre', sans-serif; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-.action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
-.safe-btn { background: #ecfdf5; color: #059669; border: 1px solid #10b981; }
-.phish-btn { background: #fef2f2; color: #dc2626; border: 1px solid #ef4444; }
-
-.timer-display { display: flex; align-items: center; gap: 8px; font-family: 'Gemunu Libre', sans-serif; font-size: 2rem; font-weight: 700; color: #334155; background: #f1f5f9; padding: 5px 15px; border-radius: 8px; margin-bottom: 5px; }
-.timer-display.low-time { color: #ef4444; animation: pulse 1s infinite; }
-.timer-icon { width: 28px; height: 28px; }
-.streak-wrapper { display: flex; align-items: center; gap: 5px; color: #f59e0b; font-weight: 700; font-family: 'Gemunu Libre', sans-serif; font-size: 1.4rem; margin-bottom: 5px; }
-.streak-icon { width: 24px; height: 24px; }
-
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-
-.feedback-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 100; display: flex; justify-content: center; align-items: center; }
-.feedback-modal { background: white; padding: 40px; border-radius: 16px; text-align: center; width: 90%; max-width: 450px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; align-items: center; gap: 15px; border: 4px solid transparent; }
-.modal-correct { border-color: #22c55e; }
-.modal-incorrect { border-color: #ef4444; }
-.modal-icon-wrapper { margin-bottom: 10px; }
-.modal-icon { width: 80px; height: 80px; }
-.modal-correct .modal-icon { color: #22c55e; }
-.modal-incorrect .modal-icon { color: #ef4444; }
-.modal-btn { margin-top: 20px; width: 100%; font-size: 1.2rem; }
-
-.found-counter .count {
-  font-family: 'Gemunu Libre';
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #cbd5e1;
-}
-
-.found-counter .count.all-found {
-  color: #4ade80;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.safe-btn {
-  background: #ecfdf5;
-  color: #059669;
-  border: 1px solid #10b981;
-}
-
-.phish-btn {
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #ef4444;
-}
-
-.timer-display {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #334155;
-  background: #f1f5f9;
-  padding: 5px 15px;
-  border-radius: 8px;
-  margin-bottom: 5px;
-}
-
-.timer-display.low-time {
-  color: #ef4444;
-  animation: pulse 1s infinite;
-}
-
-.timer-icon {
-  width: 28px;
-  height: 28px;
-}
-
-.streak-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #f59e0b;
-  font-weight: 700;
-  font-family: 'Gemunu Libre', sans-serif;
-  font-size: 1.4rem;
-  margin-bottom: 5px;
-}
-
-.streak-icon {
-  width: 24px;
-  height: 24px;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.feedback-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.feedback-modal {
-  background: white;
   padding: 40px;
-  border-radius: 16px;
-  text-align: center;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
   width: 90%;
-  max-width: 450px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  border: 4px solid transparent;
+  max-width: 600px;
 }
 
-.modal-correct {
-  border-color: #22c55e;
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #00e5ff;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
 }
 
-.modal-incorrect {
-  border-color: #ef4444;
+p {
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  color: #ccc;
 }
 
-.modal-icon-wrapper {
-  margin-bottom: 10px;
-}
-
-.modal-icon {
-  width: 80px;
-  height: 80px;
-}
-
-.modal-correct .modal-icon {
-  color: #22c55e;
-}
-
-.modal-incorrect .modal-icon {
-  color: #ef4444;
-}
-
-.modal-btn {
-  margin-top: 20px;
-  width: 100%;
+button {
+  padding: 12px 30px;
   font-size: 1.2rem;
+  font-weight: bold;
+  background: #00e5ff;
+  border: none;
+  border-radius: 5px;
+  color: #0a0e14;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
 }
 
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #f3f4f6;
-  border-top-color: #00e5ff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.error-icon {
-  color: #ef4444 !important;
+button:hover {
+  background: #00b8d4;
+  transform: scale(1.05);
 }
 </style>

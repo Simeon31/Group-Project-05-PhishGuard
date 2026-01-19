@@ -29,7 +29,6 @@ export default defineNuxtConfig({
     },
     middleware: {
       globalMiddlewareEnabled: false,
-      redirect: false,
     },
     devMode: {
       enabled: false,

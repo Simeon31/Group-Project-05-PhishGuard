@@ -73,6 +73,7 @@ export default defineEventHandler(async (event) => {
                 redFlags: row.red_flags,
                 educationalMessage: row.educational_message,
                 hint: row.hint,
+                customLinks: row.custom_links,
                 date: 'Today', // You can enhance this with actual dates
                 read: false
             }))

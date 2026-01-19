@@ -13,10 +13,36 @@ export default defineEventHandler(async (event) => {
         const atTable = '"attacktype"';
         const psTable = '"phishingscenario"';
         const siTable = '"suspiciousindicator"';
+        const uTable = '"users"';
 
         console.log(`Using schema: ${schema}`);
 
-        // 0. Add missing columns if they don't exist
+
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS ${schema}.${uTable} (
+                "id" SERIAL PRIMARY KEY,
+                "email" varchar(255) UNIQUE NOT NULL,
+                "name" varchar(255),
+                "picture" varchar(500),
+                "auth_id" varchar(255) UNIQUE,
+                "last_login" TIMESTAMP DEFAULT NOW(),
+                "created_at" TIMESTAMP DEFAULT NOW()
+            );
+        `);
+
+        // Create User Attempts Table for Stats
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS ${schema}."user_attempts" (
+                "id" SERIAL PRIMARY KEY,
+                "user_email" varchar(255) NOT NULL,
+                "scenario_id" INT, 
+                "attack_type_id" INT,
+                "is_correct" BOOLEAN DEFAULT false,
+                "timestamp" TIMESTAMP DEFAULT NOW()
+            );
+        `);
+
+
         await client.query(`
             ALTER TABLE ${schema}.${psTable}
             ADD COLUMN IF NOT EXISTS "sender" varchar(255),
@@ -104,8 +130,8 @@ export default defineEventHandler(async (event) => {
                 ("attacktypeid", "attackbody", "difficultylevel", 
                  "sender", "senderemail", "initials", "subject", "preview", 
                  "educationalmessage", "hint", "isphishing", "externalid", "timestamp",
-                 "attackcontext", "attackquestion", "answer") 
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(), $13, $14, $15)
+                 "attackcontext", "attackquestion", "answer", "custom_links") 
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW(), $13, $14, $15, $16)
                 ON CONFLICT ("externalid") DO UPDATE SET
                     "attacktypeid" = EXCLUDED."attacktypeid",
                     "attackbody" = EXCLUDED."attackbody",
@@ -120,26 +146,28 @@ export default defineEventHandler(async (event) => {
                     "isphishing" = EXCLUDED."isphishing",
                     "attackcontext" = EXCLUDED."attackcontext",
                     "attackquestion" = EXCLUDED."attackquestion",
-                    "answer" = EXCLUDED."answer"
+                    "answer" = EXCLUDED."answer",
+                    "custom_links" = EXCLUDED."custom_links"
                 RETURNING "id"`;
 
             const scenarioResult = await client.query(queryText, [
-                    attackTypeId,
-                    scenario.body,
-                    scenario.difficulty.toString(),
-                    scenario.sender,
-                    scenario.sender_email,
-                    scenario.initials,
-                    scenario.subject,
-                    scenario.preview,
-                    scenario.educationalMessage,
-                    scenario.hint || null,
-                    scenario.isPhishing,
-                    scenario.id,
-                    `Email from ${scenario.sender}`, 
-                    scenario.subject,                
-                    scenario.isPhishing ? 'Phishing' : 'Safe' 
-                ]
+                attackTypeId,
+                scenario.body,
+                scenario.difficulty.toString(),
+                scenario.sender,
+                scenario.sender_email,
+                scenario.initials,
+                scenario.subject,
+                scenario.preview,
+                scenario.educationalMessage,
+                scenario.hint || null,
+                scenario.isPhishing,
+                scenario.id,
+                `Email from ${scenario.sender}`,
+                scenario.subject,
+                scenario.isPhishing ? 'Phishing' : 'Safe',
+                scenario.custom_links  
+            ]
             );
 
             // Update Red Flags (Delete existing and re-insert)

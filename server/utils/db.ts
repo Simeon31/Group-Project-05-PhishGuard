@@ -9,7 +9,7 @@ export const useDb = () => {
         throw new Error('DATABASE_URL missing');
     }
 
-    // Use a connection pool for better performance in serverless/Nuxt environments
+    // Connection pool for better performance in serverless/Nuxt environments
     return new pg.Pool({
         connectionString,
     });

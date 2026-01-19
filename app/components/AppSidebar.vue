@@ -7,11 +7,9 @@ const route = useRoute()
 const navigation = computed(() => [
   { name: 'Overview', href: './dashboard', current: route.path === '/dashboard', icon: ChartBarIcon },
   { name: 'New Attack Type', href: './attack_type', current: route.path === '/attack_type', icon: QueueListIcon },
-  { name: 'New game', href: '#', current: false, icon: PlusCircleIcon },
-  { name: 'Ranks', href: '#', current: false, icon: TrophyIcon },
-  { name: 'Score system', href: '#', current: false, icon: ClipboardDocumentListIcon },
-  { name: 'Game Rules', href: '#', current: false, icon: ClipboardDocumentCheckIcon },
-  { name: 'Hints', href: '#', current: false, icon: EyeSlashIcon },
+  { name: 'New game', href: './games', current: route.path === '/games', icon: PlusCircleIcon },
+  { name: 'Game Rules', href: './game_rule', current: route.path === '/game_rule', icon: ClipboardDocumentCheckIcon },
+  { name: 'Hints', href: './hints', current: route.path === '/hints', icon: EyeSlashIcon },
 ])
 
 const { user, logout } = useOidcAuth()
@@ -56,7 +54,7 @@ const handleLogout = async () => {
           <MenuItems
             class="absolute bottom-full left-1/2 z-10 mb-2 w-48 -translate-x-1/2 origin-bottom rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none outline outline-1 outline-white/10">
             <MenuItem v-slot="{ active }">
-            <a href="#" :class="[active ? 'bg-gray-700' : '', 'block px-4 py-2 text-sm text-gray-300']">View
+            <a href="/profile" :class="[active ? 'bg-gray-700' : '', 'block px-4 py-2 text-sm text-gray-300']">View
               profile</a>
             </MenuItem>
             <MenuItem v-slot="{ active }">
