@@ -682,7 +682,6 @@ onUnmounted(() => { stopTimer(); });
           </div>
         </div>
       </Transition>
-
   </div>
   </div>
 </template>
