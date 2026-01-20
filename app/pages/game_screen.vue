@@ -6,7 +6,7 @@ import {
   CheckCircleIcon, XCircleIcon, ShieldCheckIcon, UserCircleIcon, 
   PlayIcon, EyeIcon, EyeSlashIcon, ExclamationTriangleIcon, 
   FireIcon, ClockIcon, XMarkIcon, QuestionMarkCircleIcon, PlusIcon,
-  ArrowPathIcon, LightBulbIcon
+  ArrowPathIcon, LightBulbIcon, CursorArrowRaysIcon
 } from '@heroicons/vue/24/solid';
 
 // We use a 'ref' to track if the game has started. 
@@ -185,7 +185,7 @@ const processedBody = computed(() => {
     "reject the request here", "check activity", "review your recent activity", "go to workday portal",
     "update bank details", "VALIDATE NOW", "apply here", "Redeem Voucher Code", "secure your account now", 
     "Start Survey", "View Voided Check", "Start Course", "Increase Quota Free", "Update Billing", "Read & Sign Policy",
-    "download this form", "wellsfargo.com"
+    "download this form", "wellsfargo.com", "Review the memo here"
   ];
 
   const phrasePatternStr = actionPhrases.map(p => p.replace(/ /g, '\\s+')).join('|');
@@ -670,19 +670,40 @@ onUnmounted(() => { stopTimer(); });
         <div v-if="showHelpModal" class="modal-overlay" @click.self="toggleHelpModal">
           <div class="modal-card guide-modal-card">
             <button class="close-btn" @click="toggleHelpModal"><XMarkIcon class="close-icon" /></button>
-            <h2 class="modal-title">Examples & Tips</h2>
+            <h2 class="modal-title">Guide</h2>
             <div class="modal-content">
               <div class="guide-grid">
-                <div class="guide-box"></div>
-                <div class="guide-box"></div>
-                <div class="guide-box"></div>
+                <!-- Box 1 -->
+                <div class="guide-box flex flex-col items-center justify-center text-center">
+                  <div class="flex flex-col items-center gap-2 mb-3">
+                    <CursorArrowRaysIcon class="w-8 h-8 text-cyan-600" />
+                    <h3 class="text-lg font-bold text-black">Never click blindly.</h3>
+                  </div>
+                  <p class="text-gray-800">Hover your mouse over any blue link to see the real URL at the bottom of your browser.</p>
+                </div>
+                <!-- Box 2 -->
+                <div class="guide-box flex flex-col items-center justify-center text-center">
+                  <div class="flex flex-col items-center gap-2 mb-3">
+                    <ClockIcon class="w-8 h-8 text-cyan-600" />
+                    <h3 class="text-lg font-bold text-black">You have 30 seconds.</h3>
+                  </div>
+                  <p class="text-gray-800">Speed is important, but accuracy keeps your system secure.</p>
+                </div>
+                <!-- Box 3 -->
+                <div class="guide-box flex flex-col items-center justify-center text-center">
+                  <div class="flex flex-col items-center gap-2 mb-3">
+                    <HeartIcon class="w-8 h-8 text-cyan-600" />
+                    <h3 class="text-lg font-bold text-black">You have 5 lives.</h3>
+                  </div>
+                  <p class="text-gray-800">False positives (flagging safe emails) cost you a life just like missing a real threat.</p>
+                </div>
               </div>
               <div class="modal-footer"><button @click="toggleHelpModal" class="primary-btn return-btn">RETURN TO GAME</button></div>
             </div>
           </div>
         </div>
       </Transition>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -727,7 +748,7 @@ onUnmounted(() => { stopTimer(); });
 .welcome-hero h2 { font-family: 'Segoe UI', sans-serif; font-size: 1.4rem; font-weight: 600; color: #00e5ff; margin: 0 0 5px 0; }
 .welcome-hero p { font-size: 1rem; color: #94a3b8; margin: 0; }
 .features-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; text-align: left; }
-.feature-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; }
+.feature-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; justify-content: center; }
 .f-title { font-family: 'Gemunu Libre', sans-serif; font-size: 1.3rem; font-weight: 700; color: white; white-space: nowrap; }
 .f-divider { font-family: 'Gemunu Libre', sans-serif; font-size: 1.3rem; color: #00e5ff; margin: 0 10px; font-weight: 700; }
 .f-desc { font-family: 'Gemunu Libre', sans-serif; font-size: 1.2rem; color: #cbd5e1; white-space: nowrap; }
@@ -841,7 +862,7 @@ onUnmounted(() => { stopTimer(); });
 .close-icon { width: 24px; height: 24px; }
 /* .modal-title already defined above but scoped differently in previous block, ensuring compatibility */
 .guide-grid { display: flex; gap: 40px; margin-bottom: 20px; }
-.guide-box { flex: 1; height: 500px; background: #f1f5f9; background-color: white; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); border-radius: 8px; opacity: 0; animation: fadeInUpBig 1.5s ease forwards; }
+.guide-box { flex: 1; height: 300px; background: #f8fafc; background-color: #f8fafc; border: 1px solid #e2e8f0; box-shadow: none; border-radius: 8px; opacity: 0; animation: fadeInUpBig 1.5s ease forwards; }
 .guide-box:nth-child(1) { animation-delay: 0.1s; }
 .guide-box:nth-child(2) { animation-delay: 0.3s; }
 .guide-box:nth-child(3) { animation-delay: 0.5s; }
@@ -921,26 +942,14 @@ onUnmounted(() => { stopTimer(); });
   background: rgb(23, 28, 42);
   color: #e2e8f0;
   border: 1px solid rgba(0, 229, 255, 0.2);
-  height: auto;
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
 }
-
-.mistakes-scroll-area {
-  overflow-y: auto;
-  flex: 1; /* Allow content to grow and scroll */
-}
-
 .mistake-item {
-  /* Removed guide-box class in template, using standalone styles */
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(239, 68, 68, 0.3); /* Red border for error */
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 15px;
 }
-
 .mistake-header {
   display: flex;
   justify-content: space-between;
